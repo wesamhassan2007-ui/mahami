@@ -271,7 +271,14 @@ button:active{transform:scale(.97)}
 /* ================= إعدادات Firebase =================
    الصق هون الإعدادات اللي بتنسخها من Firebase (Project settings › Your apps › Config).
    إذا ضلت null الصفحة بتشتغل كنسخة تجريبية على الجهاز بس. */
-const FIREBASE_CONFIG = null;
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAYgH_Faw3dvwDf9m92sm2qtLDGLfz4F3w",
+  authDomain: "mahami-3a3ed.firebaseapp.com",
+  projectId: "mahami-3a3ed",
+  storageBucket: "mahami-3a3ed.firebasestorage.app",
+  messagingSenderId: "84140839855",
+  appId: "1:84140839855:web:2edbc8f194830cfc1c555a"
+};
 const LIVE = !!FIREBASE_CONFIG;
 
 /* ================= إعدادات الأقسام ================= */
