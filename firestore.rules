@@ -1,0 +1,51 @@
+rules_version = '2';
+// قواعد الصلاحيات لصفحة متابعة المهام
+// المدير والمساعد: كل شي. رئيس القسم: قسمه. العامل: قسمه والمهام المشتركة معه، بيغيّر الحالة والملاحظات بس.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function profilePath() { return /databases/$(database)/documents/users/$(request.auth.uid); }
+    function hasProfile() { return signedIn() && exists(profilePath()) && get(profilePath()).data.active == true; }
+    function me() { return get(profilePath()).data; }
+    function isTop() { return hasProfile() && me().role in ['manager', 'assistant']; }
+    function isManager() { return hasProfile() && me().role == 'manager'; }
+    function isHeadOf(dept) { return hasProfile() && me().role == 'head' && me().dept == dept; }
+    function canSee(t) { return isTop() || (hasProfile() && (t.dept == me().dept || request.auth.uid in t.sharedWith)); }
+    function setupDone() { return exists(/databases/$(database)/documents/setup/state); }
+
+    // أول تشغيل
+    match /setup/state {
+      allow read: if true;
+      allow create: if signedIn() && !setupDone();
+    }
+
+    // ربط رقم التلفون بحساب الدخول (بيتقرا برقم محدد بس، ما بينعرض كقائمة)
+    match /logins/{phone} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update, delete: if isTop() || (signedIn() && !setupDone());
+    }
+
+    // الموظفين
+    match /users/{uid} {
+      allow read: if hasProfile();
+      allow create: if (isTop() && (request.resource.data.role != 'manager' || isManager()))
+                    || (signedIn() && request.auth.uid == uid && !setupDone() && request.resource.data.role == 'manager');
+      allow update: if isTop() && (resource.data.role != 'manager' || isManager())
+                    && (request.resource.data.role != 'manager' || isManager());
+      allow delete: if isTop() && (resource.data.role != 'manager' || isManager());
+    }
+
+    // المهام
+    match /tasks/{id} {
+      allow read: if canSee(resource.data);
+      allow create: if isTop() || isHeadOf(request.resource.data.dept);
+      allow delete: if isTop() || isHeadOf(resource.data.dept);
+      allow update: if isTop()
+        || (isHeadOf(resource.data.dept) && request.resource.data.dept == resource.data.dept)
+        || (canSee(resource.data)
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'stage', 'notes', 'updatedAt']));
+    }
+  }
+}
