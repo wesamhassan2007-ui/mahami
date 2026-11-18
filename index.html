@@ -736,7 +736,11 @@ const API = {
     const [app,auth,fs]=await Promise.all([import(base+'firebase-app.js'),import(base+'firebase-auth.js'),import(base+'firebase-firestore.js')]);
     const a=app.initializeApp(FIREBASE_CONFIG);
     this.fb={app,auth,fs,a,au:auth.getAuth(a),db:fs.getFirestore(a)};
-    const st=await fs.getDoc(fs.doc(this.fb.db,'setup','state')).catch(()=>null);
+    let st=null;
+    try{ st=await fs.getDoc(fs.doc(this.fb.db,'setup','state')) }
+    catch(e){ console.error(e); $('#lerr').textContent = e.code==='permission-denied'
+      ? 'قاعدة البيانات رافضة الطلب: تأكد إنك لصقت قواعد الصلاحيات بـ Firebase وضغطت Publish.'
+      : 'ما قدرت أوصل لقاعدة البيانات: تأكد إنك عملت Firestore Database بـ Firebase. ('+(e.code||e.message)+')' }
     if(st && !st.exists()) $('#setupForm').classList.remove('hidden');
     auth.onAuthStateChanged(this.fb.au, u=>this.onAuth(u));
   },
