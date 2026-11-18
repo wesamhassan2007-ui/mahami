@@ -12,7 +12,7 @@
   --bg:#f4f2ee;--card:#fff;--ink:#1d1d1b;--ink2:#5f5e5a;--ink3:#8f8d86;--line:#e3e0d8;--line2:#cfcbc1;
   --accent:#1f4e79;--accent-bg:#e6eef7;
   --danger:#a32d2d;--danger-bg:#fcebeb;--ok:#2f6b12;--ok-bg:#eaf3de;--warn:#8a520b;--warn-bg:#faeeda;--wait:#534ab7;--wait-bg:#eeedfe;
-  --fire:#b8392b;--fire-bg:#fbe9e6;--build:#9a6410;--build-bg:#f8eedc;--admin:#1f5f99;--admin-bg:#e4eef8;--project:#0f6e56;--project-bg:#e1f5ee;
+  --fire:#b8392b;--fire-bg:#fbe9e6;--build:#9a6410;--build-bg:#f8eedc;--admin:#1f5f99;--admin-bg:#e4eef8;--project:#0f6e56;--project-bg:#e1f5ee;--market:#993556;--market-bg:#fbeaf0;
   --r:10px;
 }
 *{box-sizing:border-box}
@@ -78,6 +78,7 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px so
 .d-build{background:var(--build-bg);color:var(--build)}
 .d-admin{background:var(--admin-bg);color:var(--admin)}
 .d-project{background:var(--project-bg);color:var(--project)}
+.d-market{background:var(--market-bg);color:var(--market)}
 .psum{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-bottom:12px}
 .psum h3{margin:0 0 8px;font-size:15px;font-weight:600}
 .prow{display:grid;grid-template-columns:90px 1fr 54px;gap:8px;align-items:center;font-size:13px;padding:3px 0}
@@ -145,10 +146,10 @@ button:active{transform:scale(.97)}
 .inp.grow{flex:1 1 180px}
 .tab{display:inline-flex;align-items:center;gap:6px;border-color:var(--line)}
 .tab:hover{border-color:var(--line2);transform:translateY(-1px)}
-.t-fire .ic{color:var(--fire)}.t-build .ic{color:var(--build)}.t-admin .ic{color:var(--admin)}.t-project .ic{color:var(--project)}
+.t-fire .ic{color:var(--fire)}.t-build .ic{color:var(--build)}.t-admin .ic{color:var(--admin)}.t-project .ic{color:var(--project)}.t-market .ic{color:var(--market)}
 .tab.on .ic{color:#fff}
 .tab.on.t-fire{background:var(--fire);border-color:var(--fire)}.tab.on.t-build{background:var(--build);border-color:var(--build)}
-.tab.on.t-admin{background:var(--admin);border-color:var(--admin)}.tab.on.t-project{background:var(--project);border-color:var(--project)}
+.tab.on.t-admin{background:var(--admin);border-color:var(--admin)}.tab.on.t-project{background:var(--project);border-color:var(--project)}.tab.on.t-market{background:var(--market);border-color:var(--market)}
 .stat{display:flex;align-items:center;gap:10px}
 .stat:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(30,30,25,.06)}
 .stat:hover .sic .ic{transform:scale(1.15)}
@@ -208,8 +209,8 @@ button:active{transform:scale(.97)}
 
 /* ===== التنقل والصفحات الجديدة ===== */
 #app{padding-bottom:84px}
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:8;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
-.bnav button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink2);padding:6px 2px;position:relative;border-radius:12px}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:8;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+.bnav button{flex:1;min-width:0;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink2);padding:6px 2px;position:relative;border-radius:12px}
 .bnav button .ic{width:22px;height:22px}
 .bnav button.on{color:var(--ink);background:#f1efe9;font-weight:600}
 .bnav button:active{transform:scale(.94)}
@@ -285,6 +286,39 @@ i.late{background:var(--danger)}i.open{background:var(--warn)}i.done{background:
 .sendrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .sendrow .info{flex:1;min-width:140px}
 .sendbtns{display:flex;gap:6px}
+.prole{border:1px solid var(--line);border-radius:var(--r);padding:10px;margin-top:10px}
+.prh{display:flex;align-items:center;gap:8px;margin-bottom:8px}.prh .pname{flex:1;font-weight:600}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:480px){.pgrid{grid-template-columns:1fr}}
+.sw{display:flex;align-items:center;gap:8px;margin:0;color:var(--ink);font-size:13px;cursor:pointer}
+.sw input{display:none}
+.sw .knob{width:34px;height:20px;border-radius:10px;background:#d9d5cc;position:relative;flex:none;transition:background .2s}
+.sw .knob::after{content:'';position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw.on .knob{background:var(--ok)}.sw.on .knob::after{transform:translateX(-14px)}
+[dir=ltr] .sw .knob::after{right:auto;left:2px}[dir=ltr] .sw.on .knob::after{transform:translateX(14px)}
+.caltitle{border:0;background:transparent;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:6px;flex:1;justify-content:center}
+.calh{gap:6px}
+.calbar{display:flex;align-items:center;gap:8px;margin:0 0 10px}.calbar .seg{flex:none}
+.seg.sm button{padding:5px 12px;font-size:12px}
+.vh{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.wk{display:flex;flex-direction:column;gap:4px}
+.wrow{display:flex;gap:8px;align-items:flex-start;border-bottom:1px solid var(--line);padding:6px 0}
+.wrow.today .wday{background:var(--accent-bg);color:var(--accent)}
+.wday{flex:none;width:78px;display:flex;flex-direction:column;align-items:flex-start;padding:4px 8px;border:0;background:#f8f7f4;font-size:12px}
+.wday b{font-size:13px}
+.wtasks{flex:1;display:flex;flex-wrap:wrap;gap:4px;min-width:0}
+.wchip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:4px 9px;border-radius:999px;background:var(--warn-bg);color:var(--warn);border-color:transparent;max-width:100%}
+.wchip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wchip.late{background:var(--danger-bg);color:var(--danger)}.wchip.done{background:var(--ok-bg);color:var(--ok)}
+.tbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.archbar{display:flex;align-items:center;gap:8px;background:#f1efe9;border-radius:8px;padding:8px 10px;margin:6px 0;font-size:13px}
+.archbar button{margin-right:auto;font-size:12px;padding:4px 10px;display:inline-flex;gap:4px;align-items:center}
+[dir=ltr] .archbar button{margin-right:0;margin-left:auto}
+.rep{color:var(--accent)!important}
+[dir=ltr] [style*="margin-right:auto"]{margin-right:0!important;margin-left:auto}
+[dir=ltr] .inp>.ic{right:auto;left:11px}[dir=ltr] .inp input{padding-right:11px;padding-left:36px}
+[dir=ltr] .chev .ic,[dir=ltr] #cPrev .ic,[dir=ltr] #cNext .ic{transform:scaleX(-1)}
+[dir=ltr] .task,[dir=ltr] .citem,[dir=ltr] .stat{text-align:left}
 .linkb{border:0;background:none;padding:0;color:var(--accent);text-decoration:underline;font-size:13px}
 label .ic{vertical-align:-2px}
 </style>
@@ -314,6 +348,7 @@ label .ic{vertical-align:-2px}
       <div class="err" id="serr"></div>
       <button class="primary" style="width:100%">إنشاء حساب المدير</button>
     </form>
+    <div style="text-align:center;margin-top:10px"><button type="button" class="ghost small" id="loginLang">Français / عربي</button></div>
     <div class="demo" id="demoBox">
       <div class="small muted">نسخة تجريبية: اضغط على أي حساب لتجرّب الصلاحيات (كلمة السر 1234)</div>
       <div id="demoList"></div>
@@ -327,6 +362,8 @@ label .ic{vertical-align:-2px}
     <div class="hbar">
       <div class="logo" data-ic="logo"></div><h1>متابعة المهام</h1>
       <div class="who"><b id="meName"></b><span class="muted" id="meRole"></span></div>
+      <button class="hbtn" id="btnPerms" aria-label="الصلاحيات" data-ic="shield"><span>الصلاحيات</span></button>
+      <button class="hbtn" id="btnLang" aria-label="Français" data-ic="globe"><span>FR</span></button>
       <button class="hbtn" id="btnUsers" aria-label="الموظفين" data-ic="users"><span>الموظفين</span></button>
       <button class="hbtn" id="btnOut" aria-label="خروج" data-ic="logout"><span>خروج</span></button>
     </div>
@@ -349,6 +386,7 @@ label .ic{vertical-align:-2px}
   <div class="wrap hidden" id="page-daily"></div>
   <div class="wrap hidden" id="page-requests"></div>
   <div class="wrap hidden" id="page-mine"></div>
+  <div class="wrap hidden" id="page-lists"></div>
   <div class="fabs">
     <button class="fab-mic" id="btnMic" aria-label="أمر صوتي" data-ic="mic"></button>
     <button class="primary fab" id="btnAdd" data-ic="plus"><span>مهمة جديدة</span></button>
@@ -358,6 +396,7 @@ label .ic{vertical-align:-2px}
     <button data-p="daily" data-ic="sun"><span>اليومية</span><b class="badge" id="bg-daily"></b></button>
     <button data-p="requests" data-ic="inbox"><span>الطلبات</span><b class="badge" id="bg-requests"></b></button>
     <button data-p="mine" data-ic="notebook"><span>برنامجي</span><b class="badge" id="bg-mine"></b></button>
+    <button data-p="lists" data-ic="shared" id="navLists"><span>القوائم</span><b class="badge" id="bg-lists"></b></button>
   </nav>
 </section>
 
@@ -391,15 +430,27 @@ const DEPTS = {
           types:['طلبية زبون','شحنة استيراد','تخليص جمركي','تسليم','متابعة دفعة'],
           stages:['طلب','شحن','جمارك','مستودع','تسليم'],
           fields:[{k:'party',l:'المورد / الزبون'},{k:'shipment',l:'رقم الشحنة / الطلبية'},{k:'items',l:'البضاعة'}]},
-  admin: {name:'مهام المساعدين', short:'المساعدين',
+  admin: {name:'المكتب', short:'المكتب', sees:['market'],
           types:['مراسلات','مواعيد واجتماعات','أوراق رسمية','مشتريات مكتب','متابعة مع جهة'],
           fields:[{k:'party',l:'الجهة'}]},
+  market:{name:'السوق', short:'السوق',
+          types:['مشتريات','توصيل','متابعة زبون','تحصيل دفعة','عرض أسعار'],
+          fields:[{k:'party',l:'الزبون / المحل'},{k:'place',l:'المكان'}]},
   project:{name:'بناية نهلة', short:'بناية نهلة', summary:true,
           types:['حفر وأساسات','هيكل (عظم)','كهرباء','تمديدات صحية','تشطيبات','مواد وتوريدات','ترخيص ومعاملات','دفعات مقاولين'],
           fields:[{k:'phase',l:'مرحلة المشروع',t:'select',opts:['حفر وأساسات','عظم','تمديدات','تشطيب','تسليم']},{k:'floor',l:'الطابق / المكان'},{k:'contractor',l:'المقاول / المورد'},{k:'cost',l:'التكلفة',t:'number'},{k:'paid',l:'المدفوع',t:'number'}]}
 };
 const PHASES = DEPTS.project.fields[0].opts;
-const ROLES = {manager:'المدير', assistant:'مساعد المدير', head:'رئيس قسم', worker:'عامل'};
+const PERMS = [['seeAll','بيشوف كل الأقسام'],['create','بيضيف مهام'],['edit','بيعدّل تفاصيل المهام'],['del','بيحذف مهام'],['daily','بيدير اليومية'],['users','بيدير الموظفين'],['reports','التقارير وExcel']];
+const DEFAULT_ROLES = {
+  manager:  {name:'المدير',fixed:true,perms:{seeAll:true,create:true,edit:true,del:true,daily:true,users:true,reports:true}},
+  assistant:{name:'مساعد المدير',perms:{seeAll:true,create:true,edit:true,del:true,daily:true,users:true,reports:true}},
+  head:     {name:'رئيس قسم',perms:{seeAll:false,create:true,edit:true,del:true,daily:true,users:false,reports:true}},
+  worker:   {name:'عامل',perms:{seeAll:false,create:false,edit:false,del:false,daily:false,users:false,reports:false}}
+};
+const allRoles = () => { const r={...DEFAULT_ROLES,...((typeof mem!=='undefined'&&mem&&mem.settings&&mem.settings.roles)||{})}; r.manager=DEFAULT_ROLES.manager; return r };
+const roleOf = k => allRoles()[k];
+const roleName = k => roleOf(k)?.name || k || '';
 const STATUSES = [{k:'new',l:'جديدة'},{k:'progress',l:'قيد التنفيذ'},{k:'waiting',l:'بانتظار'},{k:'done',l:'منتهية'}];
 const PRI = {low:'عادية',normal:'متوسطة',high:'عاجلة'};
 const REPEAT = {none:'لا تتكرر',daily:'يومياً',weekly:'أسبوعياً',monthly:'شهرياً'};
@@ -439,7 +490,8 @@ function seed(){
   ].map((t,i)=>({id:'t'+(i+1),desc:'',sharedWith:[],notes:[],createdBy:'u1',createdAt:Date.now()-86400e3*(10-i),updatedAt:Date.now(),fields:t.f||{},...t}));
   T.forEach(t=>delete t.f);
   const P=seedProject();
-  return {users:U.concat(P.users),tasks:T.concat(P.tasks),...seedExtras()};
+  const V=seedV3();
+  return {users:U.concat(P.users,V.users),tasks:T.concat(P.tasks,V.tasks),...seedExtras(),lists:V.lists,listItems:V.listItems,settings:{roles:{}}};
 }
 function seedExtras(){
   const n=Date.now();
@@ -468,6 +520,19 @@ function seedExtras(){
     ]
   };
 }
+function seedV3(){
+  const n=Date.now();
+  return {
+    users:[{id:'u12',name:'حسين',phone:'0790000012',password:'1234',role:'head',dept:'market'},{id:'u13',name:'حسن',phone:'0790000013',password:'1234',role:'worker',dept:'market',lang:'fr'}],
+    tasks:[{id:'k1',dept:'market',type:'مشتريات',title:'شراء أكياس إسمنت للمستودع',desc:'',assignee:'u13',status:'new',priority:'normal',due:today(1),stage:0,fields:{party:'محل الأمانة'},sharedWith:[],notes:[],photos:[],createdBy:'u1',createdAt:n,updatedAt:n},
+           {id:'k2',dept:'market',type:'تحصيل دفعة',title:'تحصيل دفعة من محل النور',desc:'',assignee:'u12',status:'progress',priority:'high',due:today(),stage:0,fields:{party:'محل النور'},sharedWith:[],notes:[],photos:[],createdBy:'u1',createdAt:n,updatedAt:n},
+           {id:'k3',dept:'admin',type:'أوراق رسمية',title:'تجديد إقامة عامل',desc:'',assignee:'u9',status:'done',priority:'normal',due:today(-20),stage:0,fields:{},sharedWith:[],notes:[],photos:[],createdBy:'u1',createdAt:n-30*864e5,updatedAt:n-15*864e5,doneAt:n-15*864e5}],
+    lists:[{id:'l1',name:'حسين وحسن',members:['u12','u13'],createdBy:'u1',createdAt:n}],
+    listItems:[{id:'i1',listId:'l1',title:'فتح المحل وترتيب البضاعة',date:today(),time:'08:00',done:false,note:'',repeat:'daily',by:'u12',createdAt:n},
+               {id:'i2',listId:'l1',title:'جرد البضاعة',date:today(2),time:'',done:false,note:'',repeat:'weekdays',days:[1,4],by:'u12',createdAt:n},
+               {id:'i3',listId:'l1',title:'دفع إيجار المحل',date:today(9),time:'',done:false,note:'',repeat:'monthly',by:'u13',createdAt:n}]
+  };
+}
 function seedProject(){
   const U=[
     {id:'u10',name:'فادي',phone:'0790000010',password:'1234',role:'head',dept:'project'},
@@ -485,13 +550,14 @@ function seedProject(){
   T.forEach(t=>delete t.f);
   return {users:U,tasks:T};
 }
-const emptyMem = () => ({users:[],tasks:[],requests:[],routines:[],checks:[],personal:[]});
+const emptyMem = () => ({users:[],tasks:[],requests:[],routines:[],checks:[],personal:[],lists:[],listItems:[],settings:{roles:{}}});
 const DB = {
   load(){ if(LIVE) return mem||(mem=emptyMem()); if(mem) return mem;
     try{const s=localStorage.getItem(KEY); if(s){mem=JSON.parse(s);
       if(!mem.users.some(u=>u.dept==='project') && !mem.tasks.some(t=>t.dept==='project')){ const P=seedProject(); mem.users.push(...P.users.filter(u=>!mem.users.some(x=>x.id===u.id))); mem.tasks.push(...P.tasks); this.save() }
       if(!mem.routines){ Object.assign(mem,seedExtras()); this.save() }
-      ['requests','routines','checks','personal'].forEach(k=>mem[k]=mem[k]||[]);
+      ['requests','routines','checks','personal','lists','listItems'].forEach(k=>mem[k]=mem[k]||[]); mem.settings=mem.settings||{roles:{}};
+      if(!mem.users.some(u=>u.dept==='market')){ const V=seedV3(); mem.users.push(...V.users); mem.tasks.push(...V.tasks); mem.lists.push(...V.lists); mem.listItems.push(...V.listItems); this.save() }
       return mem}}catch(e){}
     mem=seed(); this.save(); return mem },
   save(){ if(LIVE) return; try{localStorage.setItem(KEY,JSON.stringify(mem))}catch(e){} },
@@ -500,14 +566,20 @@ const DB = {
 
 /* ================= الصلاحيات ================= */
 let me=null;
-const isTop = u => u && (u.role==='manager'||u.role==='assistant');
-const canSee = t => isTop(me) || t.dept===me.dept || (t.sharedWith||[]).includes(me.id);
-const canEditFull = t => isTop(me) || (me.role==='head' && t.dept===me.dept);
-const canDelete = t => isTop(me) || (me.role==='head' && t.dept===me.dept);
-const canCreate = () => isTop(me) || me.role==='head';
-const creatableDepts = () => isTop(me) ? Object.keys(DEPTS) : (me.role==='head'?[me.dept]:[]);
-const canShare = () => isTop(me);
-const canManageUsers = () => isTop(me);
+const P = (u,p) => !!u && (u.role==='manager' || !!roleOf(u.role)?.perms?.[p]);
+const isTop = u => P(u,'seeAll');
+const scopeOf = u => u&&u.dept&&DEPTS[u.dept] ? [u.dept,...(DEPTS[u.dept].sees||[])] : [];
+const inScope = (d,u=me) => scopeOf(u).includes(d);
+const canSee = t => isTop(me) || inScope(t.dept) || (t.sharedWith||[]).includes(me.id);
+const canEditFull = t => P(me,'edit') && (isTop(me) || inScope(t.dept));
+const canDelete = t => P(me,'del') && (isTop(me) || inScope(t.dept));
+const creatableDepts = () => !P(me,'create') ? [] : (isTop(me) ? Object.keys(DEPTS) : scopeOf(me));
+const canCreate = () => creatableDepts().length>0;
+const canShare = () => isTop(me) && P(me,'edit');
+const canManageUsers = () => P(me,'users');
+const canDaily = () => P(me,'daily');
+const canReports = () => P(me,'reports');
+const movableDepts = t => !canEditFull(t) ? [] : (isTop(me) ? Object.keys(DEPTS) : scopeOf(me));
 
 /* ================= الأيقونات ================= */
 const ICONS = {
@@ -520,6 +592,12 @@ const ICONS = {
   fire:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
   build:'<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
   admin:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+  market:'<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>',
+  shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+  archive:'<rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M10 12h4"/>',
+  globe:'<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/>',
+  list2:'<path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.83L3 3M15 9l6-6"/>',
+  shared:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
   project:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',
   all:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/>',
   list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
@@ -567,8 +645,8 @@ const ic = (n,s=16,cls='') => `<svg class="ic ${cls}" width="${s}" height="${s}"
 /* ================= أدوات ================= */
 const $ = s => document.querySelector(s);
 const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fmtDate = d => d ? new Date(d+'T00:00:00').toLocaleDateString('ar-u-nu-latn',{day:'numeric',month:'short'}) : '';
-const fmtTime = ts => new Date(ts).toLocaleString('ar-u-nu-latn',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});
+const fmtDate = d => d ? new Date(d+'T00:00:00').toLocaleDateString(LOCALE(),{day:'numeric',month:'short'}) : '';
+const fmtTime = ts => new Date(ts).toLocaleString(LOCALE(),{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});
 const userById = id => DB.load().users.find(u=>u.id===id);
 const uname = id => userById(id)?.name || '—';
 const isLate = t => t.status!=='done' && t.due && t.due < today();
@@ -586,7 +664,7 @@ function animateCounts(root){
 
 /* ================= الدخول ================= */
 function renderDemo(){
-  $('#demoList').innerHTML = DB.load().users.map(u=>`<button type="button" data-p="${u.phone}"><span>${esc(u.name)} · ${ROLES[u.role]}${u.dept?' · '+DEPTS[u.dept].short:''}</span><span class="muted">${u.phone}</span></button>`).join('');
+  $('#demoList').innerHTML = DB.load().users.map(u=>`<button type="button" data-p="${u.phone}"><span>${esc(u.name)} · ${roleName(u.role)}${u.dept?' · '+DEPTS[u.dept].short:''}</span><span class="muted">${u.phone}</span></button>`).join('');
   $('#demoList').querySelectorAll('button').forEach(b=>b.onclick=()=>{ $('#lp').value=b.dataset.p; $('#lw').value='1234'; doLogin() });
 }
 async function doLogin(){
@@ -608,17 +686,19 @@ const UI = {tab:'all', stat:'all', view:'list', q:'', worker:'', page:'tasks', r
 function startApp(){
   $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
   $('#meName').textContent=me.name;
-  $('#meRole').textContent=ROLES[me.role]+(me.dept?' · '+DEPTS[me.dept].short:'');
+  $('#meRole').textContent=roleName(me.role)+(me.dept?' · '+DEPTS[me.dept].short:'');
   $('#btnUsers').classList.toggle('hidden',!canManageUsers());
-  UI.tab = isTop(me)?'all':me.dept; UI.stat='all'; UI.q=''; UI.worker=''; $('#q').value='';
-  showPage(UI.page||'tasks');
+  $('#btnPerms').classList.toggle('hidden',!canManageUsers());
+  UI.tab = isTop(me)?'all':(scopeOf(me).length>1?'scope':me.dept); UI.stat='all'; UI.q=''; UI.worker=''; $('#q').value='';
+  UI.view='list'; initLang(); showPage('tasks');
 }
 
-function visibleTasks(){ return DB.load().tasks.filter(canSee) }
+function visibleTasks(){ return DB.load().tasks.filter(t=>canSee(t)&&!isArchived(t)) }
 function tabTasks(){
   const all=visibleTasks();
   if(UI.tab==='all') return all;
-  if(UI.tab==='shared') return all.filter(t=>t.dept!==me.dept);
+  if(UI.tab==='shared') return all.filter(t=>!inScope(t.dept));
+  if(UI.tab==='scope') return all.filter(t=>inScope(t.dept));
   return all.filter(t=>t.dept===UI.tab);
 }
 function filtered(){
@@ -639,12 +719,13 @@ function render(){
   else if(UI.page==='daily') renderDaily();
   else if(UI.page==='requests') renderRequests();
   else if(UI.page==='mine') renderMine();
+  else if(UI.page==='lists') renderLists();
 }
 function renderTasks(){
   // التبويبات
   const tabs=[];
   if(isTop(me)){ tabs.push(['all','الكل','all']); Object.keys(DEPTS).forEach(k=>tabs.push([k,DEPTS[k].name,k])) }
-  else { tabs.push([me.dept,DEPTS[me.dept].name,me.dept]); if(visibleTasks().some(t=>t.dept!==me.dept)) tabs.push(['shared','مشتركة معي','share']) }
+  else { const sc=scopeOf(me); if(sc.length>1) tabs.push(['scope','الكل','all']); sc.forEach(k=>tabs.push([k,DEPTS[k].name,k])); if(visibleTasks().some(t=>!sc.includes(t.dept))) tabs.push(['shared','مشتركة معي','share']) }
   $('#tabs').innerHTML=tabs.map(([k,l,i])=>`<button class="tab t-${k} ${UI.tab===k?'on':''}" data-k="${k}">${ic(i,16)}${esc(l)}</button>`).join('');
   $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{UI.tab=b.dataset.k;UI.worker='';render()});
 
@@ -662,7 +743,7 @@ function renderTasks(){
   document.querySelectorAll('#viewSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===UI.view));
   renderView(); renderTools2();
 }
-function renderView(){ UI.view==='list'?renderList():UI.view==='cal'?renderCal():renderWorkers() }
+function renderView(){ UI.view==='list'?renderList():UI.view==='cal'?renderCal():UI.view==='archive'?renderArchive():renderWorkers() }
 
 function taskCard(t,i=0){
   const f=t.fields||{}; const extra=[f.client||f.party||f.contractor||'', f.floor||''].filter(Boolean).join(' · ');
@@ -672,7 +753,7 @@ function taskCard(t,i=0){
   return `<button style="--i:${Math.min(i,12)}" class="task ${late?'is-late':''} ${t.status==='done'?'is-done':''}" data-id="${t.id}">
     <span class="dico d-${t.dept}">${ic(t.dept,20)}</span>
     <div class="tbody">
-      <div class="top"><span class="t">${esc(t.title)}</span>${statusChip(t)}</div>
+      <div class="top"><span class="t" data-notr>${esc(t.title)}</span>${statusChip(t)}</div>
       <div class="meta">
         <span>${ic('tag',14)}${esc(t.type)}</span>
         <span>${ic('user',14)}${esc(uname(t.assignee))}</span>
@@ -708,7 +789,7 @@ function renderWorkers(){
   if(!keys.length){ $('#content').innerHTML=`<div class="empty"><span class="eico">${ic('done',28)}</span><div>ما في مهام هون</div></div>`; return }
   $('#content').innerHTML='<div class="grid">'+keys.map(id=>{
     const ts=groups[id], u=userById(id), done=ts.filter(t=>t.status==='done').length, late=ts.filter(isLate).length;
-    return `<div class="wcard"><div class="h"><div class="av">${esc((u?.name||'؟')[0])}</div><div><div style="font-weight:500">${esc(u?.name||'بدون مسؤول')}</div><div class="small muted">${u?ROLES[u.role]+(u.dept?' · '+DEPTS[u.dept].short:''):''}</div></div></div>
+    return `<div class="wcard"><div class="h"><div class="av">${esc((u?.name||'؟')[0])}</div><div><div style="font-weight:500">${esc(u?.name||'بدون مسؤول')}</div><div class="small muted">${u?roleName(u.role)+(u.dept?' · '+DEPTS[u.dept].short:''):''}</div></div></div>
       <div class="bar"><i style="--w:${Math.round(done/ts.length*100)}%"></i></div>
       <div class="small muted">${done} من ${ts.length} منتهية${late?` · <span style="color:var(--danger)">${late} متأخرة</span>`:''}</div>
       ${ts.map(t=>`<div class="wtask" data-id="${t.id}"><span>${esc(t.title)}</span>${statusChip(t)}</div>`).join('')}</div>`;
@@ -726,8 +807,8 @@ function closeModal(){ try{ if(typeof REC!=='undefined'&&REC){ REC._stopped=true
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 function assigneeOptions(dept,sel){
-  const us=DB.load().users.filter(u=>u.dept===dept || (isTop(u)&&isTop(me)));
-  return '<option value="">— اختر —</option>'+us.map(u=>`<option value="${u.id}" ${u.id===sel?'selected':''}>${esc(u.name)} (${ROLES[u.role]})</option>`).join('');
+  const us=DB.load().users.filter(u=>u.dept===dept || (isTop(u)&&isTop(me)) || (u.dept&&DEPTS[u.dept]?.sees?.includes(dept)&&P(u,'edit')));
+  return '<option value="">— اختر —</option>'+us.map(u=>`<option value="${u.id}" ${u.id===sel?'selected':''}>${esc(u.name)} (${roleName(u.role)})</option>`).join('');
 }
 function fieldInput(fd,val,dis){
   const d=dis?'disabled':'';
@@ -747,8 +828,9 @@ function openTask(id, isNew=false, newDept=null){
   t.photos=t.photos||[];
   const D=DEPTS[t.dept];
   const isOther = !!t.type && !D.types.includes(t.type);
-  const deptSel = isNew && creatableDepts().length>1
-    ? `<label>القسم</label><select id="tDept">${creatableDepts().map(k=>`<option value="${k}" ${k===t.dept?'selected':''}>${DEPTS[k].name}</option>`).join('')}</select>` : '';
+  const deptList = isNew ? creatableDepts() : movableDepts(t);
+  const deptSel = deptList.length>1
+    ? `<label>${isNew?'القسم':ic('out',13)+' القسم (فيك تنقل المهمة لقسم تاني)'}</label><select id="tDept">${deptList.map(k=>`<option value="${k}" ${k===t.dept?'selected':''}>${DEPTS[k].name}</option>`).join('')}</select>` : '';
 
   const stagesHtml = D.stages ? `<div class="sect"><h3>${ic('build',15)} مرحلة الشحنة / الطلبية</h3><div class="stages" id="tStages">${D.stages.map((s,i)=>`<button type="button" data-i="${i}" class="${i<(t.stage??0)?'done':''} ${i===(t.stage??0)?'on':''}">${s}</button>`).join('')}</div></div>` : '';
 
@@ -758,13 +840,14 @@ function openTask(id, isNew=false, newDept=null){
 
   let shareHtml='';
   if(canShare()){
-    const others=data.users.filter(u=>!isTop(u) && u.dept!==t.dept);
+    const others=data.users.filter(u=>!isTop(u) && !inScope(t.dept,u));
     shareHtml=`<div class="sect"><h3>${ic('share',15)} مشاركة مع موظفين من أقسام تانية</h3><div class="small muted" style="margin-bottom:6px">قسم ${D.short} بيشوف المهمة تلقائياً. اختار مين كمان بيقدر يشوفها ويعدّل عليها.</div>
-      <div class="share">${others.map(u=>`<label><input type="checkbox" value="${u.id}" ${t.sharedWith.includes(u.id)?'checked':''}> ${esc(u.name)} <span class="muted small">· ${ROLES[u.role]} · ${DEPTS[u.dept]?.short||''}</span></label>`).join('')||'<span class="small muted">ما في موظفين بأقسام تانية</span>'}</div></div>`;
+      <div class="share">${others.map(u=>`<label><input type="checkbox" value="${u.id}" ${t.sharedWith.includes(u.id)?'checked':''}> ${esc(u.name)} <span class="muted small">· ${roleName(u.role)} · ${DEPTS[u.dept]?.short||''}</span></label>`).join('')||'<span class="small muted">ما في موظفين بأقسام تانية</span>'}</div></div>`;
   }
 
   openModal(`
-    <div class="shead"><h2>${isNew?'مهمة جديدة':esc(t.title)}</h2>${isNew?'':deptChip(t.dept)}<button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="shead"><h2 ${isNew?'':'data-notr'}>${isNew?'مهمة جديدة':esc(t.title)}</h2>${isNew?'':deptChip(t.dept)}<button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    ${!isNew&&isArchived(t)?`<div class="archbar">${ic('archive',15)} هالمهمة بالأرشيف <button id="tUnarch">${ic('repeat',14)} رجّعها</button></div>`:''}
     ${!full?'<div class="small muted">بتقدر تغيّر الحالة وتضيف ملاحظات. باقي التفاصيل بيعدّلها رئيس القسم أو الإدارة.</div>':''}
     ${deptSel}
     <label>عنوان المهمة</label><input id="tTitle" value="${esc(t.title)}" ${dis} placeholder="شو المطلوب؟">
@@ -788,7 +871,7 @@ function openTask(id, isNew=false, newDept=null){
       <button class="primary" id="tSave">${isNew?'إضافة المهمة':'حفظ'}</button>
       <button id="tCancel">إلغاء</button>
       ${!isNew?waLink(t.assignee, waTaskText(t)):''}
-      ${!isNew?mailLink(t.assignee,'مهمة: '+t.title, waTaskText(t)):''}
+      ${!isNew?mailLink(t.assignee,taskSubj(t), waTaskText(t)):''}
       ${!isNew&&canDelete(t)?`<button class="danger" id="tDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`:''}
     </div>
     <div class="err" id="tErr"></div>`);
@@ -796,11 +879,17 @@ function openTask(id, isNew=false, newDept=null){
   let status=t.status, stage=t.stage??0; t._origAssignee=t.assignee;
   $('#tType').onchange=e=>{ const o=e.target.value==='__other'; $('#tTypeOther').classList.toggle('hidden',!o); if(o) $('#tTypeOther').focus() };
   $('#mClose').onclick=$('#tCancel').onclick=closeModal;
-  if($('#tDept')) $('#tDept').onchange=e=>{ closeModal(); openTask(null,true,e.target.value) };
+  if($('#tDept')) $('#tDept').onchange=e=>{ const nd=e.target.value;
+    if(isNew){ closeModal(); openTask(null,true,nd); return }
+    const from=DEPTS[t.dept].name; t.dept=nd; t.stage=0; t.updatedAt=Date.now();
+    t.notes.push({by:me.id,byName:me.name,text:`نقل المهمة من ${from} لـ ${DEPTS[nd].name}`,at:Date.now()});
+    DB.save(); API.putTask(t,'full').then(()=>toast('انتقلت المهمة لـ '+DEPTS[nd].name)).catch(errToast); openTask(t.id); render() };
   $('#tStatus').querySelectorAll('button').forEach(b=>b.onclick=()=>{status=b.dataset.k;$('#tStatus').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
   if($('#tStages')) $('#tStages').querySelectorAll('button').forEach(b=>b.onclick=()=>{stage=+b.dataset.i;$('#tStages').querySelectorAll('button').forEach((x,i)=>{x.classList.toggle('on',i===stage);x.classList.toggle('done',i<stage)})});
 
   if(!isNew) bindPhotos(t);
+  if($('#tUnarch')) $('#tUnarch').onclick=()=>{ t.status='progress'; t.doneAt=null; t.updatedAt=Date.now(); t.notes.push({by:me.id,byName:me.name,text:'رجّع المهمة من الأرشيف',at:Date.now()}); DB.save();
+    API.putTask(t,'limited').then(()=>toast('رجعت المهمة')).catch(errToast); openTask(t.id); render() };
   if(!isNew) $('#tNoteBtn').onclick=()=>{
     const txt=$('#tNote').value.trim(); if(!txt) return;
     t.notes.push({by:me.id,byName:me.name,text:txt,at:Date.now()}); t.updatedAt=Date.now(); DB.save();
@@ -821,6 +910,7 @@ function openTask(id, isNew=false, newDept=null){
     if(D.stages && (t.stage??0)!==stage && !isNew){ t.notes.push({by:me.id,byName:me.name,text:`نقل المرحلة إلى: ${D.stages[stage]}`,at:Date.now()}) }
     const prevStatus=t.status, prevAssignee=t._origAssignee;
     t.status=status; if(D.stages) t.stage=stage;
+    if(status==='done' && prevStatus!=='done') t.doneAt=Date.now(); if(status!=='done') t.doneAt=null;
     const spawn = (status==='done' && prevStatus!=='done' && t.repeat && t.repeat!=='none' && !t.spawned && !isNew) ? spawnNext(t) : null;
     if(canShare()) t.sharedWith=[...document.querySelectorAll('.share input:checked')].map(i=>i.value);
     t.updatedAt=Date.now();
@@ -850,7 +940,7 @@ function openUsers(){
   openModal(`
     <div class="shead"><h2>الموظفين والصلاحيات</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
     <div class="small muted">المدير والمساعد بيشوفوا كل الأقسام. رئيس القسم والعامل بيشوفوا قسمهم بس، والمهام اللي بتشاركها معهم.</div>
-    <div style="margin-top:10px">${us.map(u=>`<div class="urow"><div class="av">${esc(u.name[0])}</div><div class="info"><div style="font-weight:500">${esc(u.name)}</div><div class="small muted">${ROLES[u.role]}${u.dept?' · '+DEPTS[u.dept].name:''} · ${esc(u.phone)}</div></div><button class="small ibtn" data-e="${u.id}" aria-label="تعديل">${ic('edit',15)}</button></div>`).join('')}</div>
+    <div style="margin-top:10px">${us.map(u=>`<div class="urow"><div class="av">${esc(u.name[0])}</div><div class="info"><div style="font-weight:500">${esc(u.name)}</div><div class="small muted">${roleName(u.role)}${u.dept?' · '+DEPTS[u.dept].name:''} · ${esc(u.phone)}</div></div><button class="small ibtn" data-e="${u.id}" aria-label="تعديل">${ic('edit',15)}</button></div>`).join('')}</div>
     <div class="actions"><button class="primary" id="uAdd">${ic('plus',16)} موظف جديد</button>${me.role==='manager'&&!LIVE?'<button class="danger" id="uReset" style="margin-right:auto">إرجاع البيانات التجريبية</button>':''}</div>`);
   $('#mClose').onclick=closeModal;
   $('#uAdd').onclick=()=>editUser(null);
@@ -860,7 +950,7 @@ function openUsers(){
 function editUser(id){
   const data=DB.load();
   const isNew=!id; const u=isNew?{id:'u'+uid(),name:'',phone:'',password:'',role:'worker',dept:'fire'}:data.users.find(x=>x.id===id);
-  const roles = me.role==='manager' ? Object.keys(ROLES) : ['assistant','head','worker'];
+  const roles = Object.keys(allRoles()).filter(r=>me.role==='manager'||r!=='manager');
   const locked = !isNew && u.role==='manager' && me.role!=='manager';
   openModal(`
     <div class="shead"><h2>${isNew?'موظف جديد':'تعديل '+esc(u.name)}</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
@@ -869,7 +959,8 @@ function editUser(id){
     <div class="row2">
       <div><label>رقم التلفون</label><input id="uPhone" type="tel" value="${esc(u.phone)}" ${locked?'disabled':''}></div>
       <div><label>كلمة السر</label><input id="uPass" value="${isNew?String(Math.floor(100000+Math.random()*900000)):''}" placeholder="${isNew?'':'اتركها فاضية إذا ما بدك تغيّرها'}" ${locked?'disabled':''}></div>
-      <div><label>الدور</label><select id="uRole" ${locked?'disabled':''}>${roles.map(r=>`<option value="${r}" ${r===u.role?'selected':''}>${ROLES[r]}</option>`).join('')}</select></div>
+      <div><label>الدور</label><select id="uRole" ${locked?'disabled':''}>${roles.map(r=>`<option value="${r}" ${r===u.role?'selected':''}>${roleName(r)}</option>`).join('')}</select></div>
+      <div><label>${ic('globe',13)} لغة الصفحة</label><select id="uLang" ${locked?'disabled':''}><option value="ar" ${u.lang!=='fr'?'selected':''}>عربي</option><option value="fr" ${u.lang==='fr'?'selected':''}>Français</option></select></div>
       <div><label>${ic('mail',13)} الإيميل (اختياري)</label><input id="uEmail" type="email" dir="ltr" value="${esc(u.email||'')}" placeholder="name@gmail.com" ${locked?'disabled':''}></div>
       <div id="uDeptWrap"><label>القسم</label><select id="uDept" ${locked?'disabled':''}>${Object.keys(DEPTS).map(k=>`<option value="${k}" ${k===u.dept?'selected':''}>${DEPTS[k].name}</option>`).join('')}</select></div>
     </div>
@@ -885,7 +976,7 @@ function editUser(id){
     if(data.users.some(x=>x.id!==u.id && normPhone(x.phone)===phone)) return $('#uErr').textContent='هالرقم مستخدم لموظف تاني';
     if((isNew||pass) && pass.length<6) return $('#uErr').textContent='كلمة السر لازم تكون 6 أحرف أو أرقام أو أكتر';
     const oldPhone=u.phone;
-    u.email=$('#uEmail').value.trim();
+    u.email=$('#uEmail').value.trim(); u.lang=$('#uLang').value;
     u.name=name; u.phone=phone; u.role=role; u.dept=['manager','assistant'].includes(role)?'':$('#uDept').value;
     if(!LIVE){ if(pass) u.password=pass; if(isNew) data.users.push(u); DB.save(); }
     const btn=$('#uSave'); btn.disabled=true; btn.textContent='لحظة…';
@@ -902,7 +993,7 @@ $('#btnUsers').onclick=openUsers;
 /* ================= الصفحات الجديدة: اليومية، الطلبات، برنامجي ================= */
 const pad = n => String(n).padStart(2,'0');
 const isoLocal = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-const fmtClock = ts => new Date(ts).toLocaleTimeString('ar-u-nu-latn',{hour:'numeric',minute:'2-digit'});
+const fmtClock = ts => new Date(ts).toLocaleTimeString(LOCALE(),{hour:'numeric',minute:'2-digit'});
 const pageUrl = () => location.href.split('#')[0].split('?')[0];
 const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 const wd = () => new Date().getDay();
@@ -911,11 +1002,11 @@ let PREFILL = null;
 
 function showPage(p){
   UI.page=p;
-  ['tasks','daily','requests','mine'].forEach(k=>$('#page-'+k).classList.toggle('hidden',k!==p));
+  ['tasks','daily','requests','mine','lists'].forEach(k=>$('#page-'+k).classList.toggle('hidden',k!==p));
   document.querySelectorAll('#bnav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
   const add=$('#btnAdd');
-  add.querySelector('span').textContent={tasks:'مهمة جديدة',daily:'مهمة يومية',requests:'طلب جديد',mine:'إضافة لبرنامجي'}[p];
-  add.classList.toggle('hidden', p==='tasks'?!canCreate() : p==='daily'?!(isTop(me)||me.role==='head') : false);
+  add.querySelector('span').textContent={tasks:'مهمة جديدة',daily:'مهمة يومية',requests:'طلب جديد',mine:'إضافة لبرنامجي',lists:'قائمة جديدة'}[p];
+  add.classList.toggle('hidden', p==='tasks'?!canCreate() : p==='daily'?!canDaily() : p==='lists'?!isTop(me) : false);
   if(p==='tasks') markSeen();
   window.scrollTo(0,0); render();
 }
@@ -924,9 +1015,11 @@ $('#btnAdd').onclick=()=>{
   if(UI.page==='tasks') openTask(null,true, UI.tab in DEPTS && creatableDepts().includes(UI.tab) ? UI.tab : null);
   else if(UI.page==='daily') openRoutines(null);
   else if(UI.page==='requests') openRequest(null);
+  else if(UI.page==='lists') openList(null);
   else openMineItem(null);
 };
 $('#btnMic').onclick=()=>openVoice();
+$('#btnPerms').onclick=()=>openPerms();
 
 /* ---- الإشعارات ---- */
 const seenKey = () => 'mahami_seen_'+(me?.id||'');
@@ -939,6 +1032,8 @@ function updateBadges(){
   setBadge('daily', myRoutinesToday().filter(r=>!isChecked(r)).length);
   setBadge('requests', d.requests.filter(r=>r.to===me.id && r.status==='open').length);
   setBadge('mine', myItems().filter(x=>!x.done && x.date && x.date<=today()).length);
+  const lsts=myLists(); $('#navLists').classList.toggle('hidden', !lsts.length && !isTop(me));
+  setBadge('lists', lsts.filter(l=>(l.members||[]).includes(me.id)).flatMap(l=>listItemsOf(l.id)).filter(x=>!x.done && x.date && x.date<=today()).length);
 }
 
 /* ---- واتساب وإيميل ---- */
@@ -947,7 +1042,13 @@ function waLink(uid,text,label='واتساب'){
   const u=userById(uid); if(!u || u.id===me.id || !u.phone) return '';
   return `<a class="btn wa" href="https://wa.me/${intlPhone(u.phone)}?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">${ic('wa',15)} ${label}</a>`;
 }
+const isFr = uid => userById(uid)?.lang==='fr';
+const frS = x => String(x||'').replace(FR_RE, m=>FR_MAP[m]);
+const fmtDateL = (d,fr) => d ? new Date(d+'T00:00:00').toLocaleDateString(fr?'fr-FR':'ar-u-nu-latn',{day:'numeric',month:'short'}) : '';
+const taskSubj = t => isFr(t.assignee) ? 'Tâche : '+t.title : 'مهمة: '+t.title;
 function waTaskText(t){
+  if(isFr(t.assignee)){ const f=Object.entries(t.fields||{}).filter(([k,v])=>v&&k!=='recurring').map(([k,v])=>`${frS((DEPTS[t.dept].fields.find(x=>x.k===k)||{}).l||k)} : ${v}`).join('\n');
+    return `Tâche : ${t.title}\nService : ${frS(DEPTS[t.dept].name)}${t.due?'\nÉchéance : '+fmtDateL(t.due,true):''}${t.priority==='high'?'\nUrgent':''}${t.desc?'\n'+t.desc:''}${f?'\n'+f:''}\n\n${pageUrl()}` }
   const f=Object.entries(t.fields||{}).filter(([k,v])=>v&&k!=='recurring').map(([k,v])=>`${(DEPTS[t.dept].fields.find(x=>x.k===k)||{}).l||k}: ${v}`).join('\n');
   return `مهمة: ${t.title}\nالقسم: ${DEPTS[t.dept].name}${t.due?'\nالتسليم: '+fmtDate(t.due):''}${t.priority==='high'?'\nعاجلة':''}${t.desc?'\n'+t.desc:''}${f?'\n'+f:''}\n\n${pageUrl()}`;
 }
@@ -957,19 +1058,435 @@ function sendMail(ids,subject,body){
   try{ fetch(EMAIL_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({token:EMAIL_TOKEN,to:to.join(','),subject,body:body+'\n\n'+pageUrl()})}).catch(()=>{}) }catch(e){}
 }
 
+/* ================= الفرنسي ================= */
+let LANG='ar';
+const LOCALE = () => LANG==='fr' ? 'fr-FR' : 'ar-u-nu-latn';
+const FR_PAIRS = [
+['المدير والمساعد بيشوفوا كل الأقسام. رئيس القسم والعامل بيشوفوا قسمهم بس، والمهام اللي بتشاركها معهم','Le directeur et l’assistant voient tous les services. Les chefs et ouvriers voient leur service et les tâches partagées avec eux'],
+['بدك تبعته هلق؟ اضغط واتساب أو إيميل، والرسالة بتطلع مكتوبة جاهزة. بعد ما تبعت ارجع لهون','Envoyer maintenant ? Touchez WhatsApp ou e-mail, le message est déjà rédigé. Revenez ici après l’envoi'],
+['شغّل أو طفّي الصلاحية لكل وظيفة، واضغط حفظ. الموظفين بياخدوا الصلاحيات من وظيفتهم','Activez ou désactivez chaque droit par fonction, puis enregistrez. Les employés héritent des droits de leur fonction'],
+['بتقدر تغيّر الحالة وتضيف ملاحظات. باقي التفاصيل بيعدّلها رئيس القسم أو الإدارة','Vous pouvez changer le statut et ajouter des notes. Le reste est modifié par le chef ou la direction'],
+['هالمهام بتطلع للموظف كل يوم بالأيام اللي بتختارها، وهو بيعلّم عليها لما يخلصها','Ces tâches apparaissent chaque jour choisi, l’employé les coche une fois faites'],
+['بيشوفها ويضيف عليها الأعضاء اللي بتختارهن، والمديرين. ما حدا غيرهن بيشوفها','Visible et modifiable par les membres choisis et les directeurs uniquement'],
+['زر الإيميل الباهت يعني ما في إيميل لهالموظف. فيك تضيفه من شاشة الموظفين','Bouton e-mail grisé : pas d’e-mail pour cet employé. Ajoutez-le dans Employés'],
+['الموظف اللي ما بيشوف كل الأقسام، بيشتغل جوّا قسمه (والمكتب بيشمل السوق','Sans « tous les services », l’employé travaille dans son service (le Bureau inclut le Marché'],
+['البند اللي بيتكرر، لما تعلّم عليه إنه خلص، بينتقل لحاله لموعده الجاي','Un élément récurrent coché passe automatiquement à sa prochaine date'],
+['هالخطوة بتصير مرة وحدة بس. بعدها بتضيف باقي الموظفين من جوّا الصفحة','Une seule fois. Ensuite vous ajoutez les employés depuis la page'],
+['بيشوف المهمة تلقائياً. اختار مين كمان بيقدر يشوفها ويعدّل عليها','voit la tâche automatiquement. Choisissez qui d’autre peut la voir et la modifier'],
+['المتصفح هون ما بيدعم التسجيل. اكتب، أو اضغط على مايك الكيبورد','Ce navigateur ne permet pas l’enregistrement. Écrivez, ou utilisez le micro du clavier'],
+['نسخة تجريبية: اضغط على أي حساب لتجرّب الصلاحيات (كلمة السر','Version de démo : touchez un compte pour tester (mot de passe'],
+['ما قدرت أتصل بالسيرفر. تأكد من الإنترنت وحدّث الصفحة','Connexion au serveur impossible. Vérifiez Internet et actualisez'],
+['للتكرار (يومي، أسبوعي…) اضغط عـ البند بعد ما تضيفه','Pour la répétition (quotidienne, hebdo…) touchez l’élément après l’avoir ajouté'],
+['لتغيير كلمة سرك اطلع وادخل من جديد وجرب مرة تانية','Pour changer votre mot de passe, déconnectez-vous, reconnectez-vous et réessayez'],
+['لازم تسمح للصفحة تستخدم المايك من إعدادات المتصفح','Autorisez le micro dans les réglages du navigateur'],
+['هون بيطلع كلامك كنص، وفيك تعدّل عليه قبل التقسيم','Votre texte apparaît ici, modifiable avant le découpage'],
+['ما في إيميل لهالموظف. ضيفه من شاشة الموظفين','Pas d’e-mail pour cet employé. Ajoutez-le dans Employés'],
+['اطلب شي من أي حدا، أو رد عالطلبات اللي إلك','Demandez quelque chose à quelqu’un, ou répondez à vos demandes'],
+['للعرض بس. المدير هو اللي بيعدّل الصلاحيات','Lecture seule. Seul le directeur modifie les droits'],
+['خلص التسجيل. راجع النص واضغط "قسّم لمهام','Enregistrement terminé. Relisez le texte puis touchez "Découper en tâches'],
+['احكي أوامرك، وافصل بين كل أمر وأمر بكلمة','Dictez vos ordres, séparez-les par le mot'],
+['عم اسمعك… اضغط المايك مرة تانية لما تخلص','J’écoute… touchez le micro à nouveau pour terminer'],
+['في موظفين بهالوظيفة. غيّرلهن الوظيفة أول','Des employés ont cette fonction. Changez-la d’abord'],
+['محاولات كتير. استنى شوي وجرب مرة تانية','Trop de tentatives. Patientez puis réessayez'],
+['هالرقم مش مسجل. اطلب من الإدارة تضيفك','Numéro inconnu. Demandez à la direction de vous ajouter'],
+['ما لقيت أوامر واضحة. جرّب تكتبها أوضح','Aucun ordre clair trouvé. Reformulez'],
+['اضغط "طلب جديد" لتطلب شي من أي حدا','Touchez "Nouvelle demande" pour demander quelque chose'],
+['انعملت تلقائياً لأنها مهمة بتتكرر','Créée automatiquement (tâche récurrente)'],
+['خلصت كل مهام اليوم، يعطيك العافية','Toutes les tâches du jour sont faites, bravo !'],
+['القسم (فيك تنقل المهمة لقسم تاني','Service (vous pouvez déplacer la tâche'],
+['اتركها فاضية إذا ما بدك تغيّرها','laisser vide pour ne pas changer'],
+['مشاركة مع موظفين من أقسام تانية','Partager avec d’autres services'],
+['انسخ التقرير والصقه بمحادثة مع','Copiez le rapport et collez-le dans une discussion avec'],
+['انعملت المهمة الجاية تلقائياً','Prochaine occurrence créée'],
+['اضغط "قائمة جديدة" لتعمل وحدة','Touchez "Nouvelle liste" pour en créer une'],
+['ما في مهام يومية لهالموظف لسا','Aucune tâche quotidienne pour cet employé'],
+['مثلاً: فحص السيارة قبل الطلعة','ex. : vérifier la voiture avant le départ'],
+['مثلاً: محاسب، مشرف موقع، سائق','ex. : comptable, chef de chantier, chauffeur'],
+['متأكد؟ رح تنمسح كل التعديلات','Sûr ? Toutes les modifications seront effacées'],
+['اضغط "مهمة جديدة" لتضيف وحدة','Touchez "Nouvelle tâche" pour en ajouter une'],
+['ادخل برقم تلفونك وكلمة السر','Connectez-vous avec votre numéro et mot de passe'],
+['أول تشغيل: اعمل حساب المدير','Premier lancement : créez le compte directeur'],
+['مثلاً: موافقة على شراء مواد','ex. : accord pour acheter du matériel'],
+['ما في مهام يومية إلك اليوم','Pas de tâche quotidienne aujourd’hui'],
+['ما بتقدر تعدّل حساب المدير','Impossible de modifier le compte du directeur'],
+['ما قدرت نزّل الملف من هون','Téléchargement impossible ici'],
+['حسابك موقوف. راجع الإدارة','Compte désactivé. Contactez la direction'],
+['ما في موظفين بأقسام تانية','Aucun employé dans d’autres services'],
+['متأكد؟ رح تنمسح كل بنودها','Sûr ? Tous ses éléments seront supprimés'],
+['ابحث عن مهمة، زبون، موقع…','Rechercher une tâche, un client, un lieu…'],
+['ما عندك صلاحية لهالعملية','Vous n’avez pas ce droit'],
+['هالرقم مستخدم لموظف تاني','Numéro déjà utilisé'],
+['سير المشروع حسب المرحلة','Avancement par phase'],
+['تفاصيلها عـ صفحة المهام','Détails sur la page des tâches'],
+['الرقم أو كلمة السر غلط','Numéro ou mot de passe incorrect'],
+['مرحلة الشحنة / الطلبية','Étape de l’expédition / commande'],
+['اختار من مين بدك الطلب','Choisissez le destinataire de la demande'],
+['رجّع المهمة من الأرشيف','Tâche restaurée depuis les archives'],
+['ما في مهام يومية اليوم','Pas de tâche quotidienne aujourd’hui'],
+['حدّد النص وانسخه بإيدك','Sélectionnez et copiez le texte'],
+['اضغط المايك وابدأ احكي','Touchez le micro et parlez'],
+['أحرف أو أرقام أو أكتر','caractères ou plus'],
+['ما في شي بالأرشيف هون','Rien dans les archives'],
+['انبعت الملخص للمديرين','Résumé envoyé aux directeurs'],
+['متأكد؟ اضغط مرة تانية','Sûr ? Touchez encore'],
+['اكتب ملاحظة أو تحديث…','Écrire une note ou une mise à jour…'],
+['اختار عضو واحد عالأقل','Choisissez au moins un membre'],
+['اختار يوم واحد عالأقل','Choisissez au moins un jour'],
+['موعد الصيانة القادمة','Prochaine maintenance'],
+['الملاحظات والتحديثات','Notes et mises à jour'],
+['بيعدّل تفاصيل المهام','Modifier les tâches'],
+['يومية الموظفين اليوم','Quotidien des employés aujourd’hui'],
+['اكتب فوق شو بدك تعمل','Écrivez en haut ce que vous voulez faire'],
+['رقم الشحنة / الطلبية','N° d’expédition / commande'],
+['الموظفين والصلاحيات','Employés et droits'],
+['المنتهية من أكتر من','terminées depuis plus de'],
+['رقم التلفون مش صحيح','Numéro invalide'],
+['إضافة مهمة يومية لـ','Ajouter une tâche quotidienne pour'],
+['ما حدا بيشوفه غيرك','Visible par vous seul'],
+['في مشكلة بالإنترنت','Problème de connexion'],
+['الصلاحيات والوظائف','Droits et fonctions'],
+['ما في مهام بهاليوم','Aucune tâche ce jour'],
+['قائمة مشتركة جديدة','Nouvelle liste partagée'],
+['إنشاء حساب المدير','Créer le compte directeur'],
+['كلمة السر الجديدة','Nouveau mot de passe'],
+['في بند بدون عنوان','Un élément n’a pas de titre'],
+['ما في ملاحظات لسا','Aucune note'],
+['اكتب عنوان المهمة','Écrivez le titre de la tâche'],
+['تأكيد وإضافة الكل','Confirmer et tout ajouter'],
+['انتقلت المهمة لـ','Tâche déplacée vers'],
+['القوائم المشتركة','Listes partagées'],
+['اكتب اسم القائمة','Écrivez le nom de la liste'],
+['انضافت بأمر صوتي','Ajoutée par commande vocale'],
+['اختار لمين الطلب','Choisissez le destinataire'],
+['المقاول / المورد','Entrepreneur / fournisseur'],
+['هالمهمة بالأرشيف','Cette tâche est archivée'],
+['من مين بدك تطلب؟','À qui demander ?'],
+['فحص وإصدار شهادة','Inspection et certificat'],
+['صار خطأ بالتسجيل','Erreur d’enregistrement'],
+['اكتب اسم الوظيفة','Écrivez le nom de la fonction'],
+['انحفظت التعديلات','Modifications enregistrées'],
+['مواعيد واجتماعات','Rendez-vous et réunions'],
+['ما في موظفين لسا','Aucun employé'],
+['انحفظت الصلاحيات','Droits enregistrés'],
+['مثلاً: حسين وحسن','ex. : Hussein et Hassan'],
+['بيشوف كل الأقسام','Voit tous les services'],
+['بدون مهام يومية','Sans tâches quotidiennes'],
+['ما في طلبات هون','Aucune demande'],
+['الطابق / المكان','Étage / lieu'],
+['نقل المرحلة إلى','Étape changée en'],
+['اكتب نوع المهمة','Écrivez le type de tâche'],
+['الساعة (اختياري','Heure (facultatif'],
+['المورد / الزبون','Fournisseur / client'],
+['المعدات / العدد','Équipement / quantité'],
+['ما في قوائم لسا','Aucune liste'],
+['غيّر الحالة إلى','Statut changé en'],
+['انضافت الملاحظة','Note ajoutée'],
+['المهام المتأخرة','Tâches en retard'],
+['مهمة جديدة إلك','Nouvelle tâche pour vous'],
+['غير (اكتبه إنت','Autre (à écrire'],
+['المهام اليومية','Tâches quotidiennes'],
+['الرد على الطلب','Répondre à la demande'],
+['جرّب مرة تانية','Réessayez'],
+['بيدير الموظفين','Gérer les employés'],
+['انضافت الوظيفة','Fonction ajoutée'],
+['ما في مهام هون','Aucune tâche ici'],
+['الزبون / المحل','Client / boutique'],
+['إضافة لبرنامجي','Ajouter à mon agenda'],
+['ابحث بالأرشيف…','Rechercher dans les archives…'],
+['ضيف موظفين أول','Ajoutez d’abord des employés'],
+['انحفظت القائمة','Liste enregistrée'],
+['ما في ردود لسا','Aucune réponse'],
+['ترخيص ومعاملات','Permis et démarches'],
+['راجع قبل الحفظ','Vérifiez avant d’enregistrer'],
+['تعديل القائمة','Modifier la liste'],
+['ملخص بالإيميل','Résumé par e-mail'],
+['نقل المهمة من','Tâche déplacée de'],
+['مرحلة المشروع','Phase du projet'],
+['متابعة المهام','Suivi des tâches'],
+['إغلاق التقويم','Fermer le calendrier'],
+['انحذفت المهمة','Tâche supprimée'],
+['تاريخ التسليم','Échéance'],
+['مواد وتوريدات','Matériaux et fournitures'],
+['حفظ الصلاحيات','Enregistrer les droits'],
+['تعديل اليومية','Modifier le quotidien'],
+['دفعات مقاولين','Paiements entrepreneurs'],
+['القائمة فاضية','La liste est vide'],
+['إضافة الوظيفة','Ajouter la fonction'],
+['بيدير اليومية','Gérer le quotidien'],
+['ابدأ بصلاحيات','Partir des droits de'],
+['متابعة مع جهة','Suivi avec un organisme'],
+['الموعد الجاي','prochaine date'],
+['انسخ التقرير','Copiez le rapport'],
+['انحذف الموظف','Employé supprimé'],
+['مهمة لهاليوم','Tâche pour ce jour'],
+['إضافة المهمة','Ajouter la tâche'],
+['تعبئة طفايات','Recharge d’extincteurs'],
+['شحنة استيراد','Expédition import'],
+['شو بدك تعمل؟','Que voulez-vous faire ?'],
+['مشتريات مكتب','Achats bureau'],
+['مساعد المدير','Assistant du directeur'],
+['حوّلها لمهمة','Convertir en tâche'],
+['تمديدات صحية','Plomberie'],
+['عنوان المهمة','Titre de la tâche'],
+['اكتب شو بدك','Écrivez votre demande'],
+['أيام معيّنة','Jours précis'],
+['قيد التنفيذ','En cours'],
+['تخليص جمركي','Dédouanement'],
+['قائمة جديدة','Nouvelle liste'],
+['أوراق رسمية','Documents officiels'],
+['انبعت الطلب','Demande envoyée'],
+['حذف الوظيفة','Supprimer la fonction'],
+['حفر وأساسات','Terrassement et fondations'],
+['حذف القائمة','Supprimer la liste'],
+['رجعت المهمة','Tâche restaurée'],
+['متابعة دفعة','Suivi de paiement'],
+['جوّا المربع','dans la zone'],
+['اسم القائمة','Nom de la liste'],
+['متابعة زبون','Suivi client'],
+['شو المطلوب؟','Qu’est-ce qu’il faut faire ?'],
+['رقم التلفون','Téléphone'],
+['كل الموظفين','Tous les employés'],
+['تنزّل الملف','Fichier téléchargé'],
+['إرسال الطلب','Envoyer la demande'],
+['وظيفة جديدة','Nouvelle fonction'],
+['صيانة دورية','Maintenance périodique'],
+['اسم الوظيفة','Nom de la fonction'],
+['اكتب المهمة','Écrivez la tâche'],
+['آخر مرة خلص','Dernière fois faite'],
+['تحصيل دفعة','Encaissement'],
+['اكتب الاسم','Écrivez le nom'],
+['طلبية زبون','Commande client'],
+['قسّم لمهام','Découper en tâches'],
+['كل الطلبات','Toutes les demandes'],
+['كل كم يوم؟','Tous les combien de jours ?'],
+['بناية نهلة','Immeuble Nahla'],
+['إضافة صورة','Ajouter une photo'],
+['نوع المهمة','Type de tâche'],
+['رقم تلفونك','Votre numéro'],
+['بدون مسؤول','Sans responsable'],
+['انبعت الرد','Réponse envoyée'],
+['طلب من حدا','Demande à quelqu’un'],
+['تركيب نظام','Installation de système'],
+['بيضيف مهام','Ajouter des tâches'],
+['بدون تاريخ','Sans date'],
+['كل الأقسام','Tous les services'],
+['مشتركة معي','Partagées avec moi'],
+['مهمة يومية','Tâche quotidienne'],
+['حسب العامل','Par employé'],
+['بيحذف مهام','Supprimer des tâches'],
+['مهمة جديدة','Nouvelle tâche'],
+['ما بيتكرر','Pas de répétition'],
+['كلمة السر','Mot de passe'],
+['واردة إلي','Reçues'],
+['كل المهام','Toutes les tâches'],
+['كل كم يوم','Tous les X jours'],
+['بأي أيام؟','Quels jours ?'],
+['موظف جديد','Nouvel employé'],
+['الصلاحيات','Droits'],
+['بيع معدات','Vente d’équipement'],
+['عرض أسعار','Devis'],
+['مرسلة مني','Envoyées'],
+['اكتب رد…','Écrire une réponse…'],
+['ما في نص','Aucun texte'],
+['الأولوية','Priorité'],
+['أسبوعياً','Chaque semaine'],
+['من تاريخ','Du'],
+['طلب جديد','Nouvelle demande'],
+['لبرنامجي','Pour mon agenda'],
+['لا تتكرر','Pas de répétition'],
+['رئيس قسم','Chef de service'],
+['أمر صوتي','Commande vocale'],
+['الموظفين','Employés'],
+['تقرير لـ','Rapport pour'],
+['التكاليف','Coûts'],
+['بيشوفها','Visible par'],
+['عرض سعر','Devis'],
+['الأرشيف','Archives'],
+['التسليم','Échéance'],
+['البضاعة','Marchandise'],
+['بانتظار','En attente'],
+['اليومية','Quotidien'],
+['لإيمتى؟','Pour quand ?'],
+['الطلبات','Demandes'],
+['التكلفة','Coût'],
+['اكتب شي','Écrivez quelque chose'],
+['المرحلة','Étape'],
+['التكرار','Répétition'],
+['الأعضاء','Membres'],
+['القوائم','Listes'],
+['برنامجي','Mon agenda'],
+['تشطيبات','Finitions'],
+['المدفوع','Payé'],
+['التاريخ','Date'],
+['مراسلات','Correspondance'],
+['شو بدك؟','Que voulez-vous ?'],
+['المسؤول','Responsable'],
+['العنوان','Titre'],
+['مشتريات','Achats'],
+['متأخرة','En retard'],
+['أسبوعي','Semaine'],
+['شهري','Mois'],
+['مفتوحة','Ouvertes'],
+['منتهية','Terminées'],
+['واتساب','WhatsApp'],
+['الزبون','Client'],
+['رجّعها','Restaurer'],
+['كل يوم','Tous les jours'],
+['ملاحظة','Note'],
+['خلصتهن','Terminés'],
+['انضافت','Ajoutée'],
+['المكان','Lieu'],
+['متوسطة','Moyenne'],
+['الردود','Réponses'],
+['يومياً','Chaque jour'],
+['لتاريخ','Au'],
+['المدير','Directeur'],
+['المهام','Tâches'],
+['الحالة','Statut'],
+['الموظف','Employé'],
+['كهرباء','Électricité'],
+['المكتب','Bureau'],
+['الباقي','Reste'],
+['الموقع','Lieu'],
+['متأكد؟','Sûr ?'],
+['شهرياً','Chaque mois'],
+['تفاصيل','Détails'],
+['انحذف','Supprimé'],
+['مرحبا','Bonjour'],
+['إيميل','E-mail'],
+['قبلته','Acceptée'],
+['الاسم','Nom'],
+['إضافة','Ajouter'],
+['انحفظ','Enregistré'],
+['انضاف','Ajouté'],
+['السوق','Marché'],
+['تعديل','Modifier'],
+['الجهة','Organisme'],
+['عاجلة','Urgente'],
+['اختار','Choisir'],
+['الجاي','prochain'],
+['الدور','Fonction'],
+['عادية','Normale'],
+['متأخر','En retard'],
+['قائمة','Liste'],
+['لحظة…','Un instant…'],
+['تقويم','Calendrier'],
+['جديدة','Nouvelle'],
+['إلغاء','Annuler'],
+['اليوم','Aujourd’hui'],
+['القسم','Service'],
+['مرفوض','Refusée'],
+['تصدير','Exporter'],
+['إغلاق','Fermer'],
+['توصيل','Livraison'],
+['يومية','Quotidien'],
+['عامل','Ouvrier'],
+['الكل','Tous'],
+['أيام','jours'],
+['موظف','employé(s)'],
+['بنود','éléments'],
+['خروج','Sortie'],
+['دخول','Connexion'],
+['عاجل','Urgent'],
+['مهمة','tâche'],
+['رجوع','Retour'],
+['جديد','Nouveau'],
+['مسح','Effacer'],
+['طلب','Demande'],
+['جاي','À venir'],
+['حذف','Supprimer'],
+['قبل','Avant'],
+['نعم','Oui'],
+['رفض','Refuser'],
+['نسخ','Copier'],
+['حفظ','Enregistrer'],
+['تم','Fait'],
+['من','sur'],
+['أو','ou'],
+['قائمة','Liste'],['تصدير Excel','Exporter Excel'],['الصلاحيات','Droits'],
+['الأحد','Dimanche'],['الاثنين','Lundi'],['الثلاثاء','Mardi'],['الأربعاء','Mercredi'],['الخميس','Jeudi'],['الجمعة','Vendredi'],['السبت','Samedi'],
+['أحد','Dim'],['اثنين','Lun'],['ثلاثاء','Mar'],['أربعاء','Mer'],['خميس','Jeu'],['جمعة','Ven'],['سبت','Sam'],
+['الشهر اللي قبل','Mois précédent'],['الشهر الجاي','Mois suivant'],['يوم','jour'],['لـ','pour'],['و','et'],
+['إثنين','Lun'],['والمديرين','et les directeurs'],['كل','Tous les'],['بس','seulement'],['يومية','Quotidien'],['بيشوف','voit'],['جديدة','Nouvelle'],
+['خيارات','Options'],['الإيميل (اختياري','E-mail (facultatif'],['التقارير و','Rapports et '],['طلبات لسا مفتوحة','Demandes encore ouvertes'],
+['ما في','Aucun']
+];
+const FR_MAP = {}; FR_PAIRS.forEach(([a,f])=>{ if(!(a in FR_MAP)) FR_MAP[a]=f });
+const FR_RE = new RegExp('(?<![\\u0621-\\u064A])(?:'+Object.keys(FR_MAP).sort((a,b)=>b.length-a.length).map(escRe).join('|')+')(?![\\u0621-\\u064A])','g');
+const trText = str => (LANG!=='fr' || !/[؀-ۿ]/.test(str)) ? str : str.replace(FR_RE, m=>FR_MAP[m]).replace(/،/g,',').replace(/؟/g,'?');
+function trTree(root){
+  if(LANG!=='fr' || !root) return;
+  if(root.nodeType===3){ const p=root.parentElement; if(p && !p.closest('[data-notr],textarea,script,style')){ const v=trText(root.nodeValue); if(v!==root.nodeValue) root.nodeValue=v } return }
+  if(root.nodeType!==1) return;
+  const els=[root,...root.querySelectorAll('*')];
+  els.forEach(el=>{ if(el.closest('[data-notr]')) return; ['placeholder','aria-label','title'].forEach(a=>{ const v=el.getAttribute&&el.getAttribute(a); if(v&&/[؀-ۿ]/.test(v)) el.setAttribute(a,trText(v)) }) });
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT); let n; const list=[]; while((n=w.nextNode())) list.push(n); list.forEach(trTree);
+}
+new MutationObserver(ms=>{ if(LANG!=='fr') return; ms.forEach(m=>{ if(m.type==='characterData') trTree(m.target); else m.addedNodes.forEach(trTree) }) })
+  .observe(document.body,{childList:true,subtree:true,characterData:true});
+function setLang(l,save){
+  LANG=l==='fr'?'fr':'ar';
+  document.documentElement.lang=LANG; document.documentElement.dir=LANG==='fr'?'ltr':'rtl';
+  if(save){ try{ localStorage.setItem('mahami_lang'+(me?'_'+me.id:''),LANG) }catch(e){} }
+  const b=$('#btnLang'); if(b) b.querySelector('span').textContent=LANG==='fr'?'ع':'FR';
+  if(LANG==='ar' && document.body.dataset.wasFr){ location.reload(); return }
+  if(LANG==='fr'){ document.body.dataset.wasFr='1'; trTree(document.body) }
+  if(me) render();
+}
+function initLang(){ let l=null; try{ l=localStorage.getItem('mahami_lang'+(me?'_'+me.id:'')) }catch(e){}
+  setLang(l || (me&&me.lang) || 'ar') }
+$('#btnLang').onclick=()=>setLang(LANG==='fr'?'ar':'fr',true);
+$('#loginLang').onclick=()=>setLang(LANG==='fr'?'ar':'fr',true);
+
+/* ---- صفحة الصلاحيات والوظائف ---- */
+function openPerms(){
+  const edit=me.role==='manager', roles=allRoles(), d=DB.load();
+  const count=k=>d.users.filter(u=>u.role===k).length;
+  openModal(`<div class="shead"><h2>${ic('shield',18)} الصلاحيات والوظائف</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="small muted">${edit?'شغّل أو طفّي الصلاحية لكل وظيفة، واضغط حفظ. الموظفين بياخدوا الصلاحيات من وظيفتهم.':'للعرض بس. المدير هو اللي بيعدّل الصلاحيات.'} الموظف اللي ما بيشوف كل الأقسام، بيشتغل جوّا قسمه (والمكتب بيشمل السوق).</div>
+    <div id="pRoles">${Object.entries(roles).map(([k,r])=>`
+      <div class="prole" data-r="${k}">
+        <div class="prh"><input class="pname" value="${esc(r.name)}" ${(!edit||r.fixed)?'disabled':''}><span class="small muted">${count(k)} موظف</span>
+          ${edit&&!r.fixed&&!DEFAULT_ROLES[k]?`<button class="xbtn sm" data-delr="${k}" aria-label="حذف الوظيفة">${ic('trash',14)}</button>`:''}</div>
+        <div class="pgrid">${PERMS.map(([pk,pl])=>`<label class="sw ${r.perms?.[pk]?'on':''}"><input type="checkbox" data-p="${pk}" ${r.perms?.[pk]?'checked':''} ${(!edit||r.fixed)?'disabled':''}><span class="knob"></span>${pl}</label>`).join('')}</div>
+      </div>`).join('')}</div>
+    ${edit?`<div class="sect"><h3>${ic('plus',15)} وظيفة جديدة</h3>
+      <div class="row2"><div><label>اسم الوظيفة</label><input id="nrName" placeholder="مثلاً: محاسب، مشرف موقع، سائق"></div>
+      <div><label>ابدأ بصلاحيات</label><select id="nrFrom">${Object.entries(roles).filter(([k])=>k!=='manager').map(([k,r])=>`<option value="${k}" ${k==='worker'?'selected':''}>${esc(r.name)}</option>`).join('')}</select></div></div>
+      <div class="actions"><button id="nrAdd">${ic('plus',15)} إضافة الوظيفة</button></div></div>
+      <div class="err" id="pErr"></div>
+      <div class="actions"><button class="primary" id="pSave">${ic('check',15)} حفظ الصلاحيات</button><button id="pCancel">إلغاء</button></div>`:''}`);
+  $('#mClose').onclick=closeModal; if($('#pCancel')) $('#pCancel').onclick=closeModal;
+  document.querySelectorAll('.sw input').forEach(i=>i.onchange=()=>i.closest('.sw').classList.toggle('on',i.checked));
+  if(!edit) return;
+  const collect=()=>{ const out={}; document.querySelectorAll('.prole').forEach(el=>{ const k=el.dataset.r; if(k==='manager') return;
+    const perms={}; el.querySelectorAll('[data-p]').forEach(i=>perms[i.dataset.p]=i.checked);
+    out[k]={name:el.querySelector('.pname').value.trim()||roleName(k),perms} }); return out };
+  $('#pSave').onclick=()=>{ API.putRoles(collect()).then(()=>toast('انحفظت الصلاحيات')).catch(errToast); closeModal(); render() };
+  $('#nrAdd').onclick=()=>{ const n=$('#nrName').value.trim(); if(!n) return $('#pErr').textContent='اكتب اسم الوظيفة';
+    const cur=collect(); const base=cur[$('#nrFrom').value]||DEFAULT_ROLES.worker; cur['r'+uid()]={name:n,perms:{...base.perms}};
+    API.putRoles(cur).then(()=>toast('انضافت الوظيفة')).catch(errToast); openPerms() };
+  document.querySelectorAll('[data-delr]').forEach(b=>b.onclick=()=>{ const k=b.dataset.delr; if(count(k)) return $('#pErr').textContent='في موظفين بهالوظيفة. غيّرلهن الوظيفة أول.';
+    const cur=collect(); delete cur[k]; API.putRoles(cur).catch(errToast); openPerms() });
+}
+
 /* ---- إرسال الأوامر عـ واتساب أو إيميل ---- */
 function mailLink(uid,subject,body,label='إيميل'){
   const u=userById(uid); if(!u || u.id===me.id) return '';
   if(!u.email) return `<span class="btn mail off" title="ما في إيميل لهالموظف. ضيفه من شاشة الموظفين">${ic('mail',15)} ${label}</span>`;
   return `<a class="btn mail" href="mailto:${encodeURIComponent(u.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}">${ic('mail',15)} ${label}</a>`;
 }
-function itemLine(x,i,n){
+function itemLine(x,i,n,fr){
   const p=n>1?`${i+1}. `:'';
-  if(x.kind==='request') return `${p}طلب: ${x.title}${x.due?' · لـ '+fmtDate(x.due):''}${x.priority==='high'?' · عاجل':''}${x.details?'\n   '+x.details:''}`;
-  return `${p}${x.title}${x.dept?' · '+DEPTS[x.dept].name:''}${x.due?' · التسليم '+fmtDate(x.due):''}${x.priority==='high'?' · عاجلة':''}${x.desc?'\n   '+x.desc:''}`;
+  if(fr){ if(x.kind==='request') return `${p}Demande : ${x.title}${x.due?' · pour le '+fmtDateL(x.due,true):''}${x.priority==='high'?' · urgent':''}${x.details?'\n   '+x.details:''}`;
+    return `${p}${x.title}${x.dept?' · '+frS(DEPTS[x.dept].name):''}${x.due?' · échéance '+fmtDateL(x.due,true):''}${x.priority==='high'?' · urgent':''}${x.desc?'\n   '+x.desc:''}` }
+  if(x.kind==='request') return `${p}طلب: ${x.title}${x.due?' · لـ '+fmtDateL(x.due):''}${x.priority==='high'?' · عاجل':''}${x.details?'\n   '+x.details:''}`;
+  return `${p}${x.title}${x.dept?' · '+DEPTS[x.dept].name:''}${x.due?' · التسليم '+fmtDateL(x.due):''}${x.priority==='high'?' · عاجلة':''}${x.desc?'\n   '+x.desc:''}`;
 }
 function groupText(uid,items){
-  const u=userById(uid), tasks=items.filter(x=>x.kind!=='request').length, reqs=items.length-tasks;
+  const u=userById(uid), fr=isFr(uid), tasks=items.filter(x=>x.kind!=='request').length, reqs=items.length-tasks;
+  if(fr){ const what=[tasks?(tasks===1?'une nouvelle tâche':tasks+' nouvelles tâches'):'',reqs?(reqs===1?'une demande':reqs+' demandes'):''].filter(Boolean).join(' et ');
+    return `Bonjour ${u?.name||''},\nVous avez ${what} de ${me.name} :\n\n${items.map((x,i)=>itemLine(x,i,items.length,true)).join('\n')}\n\nDétails sur la page des tâches :\n${pageUrl()}` }
   const what=[tasks?(tasks===1?'مهمة جديدة':tasks+' مهام جديدة'):'',reqs?(reqs===1?'طلب':reqs+' طلبات'):''].filter(Boolean).join(' و');
   return `مرحبا ${u?.name||''}،\nعندك ${what} من ${me.name}:\n\n${items.map((x,i)=>itemLine(x,i,items.length)).join('\n')}\n\nتفاصيلها عـ صفحة المهام:\n${pageUrl()}`;
 }
@@ -978,7 +1495,7 @@ function showSendSheet(items){
   const g={}; items.forEach(x=>(g[x.to]??=[]).push(x));
   openModal(`<div class="shead"><h2>${ic('done',18)} انحفظ</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
     <div class="small muted">بدك تبعته هلق؟ اضغط واتساب أو إيميل، والرسالة بتطلع مكتوبة جاهزة. بعد ما تبعت ارجع لهون.</div>
-    <div style="margin-top:10px">${Object.entries(g).map(([uid,xs])=>{ const u=userById(uid), txt=groupText(uid,xs), subj=xs.length===1?((xs[0].kind==='request'?'طلب: ':'مهمة: ')+xs[0].title):(`${xs.length} بنود جديدة من ${me.name}`);
+    <div style="margin-top:10px">${Object.entries(g).map(([uid,xs])=>{ const u=userById(uid), txt=groupText(uid,xs), subj=isFr(uid)?(xs.length===1?((xs[0].kind==='request'?'Demande : ':'Tâche : ')+xs[0].title):`${xs.length} nouveaux éléments de ${me.name}`):(xs.length===1?((xs[0].kind==='request'?'طلب: ':'مهمة: ')+xs[0].title):(`${xs.length} بنود جديدة من ${me.name}`));
       return `<div class="sendrow"><div class="av">${esc((u?.name||'؟')[0])}</div><div class="info"><div style="font-weight:500">${esc(u?.name||'')}</div><div class="small muted">${xs.map(x=>esc(x.title)).join('، ')}</div></div>
         <div class="sendbtns">${waLink(uid,txt)||''}${mailLink(uid,subj,txt)}</div></div>`}).join('')}</div>
     ${Object.keys(g).some(id=>!userById(id)?.email)?`<div class="small muted" style="margin-top:8px">${ic('mail',12)} زر الإيميل الباهت يعني ما في إيميل لهالموظف. فيك تضيفه من شاشة الموظفين.</div>`:''}
@@ -1044,12 +1561,14 @@ function viewPhoto(t,i){
 
 /* ---- أدوات المهام: Excel، تقرير Claude، إيميل ---- */
 function renderTools2(){
-  $('#tools2').innerHTML=`<button class="tbtn" id="bCsv">${ic('download',15)} تصدير Excel</button><button class="tbtn" id="bClaude">${ic('spark',15)} تقرير لـ Claude</button>${isTop(me)&&EMAIL_WEBHOOK?`<button class="tbtn" id="bMail">${ic('mail',15)} ملخص بالإيميل</button>`:''}`;
-  $('#bCsv').onclick=exportCSV; $('#bClaude').onclick=()=>showReport();
+  const nArch=DB.load().tasks.filter(t=>canSee(t)&&isArchived(t)).length;
+  $('#tools2').innerHTML=`<button class="tbtn ${UI.view==='archive'?'on':''}" id="bArch">${ic('archive',15)} الأرشيف${nArch?` (${nArch})`:''}</button>${canReports()?`<button class="tbtn" id="bCsv">${ic('download',15)} تصدير Excel</button><button class="tbtn" id="bClaude">${ic('spark',15)} تقرير لـ Claude</button>`:''}${isTop(me)&&EMAIL_WEBHOOK?`<button class="tbtn" id="bMail">${ic('mail',15)} ملخص بالإيميل</button>`:''}`;
+  $('#bArch').onclick=()=>{ UI.view=UI.view==='archive'?'list':'archive'; render() };
+  if($('#bCsv')) $('#bCsv').onclick=()=>exportCSV(); if($('#bClaude')) $('#bClaude').onclick=()=>showReport();
   if($('#bMail')) $('#bMail').onclick=()=>{ sendMail(DB.load().users.filter(isTop).map(u=>u.id),'ملخص المهام · '+fmtDate(today()),buildReport()); toast('انبعت الملخص للمديرين') };
 }
-function exportCSV(){
-  const list=filtered(); const keys=[...new Set(list.flatMap(t=>Object.keys(t.fields||{})))].filter(k=>k!=='recurring');
+function exportCSV(src){
+  const list=src||filtered(); const keys=[...new Set(list.flatMap(t=>Object.keys(t.fields||{})))].filter(k=>k!=='recurring');
   const lbl=k=>{for(const D of Object.values(DEPTS)){const f=D.fields.find(x=>x.k===k); if(f) return f.l} return k};
   const head=['القسم','العنوان','النوع','المسؤول','الحالة','متأخرة','الأولوية','التسليم','تتكرر','تفاصيل','عدد الملاحظات',...keys.map(lbl)];
   const rows=list.map(t=>[DEPTS[t.dept].name,t.title,t.type,uname(t.assignee),(STATUSES.find(s=>s.k===t.status)||{}).l,isLate(t)?'نعم':'',PRI[t.priority],t.due,REPEAT[t.repeat||'none'],t.desc,(t.notes||[]).length,...keys.map(k=>(t.fields||{})[k]||'')]);
@@ -1066,7 +1585,7 @@ function buildReport(){
   const late=ts.filter(isLate); if(late.length){ L.push('','المهام المتأخرة:'); late.forEach(t=>L.push(`- ${t.title} · ${DEPTS[t.dept].short} · ${uname(t.assignee)} · كان لازم ${fmtDate(t.due)}`)) }
   const open=ts.filter(t=>t.status!=='done'&&!isLate(t)); if(open.length){ L.push('','المفتوحة حسب الموظف:'); const g={}; open.forEach(t=>(g[uname(t.assignee)]??=[]).push(t)); Object.entries(g).forEach(([n,x])=>L.push(`- ${n}: ${x.map(t=>t.title+(t.due?' ('+fmtDate(t.due)+')':'')).join('، ')}`)) }
   const rq=d.requests.filter(r=>(isTop(me)||r.from===me.id||r.to===me.id)&&(r.status==='open'||r.status==='accepted')); if(rq.length){ L.push('','طلبات لسا مفتوحة:'); rq.forEach(r=>L.push(`- ${uname(r.from)} طالب من ${uname(r.to)}: ${r.title} (${REQ_ST[r.status]})`)) }
-  const staff=d.users.filter(u=>d.routines.some(r=>r.userId===u.id)); if(staff.length && (isTop(me)||me.role==='head')){ L.push('','اليومية لليوم:'); staff.forEach(u=>{const rs=myRoutinesToday(u.id); if(rs.length) L.push(`- ${u.name}: ${rs.filter(r=>isChecked(r,u.id)).length} من ${rs.length}`)}) }
+  const staff=d.users.filter(u=>d.routines.some(r=>r.userId===u.id)); if(staff.length && canDaily()){ L.push('','اليومية لليوم:'); staff.forEach(u=>{const rs=myRoutinesToday(u.id); if(rs.length) L.push(`- ${u.name}: ${rs.filter(r=>isChecked(r,u.id)).length} من ${rs.length}`)}) }
   return L.join('\n');
 }
 function showReport(){
@@ -1079,23 +1598,89 @@ function showReport(){
   $('#rpCopy').onclick=async()=>{ try{ await navigator.clipboard.writeText(txt); toast('انسخ التقرير') }catch(e){ $('#rpTxt').select(); toast('حدّد النص وانسخه بإيدك') } };
 }
 
-/* ---- عرض التقويم ---- */
-function renderCal(){
-  const base=filtered(), now=new Date(); if(!UI.cal) UI.cal={y:now.getFullYear(),m:now.getMonth()};
-  const {y,m}=UI.cal, first=new Date(y,m,1), days=new Date(y,m+1,0).getDate(), pre=`${y}-${pad(m+1)}`;
-  const byDay={}; base.forEach(t=>{ if(t.due&&t.due.startsWith(pre)) (byDay[+t.due.slice(8)]??=[]).push(t) });
-  let cells=''; for(let i=0;i<first.getDay();i++) cells+='<div class="cd blank"></div>';
-  for(let dd=1;dd<=days;dd++){ const iso=`${pre}-${pad(dd)}`, ts=byDay[dd]||[];
-    cells+=`<button class="cd ${iso===today()?'today':''} ${UI.calDay===iso?'sel':''}" data-d="${iso}"><span class="dn">${dd}</span><span class="dots">${ts.some(isLate)?'<i class="late"></i>':''}${ts.some(t=>t.status!=='done'&&!isLate(t))?'<i class="open"></i>':''}${ts.some(t=>t.status==='done')?'<i class="done"></i>':''}</span>${ts.length>1?`<span class="cc">${ts.length}</span>`:''}</button>` }
-  const sel=UI.calDay?base.filter(t=>t.due===UI.calDay):[];
-  $('#content').innerHTML=`<div class="card cal"><div class="calh"><button class="ibtn" id="cPrev" aria-label="الشهر اللي قبل">${ic('arrowR',18)}</button><b>${first.toLocaleDateString('ar-u-nu-latn',{month:'long',year:'numeric'})}</b><button class="ibtn" id="cNext" aria-label="الشهر الجاي">${ic('chev',18)}</button></div>
-    <div class="cgrid">${WSHORT.map(w=>`<div class="cw">${w}</div>`).join('')}${cells}</div>
-    <div class="legend"><span><i class="late"></i>متأخرة</span><span><i class="open"></i>مفتوحة</span><span><i class="done"></i>منتهية</span></div></div>
-    ${UI.calDay?`<h3 class="sh">${ic('calendar',16)} ${fmtDate(UI.calDay)}</h3><div class="list">${sel.map(taskCard).join('')||'<div class="small muted">ما في مهام بهاليوم</div>'}</div>`:''}`;
-  $('#cPrev').onclick=()=>{ UI.cal=m===0?{y:y-1,m:11}:{y,m:m-1}; renderCal() };
-  $('#cNext').onclick=()=>{ UI.cal=m===11?{y:y+1,m:0}:{y,m:m+1}; renderCal() };
-  $('#content').querySelectorAll('.cd[data-d]').forEach(b=>b.onclick=()=>{ UI.calDay=UI.calDay===b.dataset.d?null:b.dataset.d; renderCal() });
+/* ---- الأرشيف ---- */
+const ARCHIVE_DAYS=10;
+const isArchived = t => t.status==='done' && (t.doneAt||t.updatedAt||t.createdAt||0) < Date.now()-ARCHIVE_DAYS*864e5;
+function archiveList(){
+  const A=UI.arch||(UI.arch={q:'',from:'',to:'',dept:'',who:''});
+  let list=DB.load().tasks.filter(t=>canSee(t)&&isArchived(t));
+  if(A.dept) list=list.filter(t=>t.dept===A.dept);
+  if(A.who) list=list.filter(t=>t.assignee===A.who);
+  const dd=t=>isoLocal(new Date(t.doneAt||t.updatedAt||t.createdAt||0));
+  if(A.from) list=list.filter(t=>dd(t)>=A.from); if(A.to) list=list.filter(t=>dd(t)<=A.to);
+  if(A.q){ const q=A.q.trim(); list=list.filter(t=>[t.title,t.type,t.desc,uname(t.assignee),...Object.values(t.fields||{})].join(' ').includes(q)) }
+  return list.sort((a,b)=>(b.doneAt||b.updatedAt||0)-(a.doneAt||a.updatedAt||0));
+}
+function renderArchive(){
+  const A=UI.arch||(UI.arch={q:'',from:'',to:'',dept:'',who:''}), list=archiveList(), d=DB.load();
+  const depts=isTop(me)?Object.keys(DEPTS):scopeOf(me);
+  const who=[...new Set(d.tasks.filter(t=>canSee(t)&&isArchived(t)).map(t=>t.assignee).filter(Boolean))];
+  $('#content').innerHTML=`<div class="card"><div class="calh"><b>${ic('archive',16)} الأرشيف <span class="muted small">(المنتهية من أكتر من ${ARCHIVE_DAYS} أيام)</span></b><button class="xbtn sm" id="arClose" aria-label="إغلاق">${ic('x',16)}</button></div>
+    <div class="inp" data-ic="search">${ic('search',18)}<input id="arQ" type="search" value="${esc(A.q)}" placeholder="ابحث بالأرشيف…"></div>
+    <div class="row2" style="margin-top:6px"><div><label>من تاريخ</label><input id="arFrom" type="date" value="${A.from}"></div><div><label>لتاريخ</label><input id="arTo" type="date" value="${A.to}"></div>
+      <div><label>القسم</label><select id="arDept"><option value="">كل الأقسام</option>${depts.map(k=>`<option value="${k}" ${k===A.dept?'selected':''}>${DEPTS[k].name}</option>`).join('')}</select></div>
+      <div><label>الموظف</label><select id="arWho"><option value="">كل الموظفين</option>${who.map(id=>`<option value="${id}" ${id===A.who?'selected':''}>${esc(uname(id))}</option>`).join('')}</select></div></div>
+    <div class="actions" style="margin-top:10px"><span class="small muted" style="flex:1">${list.length} مهمة</span>${canReports()?`<button class="tbtn" id="arCsv">${ic('download',15)} تصدير Excel</button>`:''}</div></div>
+    <div class="list">${list.map(taskCard).join('')||`<div class="empty"><span class="eico">${ic('archive',28)}</span><div>ما في شي بالأرشيف هون</div></div>`}</div>`;
+  const set=(k,v)=>{ A[k]=v; renderArchive() };
+  $('#arClose').onclick=()=>{ UI.view='list'; render() };
+  $('#arQ').oninput=e=>{ A.q=e.target.value; clearTimeout(UI._arT); UI._arT=setTimeout(()=>{ renderArchive(); const q=$('#arQ'); q.focus(); q.setSelectionRange(q.value.length,q.value.length) },350) };
+  $('#arFrom').onchange=e=>set('from',e.target.value); $('#arTo').onchange=e=>set('to',e.target.value);
+  $('#arDept').onchange=e=>set('dept',e.target.value); $('#arWho').onchange=e=>set('who',e.target.value);
+  if($('#arCsv')) $('#arCsv').onclick=()=>exportCSV(list);
   $('#content').querySelectorAll('.task').forEach(b=>b.onclick=()=>openTask(b.dataset.id));
+}
+
+/* ---- التقويم: شهري وأسبوعي ---- */
+const addDays=(iso,n)=>{ const x=new Date(iso+'T12:00:00'); x.setDate(x.getDate()+n); return isoLocal(x) };
+const weekStart=iso=>{ const x=new Date(iso+'T12:00:00'); x.setDate(x.getDate()-x.getDay()); return isoLocal(x) };
+function calTasks(){ return filtered() }
+function renderCal(){
+  const base=calTasks(), now=new Date(); if(!UI.cal) UI.cal={y:now.getFullYear(),m:now.getMonth()};
+  UI.calMode=UI.calMode||'month'; if(!UI.wk) UI.wk=weekStart(today());
+  const week=UI.calMode==='week';
+  const {y,m}=UI.cal, first=new Date(y,m,1);
+  const title= week ? `${fmtDate(UI.wk)} – ${fmtDate(addDays(UI.wk,6))}` : first.toLocaleDateString(LOCALE(),{month:'long',year:'numeric'});
+  let body='';
+  if(!week){
+    const days=new Date(y,m+1,0).getDate(), pre=`${y}-${pad(m+1)}`, byDay={};
+    base.forEach(t=>{ if(t.due&&t.due.startsWith(pre)) (byDay[+t.due.slice(8)]??=[]).push(t) });
+    let cells=''; for(let i=0;i<first.getDay();i++) cells+='<div class="cd blank"></div>';
+    for(let dd=1;dd<=days;dd++){ const iso=`${pre}-${pad(dd)}`, ts=byDay[dd]||[];
+      cells+=`<button class="cd ${iso===today()?'today':''}" data-d="${iso}"><span class="dn">${dd}</span><span class="dots">${ts.some(isLate)?'<i class="late"></i>':''}${ts.some(t=>t.status!=='done'&&!isLate(t))?'<i class="open"></i>':''}${ts.some(t=>t.status==='done')?'<i class="done"></i>':''}</span>${ts.length>1?`<span class="cc">${ts.length}</span>`:''}</button>` }
+    body=`<div class="cgrid">${WSHORT.map(w=>`<div class="cw">${w}</div>`).join('')}${cells}</div>`;
+  } else {
+    body='<div class="wk">'+[0,1,2,3,4,5,6].map(i=>{ const iso=addDays(UI.wk,i), ts=base.filter(t=>t.due===iso);
+      return `<div class="wrow ${iso===today()?'today':''}"><button class="wday" data-d="${iso}"><b>${WSHORT[new Date(iso+'T12:00:00').getDay()]}</b><span>${fmtDate(iso)}</span></button>
+        <div class="wtasks">${ts.map(t=>`<button class="wchip ${isLate(t)?'late':t.status==='done'?'done':''}" data-id="${t.id}">${ic(t.dept,13)}<span data-notr>${esc(t.title)}</span></button>`).join('')||'<span class="small muted">—</span>'}</div></div>` }).join('')+'</div>';
+  }
+  $('#content').innerHTML=`<div class="card cal"><div class="calh">
+      <button class="ibtn" id="cPrev" aria-label="قبل">${ic('arrowR',18)}</button>
+      <button class="caltitle" id="cTitle">${title} ${ic('calendar',14)}</button>
+      <button class="ibtn" id="cNext" aria-label="بعد">${ic('chev',18)}</button>
+      <button class="xbtn sm" id="cClose" aria-label="إغلاق التقويم">${ic('x',16)}</button></div>
+    <div class="calbar"><div class="seg sm"><button data-cm="month" class="${!week?'on':''}">شهري</button><button data-cm="week" class="${week?'on':''}">أسبوعي</button></div><button class="tbtn" id="cToday">اليوم</button><input type="date" id="cPick" class="vh"></div>
+    ${body}
+    <div class="legend"><span><i class="late"></i>متأخرة</span><span><i class="open"></i>مفتوحة</span><span><i class="done"></i>منتهية</span></div></div>`;
+  const go=iso=>{ const x=new Date(iso+'T12:00:00'); UI.cal={y:x.getFullYear(),m:x.getMonth()}; UI.wk=weekStart(iso) };
+  $('#cPrev').onclick=()=>{ if(week) UI.wk=addDays(UI.wk,-7); else UI.cal=m===0?{y:y-1,m:11}:{y,m:m-1}; renderCal() };
+  $('#cNext').onclick=()=>{ if(week) UI.wk=addDays(UI.wk,7); else UI.cal=m===11?{y:y+1,m:0}:{y,m:m+1}; renderCal() };
+  $('#cToday').onclick=()=>{ go(today()); renderCal(); openDay(today()) };
+  $('#cClose').onclick=()=>{ UI.view='list'; render() };
+  $('#cTitle').onclick=()=>{ const p=$('#cPick'); try{ p.showPicker() }catch(e){ p.focus(); p.click() } };
+  $('#cPick').onchange=e=>{ if(!e.target.value) return; go(e.target.value); renderCal(); openDay(e.target.value) };
+  document.querySelectorAll('[data-cm]').forEach(b=>b.onclick=()=>{ UI.calMode=b.dataset.cm; if(UI.calMode==='week'&&!UI.wk) UI.wk=weekStart(today()); renderCal() });
+  $('#content').querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>openDay(b.dataset.d));
+  $('#content').querySelectorAll('.wchip').forEach(b=>b.onclick=()=>openTask(b.dataset.id));
+}
+function openDay(iso){
+  const ts=calTasks().filter(t=>t.due===iso);
+  openModal(`<div class="shead"><h2>${ic('calendar',18)} ${fmtDate(iso)} <span class="muted small">${WDAYS[new Date(iso+'T12:00:00').getDay()]}</span></h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="list">${ts.map(taskCard).join('')||'<div class="empty"><div>ما في مهام بهاليوم</div></div>'}</div>
+    ${canCreate()?`<div class="actions"><button class="primary" id="dAdd">${ic('plus',15)} مهمة لهاليوم</button></div>`:''}`);
+  $('#mClose').onclick=closeModal;
+  document.querySelectorAll('#modalRoot .task').forEach(b=>b.onclick=()=>openTask(b.dataset.id));
+  if($('#dAdd')) $('#dAdd').onclick=()=>{ PREFILL={due:iso}; openTask(null,true, UI.tab in DEPTS && creatableDepts().includes(UI.tab) ? UI.tab : null) };
 }
 
 /* ---- اليومية ---- */
@@ -1109,7 +1694,7 @@ function toggleCheck(rid){
   API.put('checks',c).catch(errToast); render();
 }
 function renderDaily(){
-  const el=$('#page-daily'), mine=myRoutinesToday(), dn=mine.filter(r=>isChecked(r)).length, boss=isTop(me)||me.role==='head';
+  const el=$('#page-daily'), mine=myRoutinesToday(), dn=mine.filter(r=>isChecked(r)).length, boss=canDaily();
   let h=`<div class="phead"><h2>${ic('sun',20)} يومية ${WDAYS[wd()]}</h2><div class="muted small">${fmtDate(today())}</div></div>`;
   if(mine.length){
     const c=checkDoc();
@@ -1118,12 +1703,12 @@ function renderDaily(){
       ${dn===mine.length?`<div class="alldone">${ic('done',18)} خلصت كل مهام اليوم، يعطيك العافية</div>`:''}</div>`;
   } else if(!boss) h+=`<div class="empty"><span class="eico">${ic('sun',28)}</span><div>ما في مهام يومية إلك اليوم</div></div>`;
   if(boss){
-    const d=DB.load(), staff=d.users.filter(u=>u.id!==me.id && !isTop(u) && (isTop(me)||u.dept===me.dept));
+    const d=DB.load(), staff=d.users.filter(u=>u.id!==me.id && !isTop(u) && (isTop(me)||inScope(u.dept)));
     h+=`<h3 class="sh">${ic('users',16)} يومية الموظفين اليوم</h3>`;
     const withR=staff.filter(u=>DB.load().routines.some(r=>r.userId===u.id)), without=staff.filter(u=>!withR.includes(u));
     if(without.length) h+=`<div class="small muted" style="margin-bottom:8px">بدون مهام يومية: ${without.map(u=>`<button class="linkb" data-edit="${u.id}">${esc(u.name)}</button>`).join(' · ')}</div>`;
     h+= withR.length?`<div class="grid">${withR.map(u=>{ const rs=myRoutinesToday(u.id), c=checkDoc(u.id), k=rs.filter(r=>c?.done?.[r.id]).length;
-      return `<div class="wcard"><div class="h"><div class="av">${esc(u.name[0])}</div><div style="flex:1;min-width:0"><div style="font-weight:500">${esc(u.name)}</div><div class="small muted">${ROLES[u.role]}${u.dept?' · '+DEPTS[u.dept].short:''}</div></div><button class="small ibtn" data-edit="${u.id}" aria-label="تعديل اليومية">${ic('edit',15)}</button></div>
+      return `<div class="wcard"><div class="h"><div class="av">${esc(u.name[0])}</div><div style="flex:1;min-width:0"><div style="font-weight:500">${esc(u.name)}</div><div class="small muted">${roleName(u.role)}${u.dept?' · '+DEPTS[u.dept].short:''}</div></div><button class="small ibtn" data-edit="${u.id}" aria-label="تعديل اليومية">${ic('edit',15)}</button></div>
         ${rs.length?`<div class="bar"><i style="--w:${Math.round(k/rs.length*100)}%"></i></div><div class="small muted">${k} من ${rs.length}</div>
         ${rs.map(r=>{const on=c?.done?.[r.id];return `<div class="ditem ${on?'on':''}">${ic(on?'boxcheck':'box',16)}<span>${esc(r.title)}</span>${on?`<small>${fmtClock(on)}</small>`:''}</div>`}).join('')}`:'<div class="small muted">ما في مهام يومية اليوم</div>'}</div>`}).join('')}</div>`
       : (staff.length?'':'<div class="small muted">ما في موظفين لسا</div>');
@@ -1133,12 +1718,12 @@ function renderDaily(){
   el.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openRoutines(b.dataset.edit));
 }
 function openRoutines(uId){
-  const d=DB.load(), staff=d.users.filter(u=>u.id!==me.id && !isTop(u) && (isTop(me)||u.dept===me.dept));
+  const d=DB.load(), staff=d.users.filter(u=>u.id!==me.id && !isTop(u) && (isTop(me)||inScope(u.dept)));
   if(!uId) uId=staff[0]?.id; if(!uId) return toast('ضيف موظفين أول');
   const u=userById(uId), rs=d.routines.filter(r=>r.userId===uId).sort((a,b)=>(a.order||0)-(b.order||0));
   openModal(`<div class="shead"><h2>${ic('sun',18)} المهام اليومية</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
     <div class="small muted">هالمهام بتطلع للموظف كل يوم بالأيام اللي بتختارها، وهو بيعلّم عليها لما يخلصها.</div>
-    <label>الموظف</label><select id="rUser">${staff.map(x=>`<option value="${x.id}" ${x.id===uId?'selected':''}>${esc(x.name)} · ${ROLES[x.role]}${x.dept?' · '+DEPTS[x.dept].short:''}</option>`).join('')}</select>
+    <label>الموظف</label><select id="rUser">${staff.map(x=>`<option value="${x.id}" ${x.id===uId?'selected':''}>${esc(x.name)} · ${roleName(x.role)}${x.dept?' · '+DEPTS[x.dept].short:''}</option>`).join('')}</select>
     <div style="margin-top:8px">${rs.map(r=>`<div class="urow"><div class="info"><div>${esc(r.title)}</div><div class="small muted">${daysLabel(r.days)}</div></div><button class="small ibtn danger" data-del="${r.id}" aria-label="حذف">${ic('trash',15)}</button></div>`).join('')||'<div class="small muted" style="padding:8px 0">ما في مهام يومية لهالموظف لسا</div>'}</div>
     <div class="sect"><h3>${ic('plus',15)} إضافة مهمة يومية لـ ${esc(u.name)}</h3>
       <input id="rTitle" placeholder="مثلاً: فحص السيارة قبل الطلعة">
@@ -1163,7 +1748,7 @@ function reqCard(r,i=0){
   const late=(r.status==='open'||r.status==='accepted')&&r.due&&r.due<today(), incoming=r.to===me.id;
   return `<button style="--i:${Math.min(i,12)}" class="task ${late?'is-late':''} ${r.status==='done'||r.status==='rejected'?'is-done':''}" data-q="${r.id}">
     <span class="dico ${incoming?'d-in':'d-out'}">${ic(incoming?'inbox':'out',20)}</span>
-    <div class="tbody"><div class="top"><span class="t">${esc(r.title)}</span>${reqChip(r)}</div>
+    <div class="tbody"><div class="top"><span class="t" data-notr>${esc(r.title)}</span>${reqChip(r)}</div>
       <div class="meta"><span>${ic('user',14)}${esc(uname(r.from))} ${ic('chev',12)} ${esc(uname(r.to))}</span>
         ${r.due?`<span class="${late?'txt-late':''}">${ic('calendar',14)}${fmtDate(r.due)}</span>`:''}
         ${r.priority==='high'?`<span class="pri-high">${ic('flag',14)}عاجل</span>`:''}
@@ -1183,6 +1768,7 @@ function renderRequests(){
   el.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{UI.reqTab=b.dataset.k;renderRequests()});
   el.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>openRequest(b.dataset.q));
 }
+const reqTextFor = (r,uid) => isFr(uid) ? `Demande de ${uname(r.from)} à ${uname(r.to)} :\n${r.title}${r.details?'\n'+r.details:''}${r.due?'\nPour le : '+fmtDateL(r.due,true):''}${r.priority==='high'?'\nUrgent':''}` : reqText(r);
 const reqText = r => `طلب من ${uname(r.from)} لـ ${uname(r.to)}:\n${r.title}${r.details?'\n'+r.details:''}${r.due?'\nلـ: '+fmtDate(r.due):''}${r.priority==='high'?'\nعاجل':''}`;
 function openRequest(id,preset={}){
   const d=DB.load();
@@ -1191,7 +1777,7 @@ function openRequest(id,preset={}){
     const ord={manager:0,assistant:1,head:2,worker:3};
     const people=d.users.filter(u=>u.id!==me.id).sort((a,b)=>ord[a.role]-ord[b.role]||(a.dept||'').localeCompare(b.dept||''));
     openModal(`<div class="shead"><h2>${ic('inbox',18)} طلب جديد</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
-      <label>من مين بدك تطلب؟</label><select id="qTo"><option value="">— اختار —</option>${people.map(u=>`<option value="${u.id}" ${u.id===r.to?'selected':''}>${esc(u.name)} · ${ROLES[u.role]}${u.dept?' · '+DEPTS[u.dept].short:''}</option>`).join('')}</select>
+      <label>من مين بدك تطلب؟</label><select id="qTo"><option value="">— اختار —</option>${people.map(u=>`<option value="${u.id}" ${u.id===r.to?'selected':''}>${esc(u.name)} · ${roleName(u.role)}${u.dept?' · '+DEPTS[u.dept].short:''}</option>`).join('')}</select>
       <label>شو بدك؟</label><input id="qTitle" value="${esc(r.title)}" placeholder="مثلاً: موافقة على شراء مواد">
       <label>تفاصيل</label><textarea id="qDet" rows="3">${esc(r.details)}</textarea>
       <div class="row2"><div><label>لإيمتى؟</label><input id="qDue" type="date" value="${r.due}"></div><div><label>الأولوية</label><select id="qPri">${Object.entries(PRI).map(([k,l])=>`<option value="${k}" ${k===r.priority?'selected':''}>${l}</option>`).join('')}</select></div></div>
@@ -1210,7 +1796,7 @@ function openRequest(id,preset={}){
   const r=d.requests.find(x=>x.id===id); if(!r) return;
   const isTo=r.to===me.id, isFrom=r.from===me.id, other=isTo?r.from:r.to;
   const canAct=isTo||isTop(me);
-  openModal(`<div class="shead"><h2>${esc(r.title)}</h2>${reqChip(r)}<button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+  openModal(`<div class="shead"><h2 data-notr>${esc(r.title)}</h2>${reqChip(r)}<button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
     <div class="small muted">${esc(uname(r.from))} ${ic('chev',12)} ${esc(uname(r.to))} · ${fmtTime(r.createdAt)}</div>
     <div class="meta" style="margin-top:6px">${r.due?`<span>${ic('calendar',14)}لـ ${fmtDate(r.due)}</span>`:''}${r.priority==='high'?`<span class="pri-high">${ic('flag',14)}عاجل</span>`:''}</div>
     ${r.details?`<div class="ro" style="margin-top:8px">${esc(r.details).replace(/\n/g,'<br>')}</div>`:''}
@@ -1218,7 +1804,7 @@ function openRequest(id,preset={}){
     <div class="sect"><h3>${ic('message',15)} الردود (${r.notes.length})</h3>
       ${r.notes.map(n=>`<div class="note"><div class="by">${esc(n.byName||uname(n.by))} · ${fmtTime(n.at)}</div>${esc(n.text).replace(/\n/g,'<br>')}</div>`).join('')||'<div class="small muted">ما في ردود لسا</div>'}
       <div class="addnote"><textarea id="qNote" placeholder="اكتب رد…"></textarea><button class="primary ibtn" id="qNoteBtn" aria-label="إرسال">${ic('send',18)}</button></div></div>
-    <div class="actions">${waLink(other,reqText(r)+'\n\n'+pageUrl())}${mailLink(other,'طلب: '+r.title,reqText(r)+'\n\n'+pageUrl())}
+    <div class="actions">${waLink(other,reqTextFor(r,other)+'\n\n'+pageUrl())}${mailLink(other,(isFr(other)?'Demande : ':'طلب: ')+r.title,reqTextFor(r,other)+'\n\n'+pageUrl())}
       ${canCreate()?`<button id="qToTask">${ic('tasks',15)} حوّلها لمهمة</button>`:''}
       ${isFrom||isTop(me)?`<button class="danger" id="qDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`:''}</div>`);
   $('#mClose').onclick=closeModal;
@@ -1233,43 +1819,111 @@ function openRequest(id,preset={}){
   if($('#qDel')) $('#qDel').onclick=()=>{ const b=$('#qDel'); if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='متأكد؟';return} API.del('requests',r.id).then(()=>toast('انحذف')).catch(errToast); closeModal(); render() };
 }
 
-/* ---- برنامجي ---- */
+/* ---- برنامجي والقوائم المشتركة (بنود مع تكرار) ---- */
+const REP_ITEM = {none:'ما بيتكرر',daily:'يومياً',weekly:'أسبوعياً',monthly:'شهرياً',every:'كل كم يوم',weekdays:'أيام معيّنة'};
+function repeatLabel(x){
+  const r=x.repeat||'none'; if(r==='none') return '';
+  if(r==='every') return `كل ${x.every||1} أيام`;
+  if(r==='weekdays') return (x.days||[]).slice().sort().map(i=>WSHORT[i]).join('، ')||'أيام معيّنة';
+  return REP_ITEM[r];
+}
+function nextOcc(x){
+  const t0=today(), base=x.date&&x.date>=t0?x.date:t0, r=x.repeat||'none';
+  if(r==='daily') return addDays(base,1);
+  if(r==='weekly') return addDays(base,7);
+  if(r==='monthly'){ const d=new Date(base+'T12:00:00'); d.setMonth(d.getMonth()+1); return isoLocal(d) }
+  if(r==='every') return addDays(base,Math.max(1,+x.every||1));
+  if(r==='weekdays'){ const ds=x.days||[]; for(let i=1;i<=7;i++){ const c=addDays(base,i); if(ds.includes(new Date(c+'T12:00:00').getDay())) return c } return addDays(base,7) }
+  return null;
+}
 function myItems(){ return DB.load().personal.filter(x=>!x.owner||x.owner===me.id) }
-function renderMine(){
-  const el=$('#page-mine'), it=myItems(), td=today();
+function myLists(){ return DB.load().lists.filter(l=>isTop(me)||(l.members||[]).includes(me.id)) }
+function listItemsOf(id){ return DB.load().listItems.filter(x=>x.listId===id) }
+const ctxMine = () => ({col:'personal', el:$('#page-mine'), items:myItems, base:{owner:me.id}});
+const ctxList = l => ({col:'listItems', el:$('#page-lists'), items:()=>listItemsOf(l.id), base:{listId:l.id}, list:l});
+
+function renderItems(ctx, headHtml){
+  const it=ctx.items(), td=today();
   const G=[['late','متأخر',x=>!x.done&&x.date&&x.date<td],['today','اليوم',x=>!x.done&&x.date===td],['next','جاي',x=>!x.done&&x.date>td],['nodate','بدون تاريخ',x=>!x.done&&!x.date],['done','خلصتهن',x=>x.done]];
-  let h=`<div class="phead"><h2>${ic('notebook',20)} برنامجي</h2><div class="muted small">${ic('lock',12)} ما حدا بيشوفه غيرك</div></div>
-    <form class="quick" id="mQuick"><input id="mQT" placeholder="شو بدك تعمل؟" autocomplete="off"><input id="mQD" type="date" value="${td}"><button class="primary ibtn" aria-label="إضافة">${ic('plus',18)}</button></form>`;
+  let h=headHtml+`<form class="quick" id="qkF"><input id="qkT" placeholder="شو بدك تعمل؟" autocomplete="off"><input id="qkD" type="date" value="${td}"><button class="primary ibtn" aria-label="إضافة">${ic('plus',18)}</button></form>
+    <div class="small muted" style="margin:-2px 0 6px">للتكرار (يومي، أسبوعي…) اضغط عـ البند بعد ما تضيفه.</div>`;
   let any=false;
   G.forEach(([k,l,f])=>{ let xs=it.filter(f); if(!xs.length) return; any=true;
-    xs.sort((a,b)=>k==='done'?(b.doneAt||0)-(a.doneAt||0):String(a.date+a.time).localeCompare(String(b.date+b.time))); if(k==='done') xs=xs.slice(0,15);
-    h+=`<h3 class="sh g-${k}">${l} <span class="muted">(${xs.length})</span></h3><div class="card checklist">${xs.map(x=>`<div class="citem ${x.done?'on':''}"><button class="cb" data-t="${x.id}" aria-label="تم">${ic(x.done?'boxcheck':'box',22)}</button><span data-o="${x.id}">${esc(x.title)}${x.time?` <small>${x.time}</small>`:''}${x.date&&k!=='today'?` <small>${fmtDate(x.date)}</small>`:''}${x.note?` <small>${ic('message',12)}</small>`:''}</span></div>`).join('')}</div>` });
-  if(!any) h+=`<div class="empty"><span class="eico">${ic('notebook',28)}</span><div>برنامجك فاضي</div><span class="small">اكتب فوق شو بدك تعمل، أو احكيه بالمايك</span></div>`;
-  el.innerHTML=h;
-  $('#mQuick').onsubmit=e=>{ e.preventDefault(); const t=$('#mQT').value.trim(); if(!t) return;
-    API.put('personal',{id:'m'+uid(),owner:me.id,title:t,date:$('#mQD').value,time:'',done:false,note:'',createdAt:Date.now()}).catch(errToast); render(); setTimeout(()=>$('#mQT')?.focus(),50) };
-  el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{ const x={...myItems().find(y=>y.id===b.dataset.t)}; x.done=!x.done; x.doneAt=x.done?Date.now():null; API.put('personal',x).catch(errToast); render() });
-  el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>openMineItem(b.dataset.o));
+    xs.sort((a,b)=>k==='done'?(b.doneAt||0)-(a.doneAt||0):String((a.date||'')+(a.time||'')).localeCompare(String((b.date||'')+(b.time||'')))); if(k==='done') xs=xs.slice(0,15);
+    h+=`<h3 class="sh g-${k}">${l} <span class="muted">(${xs.length})</span></h3><div class="card checklist">${xs.map(x=>`<div class="citem ${x.done?'on':''}"><button class="cb" data-t="${x.id}" aria-label="تم">${ic(x.done?'boxcheck':'box',22)}</button><span data-o="${x.id}"><span data-notr>${esc(x.title)}</span>${x.time?` <small>${x.time}</small>`:''}${x.date&&k!=='today'?` <small>${fmtDate(x.date)}</small>`:''}${x.repeat&&x.repeat!=='none'?` <small class="rep">${ic('repeat',12)} ${repeatLabel(x)}</small>`:''}${x.note?` <small>${ic('message',12)}</small>`:''}${x.by&&ctx.col==='listItems'?` <small>· ${esc(uname(x.by))}</small>`:''}</span></div>`).join('')}</div>` });
+  if(!any) h+=`<div class="empty"><span class="eico">${ic('notebook',28)}</span><div>القائمة فاضية</div><span class="small">اكتب فوق شو بدك تعمل</span></div>`;
+  ctx.el.innerHTML=h;
+  $('#qkF').onsubmit=e=>{ e.preventDefault(); const t=$('#qkT').value.trim(); if(!t) return;
+    API.put(ctx.col,{id:'m'+uid(),...ctx.base,title:t,date:$('#qkD').value,time:'',done:false,note:'',repeat:'none',by:me.id,createdAt:Date.now()}).catch(errToast); render(); setTimeout(()=>$('#qkT')?.focus(),50) };
+  ctx.el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{ const x={...ctx.items().find(y=>y.id===b.dataset.t)};
+    if(!x.done && x.repeat && x.repeat!=='none'){ x.lastDone=Date.now(); x.lastDoneBy=me.id; x.date=nextOcc(x); toast('تم ✓ · الموعد الجاي '+fmtDate(x.date)) }
+    else { x.done=!x.done; x.doneAt=x.done?Date.now():null }
+    API.put(ctx.col,x).catch(errToast); render() });
+  ctx.el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>openItem(ctx,b.dataset.o));
 }
-function openMineItem(id){
-  const isNew=!id; const x=isNew?{id:'m'+uid(),owner:me.id,title:'',date:today(),time:'',done:false,note:'',createdAt:Date.now()}:{...myItems().find(y=>y.id===id)};
-  openModal(`<div class="shead"><h2>${ic('notebook',18)} ${isNew?'إضافة لبرنامجي':'تعديل'}</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+function renderMine(){
+  renderItems(ctxMine(), `<div class="phead"><h2>${ic('notebook',20)} برنامجي</h2><div class="muted small">${ic('lock',12)} ما حدا بيشوفه غيرك</div></div>`);
+}
+function renderLists(){
+  const el=$('#page-lists'), ls=myLists();
+  if(!ls.length){ el.innerHTML=`<div class="phead"><h2>${ic('shared',20)} القوائم المشتركة</h2></div><div class="empty"><span class="eico">${ic('shared',28)}</span><div>ما في قوائم لسا</div>${isTop(me)?'<span class="small">اضغط "قائمة جديدة" لتعمل وحدة</span>':''}</div>`; return }
+  if(!ls.some(l=>l.id===UI.listId)) UI.listId=ls[0].id;
+  const l=ls.find(x=>x.id===UI.listId), mlist=(l.members||[]).map(uname).join('، ');
+  const head=`<div class="phead"><h2>${ic('shared',20)} ${esc(l.name)}</h2><div class="muted small">${ic('lock',12)} بيشوفها: ${esc(mlist)} والمديرين</div></div>
+    ${ls.length>1?`<div class="tabs">${ls.map(x=>`<button class="tab ${x.id===l.id?'on':''}" data-l="${x.id}">${esc(x.name)}</button>`).join('')}</div>`:''}
+    ${isTop(me)?`<div class="tools2"><button class="tbtn" id="lEdit">${ic('edit',14)} تعديل القائمة</button></div>`:''}`;
+  renderItems(ctxList(l), head);
+  el.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{ UI.listId=b.dataset.l; renderLists() });
+  if($('#lEdit')) $('#lEdit').onclick=()=>openList(l.id);
+}
+function openList(id){
+  const d=DB.load(), isNew=!id, l=isNew?{id:'l'+uid(),name:'',members:[],createdBy:me.id,createdAt:Date.now()}:{...d.lists.find(x=>x.id===id)};
+  const people=d.users.filter(u=>!isTop(u));
+  openModal(`<div class="shead"><h2>${ic('shared',18)} ${isNew?'قائمة مشتركة جديدة':'تعديل القائمة'}</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="small muted">بيشوفها ويضيف عليها الأعضاء اللي بتختارهن، والمديرين. ما حدا غيرهن بيشوفها.</div>
+    <label>اسم القائمة</label><input id="lName" value="${esc(l.name)}" placeholder="مثلاً: حسين وحسن">
+    <label>الأعضاء</label><div class="share">${people.map(u=>`<label><input type="checkbox" value="${u.id}" ${(l.members||[]).includes(u.id)?'checked':''}> ${esc(u.name)} <span class="muted small">· ${roleName(u.role)}${u.dept?' · '+DEPTS[u.dept]?.short:''}</span></label>`).join('')}</div>
+    <div class="err" id="lErr"></div>
+    <div class="actions"><button class="primary" id="lSave">حفظ</button><button id="lCancel">إلغاء</button>${isNew?'':`<button class="danger" id="lDel" style="margin-right:auto">${ic('trash',15)} حذف القائمة</button>`}</div>`);
+  $('#mClose').onclick=$('#lCancel').onclick=closeModal;
+  $('#lSave').onclick=()=>{ l.name=$('#lName').value.trim(); l.members=[...document.querySelectorAll('.share input:checked')].map(i=>i.value);
+    if(!l.name) return $('#lErr').textContent='اكتب اسم القائمة'; if(!l.members.length) return $('#lErr').textContent='اختار عضو واحد عالأقل';
+    API.put('lists',l).then(()=>toast('انحفظت القائمة')).catch(errToast); UI.listId=l.id; closeModal(); render() };
+  if($('#lDel')) $('#lDel').onclick=()=>{ const b=$('#lDel'); if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='متأكد؟ رح تنمسح كل بنودها';return}
+    listItemsOf(l.id).forEach(x=>API.del('listItems',x.id,l.id).catch(()=>{})); API.del('lists',l.id).catch(errToast); closeModal(); render() };
+}
+function openItem(ctx,id){
+  const isNew=!id; const x=isNew?{id:'m'+uid(),...ctx.base,title:'',date:today(),time:'',done:false,note:'',repeat:'none',by:me.id,createdAt:Date.now()}:{...ctx.items().find(y=>y.id===id)};
+  const rp=x.repeat||'none';
+  openModal(`<div class="shead"><h2>${ic('notebook',18)} ${isNew?'بند جديد':'تعديل'}</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
     <label>شو بدك تعمل؟</label><input id="miT" value="${esc(x.title)}">
     <div class="row2"><div><label>اليوم</label><input id="miD" type="date" value="${x.date||''}"></div><div><label>الساعة (اختياري)</label><input id="miH" type="time" value="${x.time||''}"></div></div>
-    <label>ملاحظة</label><textarea id="miN" rows="2">${esc(x.note||'')}</textarea>
+    <label>${ic('repeat',13)} التكرار</label><select id="miR">${Object.entries(REP_ITEM).map(([k,l])=>`<option value="${k}" ${k===rp?'selected':''}>${l}</option>`).join('')}</select>
+    <div id="miEvery" class="${rp==='every'?'':'hidden'}"><label>كل كم يوم؟</label><input id="miN" type="number" min="1" value="${x.every||2}"></div>
+    <div id="miDays" class="${rp==='weekdays'?'':'hidden'}"><label>بأي أيام؟</label><div class="days">${WSHORT.map((w,i)=>`<button type="button" data-d="${i}" class="${(x.days||[]).includes(i)?'on':''}">${w}</button>`).join('')}</div></div>
+    <div class="small muted" style="margin-top:4px">البند اللي بيتكرر، لما تعلّم عليه إنه خلص، بينتقل لحاله لموعده الجاي.</div>
+    <label>ملاحظة</label><textarea id="miN2" rows="2">${esc(x.note||'')}</textarea>
+    ${x.lastDone?`<div class="small muted">آخر مرة خلص: ${fmtTime(x.lastDone)}${x.lastDoneBy?' · '+esc(uname(x.lastDoneBy)):''}</div>`:''}
     <div class="err" id="miE"></div>
     <div class="actions"><button class="primary" id="miS">حفظ</button><button id="miC">إلغاء</button>${isNew?'':`<button class="danger" id="miDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`}</div>`);
   $('#mClose').onclick=$('#miC').onclick=closeModal;
-  $('#miS').onclick=()=>{ x.title=$('#miT').value.trim(); if(!x.title) return $('#miE').textContent='اكتب شي'; x.date=$('#miD').value; x.time=$('#miH').value; x.note=$('#miN').value.trim();
-    API.put('personal',x).then(()=>toast('انحفظ')).catch(errToast); closeModal(); render() };
-  if($('#miDel')) $('#miDel').onclick=()=>{ API.del('personal',x.id).catch(errToast); closeModal(); render() };
+  $('#miR').onchange=e=>{ $('#miEvery').classList.toggle('hidden',e.target.value!=='every'); $('#miDays').classList.toggle('hidden',e.target.value!=='weekdays') };
+  document.querySelectorAll('#miDays .days button').forEach(b=>b.onclick=()=>b.classList.toggle('on'));
+  $('#miS').onclick=()=>{ x.title=$('#miT').value.trim(); if(!x.title) return $('#miE').textContent='اكتب شي';
+    x.date=$('#miD').value; x.time=$('#miH').value; x.note=$('#miN2').value.trim(); x.repeat=$('#miR').value;
+    if(x.repeat==='every') x.every=Math.max(1,+$('#miN').value||1);
+    if(x.repeat==='weekdays'){ x.days=[...document.querySelectorAll('#miDays .days .on')].map(b=>+b.dataset.d); if(!x.days.length) return $('#miE').textContent='اختار يوم واحد عالأقل' }
+    if(x.repeat!=='none' && !x.date) x.date=today();
+    API.put(ctx.col,x).then(()=>toast('انحفظ')).catch(errToast); closeModal(); render() };
+  if($('#miDel')) $('#miDel').onclick=()=>{ API.del(ctx.col,x.id,x.listId).catch(errToast); closeModal(); render() };
 }
+function openMineItem(id){ openItem(ctxMine(),id) }
 
 /* ---- الأوامر الصوتية ---- */
 var REC=null, VD=[];
 const AR = s => String(s||'').replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').toLowerCase();
 const SPLIT_RE = /\s*(?:[.\n؟?!؛;]+|\s(?:و?كمان|و?بعدين|و?بعدها|و?بعد هيك|و?تاني شي|و?ثاني شي|نقطه|نقطة)\s)\s*/;
-const DEPT_KW = {fire:['eurofeu','يوروفو','اوروفو','حريق','طفاي','انذار','رشاش','دفاع مدني','صيانه'],build:['sepc','سيبك','سبك','معدات البناء','شحن','جمارك','جمرك','حديد','اسمنت','خلاط','استيراد','مستودع','طلبيه','مخلص'],project:['نهله','بنايه','طابق','سقف','صب','بلاط','مقاول','عماره'],admin:['اوراق','معامله','سجل','اجتماع','مراسل','قرطاسيه','مشتريات','بنك','فاتوره']};
+const DEPT_KW = {fire:['eurofeu','يوروفو','اوروفو','حريق','طفاي','انذار','رشاش','دفاع مدني','صيانه'],build:['sepc','سيبك','سبك','معدات البناء','شحن','جمارك','جمرك','حديد','اسمنت','خلاط','استيراد','مستودع','طلبيه','مخلص'],project:['نهله','بنايه','طابق','سقف','صب','بلاط','مقاول','عماره'],admin:['مكتب','اوراق','معامله','سجل','اجتماع','مراسل','قرطاسيه','بنك','فاتوره'],market:['سوق','السوق','شراء','اشتري','مشتريات','توصيل','وصل','محل','تحصيل']};
 const DATE_WORDS_RE = /(^|\s)(?:يوم\s|نهار\s)?(?:اليوم|بكرا|بكرة|بكره|غدا|غداً|بعد بكرا|بعد بكرة|بعد بكره|بعد غد|ال?(?:أحد|احد|اثنين|إثنين|اتنين|تنين|ثلاثاء|ثلاثا|تلاتا|تلاتاء|أربعاء|اربعاء|أربعا|اربعا|خميس|جمعة|جمعه|سبت)(?:\sالجاي|\sالجاية|\sالقادم)?|الأسبوع الجاي|الاسبوع الجاي|الأسبوع القادم|الاسبوع القادم|آخر الشهر|اخر الشهر|بعد \S+ (?:أيام|ايام|يوم))(?=$|\s|[،,.])/g;
 function parseDue(n){
   if(/بعد (بكرا|بكره|غد)/.test(n)) return today(2);
@@ -1325,7 +1979,7 @@ function openVoice(){
     const base=$('#vText').value.trim(); const done=[]; let cur='', stopped=false, empty=0;
     const show=(inter='')=>{ $('#vText').value=[base,...done,cur].filter(Boolean).join(' ').replace(/\s+/g,' ').trim(); $('#vState').textContent=inter?('… '+inter):'عم اسمعك… اضغط المايك مرة تانية لما تخلص' };
     const startOne=()=>{
-      const r=new SR(); r.lang='ar-LB'; r.continuous=!android; r.interimResults=true;
+      const r=new SR(); r.lang=LANG==='fr'?'fr-FR':'ar-LB'; r.continuous=!android; r.interimResults=true;
       r.onstart=()=>{ REC=r; $('#vMic')?.classList.add('rec'); show() };
       r.onresult=e=>{
         // منبني النص من الأول كل مرة، ومنشيل التكرار اللي بيصير عـ أندرويد
@@ -1349,7 +2003,7 @@ function openVoice(){
 function personOptions(x){
   const d=DB.load();
   if(x.kind==='task') return assigneeOptions(x.dept,x.person);
-  return '<option value="">— اختار —</option>'+d.users.filter(u=>u.id!==me.id).map(u=>`<option value="${u.id}" ${u.id===x.person?'selected':''}>${esc(u.name)} · ${ROLES[u.role]}</option>`).join('');
+  return '<option value="">— اختار —</option>'+d.users.filter(u=>u.id!==me.id).map(u=>`<option value="${u.id}" ${u.id===x.person?'selected':''}>${esc(u.name)} · ${roleName(u.role)}</option>`).join('');
 }
 function renderDrafts(list){
   VD=list; const box=$('#vDrafts'); if(!box) return;
@@ -1431,36 +2085,59 @@ const API = {
     me={id:user.uid,...p.data()}; mem=emptyMem(); mem.users=[me];
     this.subscribe(); startApp();
   },
+  sig(){ return [isTop(me),canDaily(),scopeOf(me).join('+')].join('|') },
   subscribe(){
     const {fs,db}=this.fb; const onErr=e=>errToast(e); const C=n=>fs.collection(db,n); const W=fs.where;
+    this.curSig=this.sig();
+    this.unsubs.push(fs.onSnapshot(fs.doc(db,'settings','roles'), s=>{
+      if(s.exists()) mem.settings={roles:s.data().roles||{}};
+      else if(me?.role==='manager') fs.setDoc(fs.doc(db,'settings','roles'),{roles:JSON.parse(JSON.stringify(DEFAULT_ROLES))}).catch(onErr);
+      if(this.sig()!==this.curSig){ this.stop(); this.subscribe(); }
+      render() }, onErr));
     this.unsubs.push(fs.onSnapshot(C('users'), s=>{ mem.users=s.docs.map(d=>({id:d.id,...d.data()})); const m=mem.users.find(u=>u.id===me?.id); if(m) Object.assign(me,m); render() }, onErr));
     const listen=(col,key,q)=>this.unsubs.push(fs.onSnapshot(q, s=>{
       (this.src[col]??={})[key]=s.docs.map(d=>({id:d.id,...d.data()}));
-      const map=new Map(); Object.values(this.src[col]).flat().forEach(x=>map.set(x.id,x)); mem[col]=[...map.values()]; render() }, onErr));
+      const map=new Map(); Object.values(this.src[col]).flat().forEach(x=>map.set(x.id,x)); mem[col]=[...map.values()]; if(col==='lists') this.afterLists?.(); render() }, onErr));
     const Q=(col,...w)=>fs.query(C(col),...w);
     const day=today();
     if(isTop(me)){
       listen('tasks','all',C('tasks')); listen('requests','all',C('requests')); listen('routines','all',C('routines'));
       listen('checks','all',Q('checks',W('date','==',day)));
+      listen('lists','all',C('lists'));
     } else {
-      listen('tasks','dept',Q('tasks',W('dept','==',me.dept))); listen('tasks','shared',Q('tasks',W('sharedWith','array-contains',me.id)));
+      scopeOf(me).forEach(d=>listen('tasks','dept-'+d,Q('tasks',W('dept','==',d))));
+      listen('tasks','shared',Q('tasks',W('sharedWith','array-contains',me.id)));
       listen('requests','from',Q('requests',W('from','==',me.id))); listen('requests','to',Q('requests',W('to','==',me.id)));
-      if(me.role==='head'){ listen('routines','dept',Q('routines',W('dept','==',me.dept))); listen('checks','dept',Q('checks',W('date','==',day),W('dept','==',me.dept))) }
-      else { listen('routines','mine',Q('routines',W('userId','==',me.id))); listen('checks','mine',Q('checks',W('date','==',day),W('userId','==',me.id))) }
+      listen('routines','mine',Q('routines',W('userId','==',me.id))); listen('checks','mine',Q('checks',W('date','==',day),W('userId','==',me.id)));
+      if(canDaily()) scopeOf(me).forEach(d=>{ listen('routines','dept-'+d,Q('routines',W('dept','==',d))); listen('checks','dept-'+d,Q('checks',W('date','==',day),W('dept','==',d))) });
+      listen('lists','member',Q('lists',W('members','array-contains',me.id)));
     }
     listen('personal','mine',fs.collection(db,'personal',me.id,'items'));
+    // بنود القوائم المشتركة: منفتح مستمع لكل قائمة
+    this.itemSubs={};
+    const syncItems=()=>{ const ids=new Set((mem.lists||[]).map(l=>l.id));
+      Object.keys(this.itemSubs).forEach(id=>{ if(!ids.has(id)){ this.itemSubs[id](); delete this.itemSubs[id]; delete (this.src.listItems||{})[id] } });
+      ids.forEach(id=>{ if(this.itemSubs[id]) return;
+        this.itemSubs[id]=fs.onSnapshot(fs.collection(db,'lists',id,'items'), s=>{ (this.src.listItems??={})[id]=s.docs.map(d=>({id:d.id,listId:id,...d.data()})); mem.listItems=Object.values(this.src.listItems).flat(); render() }, onErr) }) };
+    this.unsubs.push(()=>{ Object.values(this.itemSubs||{}).forEach(u=>u()); this.itemSubs={} });
+    this.afterLists=syncItems;
   },
   stop(){ this.unsubs.forEach(u=>u()); this.unsubs=[]; this.src={} },
   async put(col,obj){
     const data=DB.load(); const arr=data[col]; const i=arr.findIndex(x=>x.id===obj.id); if(i<0) arr.push(obj); else arr[i]=obj; DB.save();
     if(!LIVE) return; const {fs,db}=this.fb; const {id,...rest}=obj;
-    const ref = col==='personal' ? fs.doc(db,'personal',me.id,'items',id) : fs.doc(db,col,id);
+    const ref = col==='personal' ? fs.doc(db,'personal',me.id,'items',id) : col==='listItems' ? fs.doc(db,'lists',obj.listId,'items',id) : fs.doc(db,col,id);
+    if(col==='listItems') delete rest.listId;
     return fs.setDoc(ref, JSON.parse(JSON.stringify(rest)));
   },
-  async del(col,id){
+  async putRoles(roles){
+    const data=DB.load(); data.settings={roles}; DB.save();
+    if(!LIVE) return; const {fs,db}=this.fb; return fs.setDoc(fs.doc(db,'settings','roles'),{roles:JSON.parse(JSON.stringify(roles))});
+  },
+  async del(col,id,listId){
     const data=DB.load(); data[col]=data[col].filter(x=>x.id!==id); DB.save();
     if(!LIVE) return; const {fs,db}=this.fb;
-    return fs.deleteDoc(col==='personal' ? fs.doc(db,'personal',me.id,'items',id) : fs.doc(db,col,id));
+    return fs.deleteDoc(col==='personal' ? fs.doc(db,'personal',me.id,'items',id) : col==='listItems' ? fs.doc(db,'lists',listId,'items',id) : fs.doc(db,col,id));
   },
   async login(phone,pass){
     const {fs,db,auth,au}=this.fb;
@@ -1482,7 +2159,7 @@ const API = {
   async putTask(t,mode){
     if(!LIVE) return; const {fs,db}=this.fb; const ref=fs.doc(db,'tasks',t.id);
     const {id,_origAssignee,...data}=t; data.sharedWith=data.sharedWith||[]; data.notes=data.notes||[];
-    if(mode==='limited') return fs.updateDoc(ref,{status:t.status,stage:t.stage??null,notes:data.notes,updatedAt:t.updatedAt,photos:data.photos||[],spawned:!!t.spawned});
+    if(mode==='limited') return fs.updateDoc(ref,{status:t.status,stage:t.stage??null,notes:data.notes,updatedAt:t.updatedAt,photos:data.photos||[],spawned:!!t.spawned,doneAt:t.doneAt||null});
     return fs.setDoc(ref,JSON.parse(JSON.stringify(data)));
   },
   async delTask(id){ if(!LIVE) return; const {fs,db}=this.fb; return fs.deleteDoc(fs.doc(db,'tasks',id)) },
@@ -1490,7 +2167,7 @@ const API = {
     const cred=await auth.createUserWithEmailAndPassword(sa,email,pass); await auth.signOut(sa); return {uid:cred.user.uid,email} },
   async putUser(u,isNew,pass,oldPhone){
     if(!LIVE) return; const {fs,db,auth,au}=this.fb;
-    const prof={name:u.name,phone:u.phone,role:u.role,dept:u.dept,email:u.email||'',active:true};
+    const prof={name:u.name,phone:u.phone,role:u.role,dept:u.dept,email:u.email||'',lang:u.lang||'ar',active:true};
     const phoneChanged=!isNew && normPhone(oldPhone)!==normPhone(u.phone);
     if(isNew||phoneChanged){ const ex=await fs.getDoc(fs.doc(db,'logins',u.phone)); if(ex.exists()) throw {code:'phone-used'} }
     if(isNew){
@@ -1534,6 +2211,7 @@ $('#setupForm').addEventListener('submit',async e=>{ e.preventDefault();
 
 /* ================= تشغيل ================= */
 (function init(){
+  try{ const l=localStorage.getItem('mahami_lang'); if(l==='fr') setLang('fr') }catch(e){}
   document.querySelectorAll('[data-ic]').forEach(el=>el.insertAdjacentHTML('afterbegin',ic(el.dataset.ic,el.classList.contains('logo')?20:18)));
   if(LIVE){ $('#demoBox').classList.add('hidden'); API.init().catch(e=>{ $('#lerr').textContent='ما قدرت أتصل بالسيرفر. تأكد من الإنترنت وحدّث الصفحة.'; console.error(e) }); return }
   DB.load(); renderDemo();
