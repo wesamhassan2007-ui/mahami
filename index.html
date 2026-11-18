@@ -278,6 +278,13 @@ i.late{background:var(--danger)}i.open{background:var(--warn)}i.done{background:
 .draft{border:1px solid var(--line);border-radius:var(--r);padding:10px;margin-bottom:8px;background:#fcfbf9}
 .dtop{display:flex;gap:6px;align-items:center;margin-bottom:6px}.dtop select{flex:1}
 .xbtn.sm{width:30px;height:30px}
+.btn.mail{background:#eef3fb;border-color:#bcd0ec;color:var(--accent)}
+.btn.mail.off{opacity:.45;cursor:default}
+.btn.sent{position:relative;outline:2px solid currentColor}
+.okmark{display:inline-grid;place-items:center;background:currentColor;border-radius:50%;width:16px;height:16px}.okmark .ic{color:#fff}
+.sendrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sendrow .info{flex:1;min-width:140px}
+.sendbtns{display:flex;gap:6px}
 .linkb{border:0;background:none;padding:0;color:var(--accent);text-decoration:underline;font-size:13px}
 label .ic{vertical-align:-2px}
 </style>
@@ -377,18 +384,18 @@ const EMAIL_TOKEN = '';
 
 /* ================= إعدادات الأقسام ================= */
 const DEPTS = {
-  fire:  {name:'معدات الحريق', short:'الحريق',
+  fire:  {name:'Eurofeu', short:'Eurofeu',
           types:['صيانة دورية','تعبئة طفايات','تركيب نظام','بيع معدات','عرض سعر','فحص وإصدار شهادة'],
           fields:[{k:'client',l:'الزبون'},{k:'location',l:'الموقع'},{k:'equipment',l:'المعدات / العدد'},{k:'nextService',l:'موعد الصيانة القادمة',t:'date'}]},
-  build: {name:'معدات البناء', short:'البناء',
+  build: {name:'SEPC', short:'SEPC',
           types:['طلبية زبون','شحنة استيراد','تخليص جمركي','تسليم','متابعة دفعة'],
           stages:['طلب','شحن','جمارك','مستودع','تسليم'],
           fields:[{k:'party',l:'المورد / الزبون'},{k:'shipment',l:'رقم الشحنة / الطلبية'},{k:'items',l:'البضاعة'}]},
   admin: {name:'مهام المساعدين', short:'المساعدين',
-          types:['مراسلات','مواعيد واجتماعات','أوراق رسمية','مشتريات مكتب','متابعة مع جهة','أخرى'],
+          types:['مراسلات','مواعيد واجتماعات','أوراق رسمية','مشتريات مكتب','متابعة مع جهة'],
           fields:[{k:'party',l:'الجهة'}]},
   project:{name:'بناية نهلة', short:'بناية نهلة', summary:true,
-          types:['حفر وأساسات','هيكل (عظم)','كهرباء','تمديدات صحية','تشطيبات','مواد وتوريدات','ترخيص ومعاملات','دفعات مقاولين','أخرى'],
+          types:['حفر وأساسات','هيكل (عظم)','كهرباء','تمديدات صحية','تشطيبات','مواد وتوريدات','ترخيص ومعاملات','دفعات مقاولين'],
           fields:[{k:'phase',l:'مرحلة المشروع',t:'select',opts:['حفر وأساسات','عظم','تمديدات','تشطيب','تسليم']},{k:'floor',l:'الطابق / المكان'},{k:'contractor',l:'المقاول / المورد'},{k:'cost',l:'التكلفة',t:'number'},{k:'paid',l:'المدفوع',t:'number'}]}
 };
 const PHASES = DEPTS.project.fields[0].opts;
@@ -715,7 +722,7 @@ document.querySelectorAll('#viewSeg button').forEach(b=>b.onclick=()=>{UI.view=b
 
 /* ================= النوافذ ================= */
 function openModal(html){ $('#modalRoot').innerHTML=`<div class="ov" id="ov"><div class="sheet">${html}</div></div>`; $('#ov').addEventListener('click',e=>{if(e.target.id==='ov')closeModal()}); }
-function closeModal(){ try{ if(typeof REC!=='undefined'&&REC) REC.stop() }catch(e){} $('#modalRoot').innerHTML='' }
+function closeModal(){ try{ if(typeof REC!=='undefined'&&REC){ REC._stopped=true; REC.stop() } }catch(e){} $('#modalRoot').innerHTML='' }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 function assigneeOptions(dept,sel){
@@ -739,6 +746,7 @@ function openTask(id, isNew=false, newDept=null){
   if(!t.repeat && t.fields?.recurring){ t.repeat={'يومياً':'daily','أسبوعياً':'weekly','شهرياً':'monthly'}[t.fields.recurring]||'none' }
   t.photos=t.photos||[];
   const D=DEPTS[t.dept];
+  const isOther = !!t.type && !D.types.includes(t.type);
   const deptSel = isNew && creatableDepts().length>1
     ? `<label>القسم</label><select id="tDept">${creatableDepts().map(k=>`<option value="${k}" ${k===t.dept?'selected':''}>${DEPTS[k].name}</option>`).join('')}</select>` : '';
 
@@ -761,7 +769,8 @@ function openTask(id, isNew=false, newDept=null){
     ${deptSel}
     <label>عنوان المهمة</label><input id="tTitle" value="${esc(t.title)}" ${dis} placeholder="شو المطلوب؟">
     <div class="row2">
-      <div><label>نوع المهمة</label><select id="tType" ${dis}>${D.types.map(x=>`<option ${x===t.type?'selected':''}>${x}</option>`).join('')}</select></div>
+      <div><label>نوع المهمة</label><select id="tType" ${dis}>${D.types.map(x=>`<option ${x===t.type?'selected':''}>${x}</option>`).join('')}<option value="__other" ${isOther?'selected':''}>غير (اكتبه إنت)</option></select>
+        <input id="tTypeOther" class="${isOther?'':'hidden'}" style="margin-top:6px" value="${esc(isOther?t.type:'')}" placeholder="اكتب نوع المهمة" ${dis}></div>
       <div><label>المسؤول</label><select id="tAssignee" ${dis}>${assigneeOptions(t.dept,t.assignee)}</select></div>
       <div><label>تاريخ التسليم</label><input id="tDue" type="date" value="${t.due||''}" ${dis}></div>
       <div><label>الأولوية</label><select id="tPri" ${dis}>${Object.entries(PRI).map(([k,l])=>`<option value="${k}" ${k===t.priority?'selected':''}>${l}</option>`).join('')}</select></div>
@@ -779,11 +788,13 @@ function openTask(id, isNew=false, newDept=null){
       <button class="primary" id="tSave">${isNew?'إضافة المهمة':'حفظ'}</button>
       <button id="tCancel">إلغاء</button>
       ${!isNew?waLink(t.assignee, waTaskText(t)):''}
+      ${!isNew?mailLink(t.assignee,'مهمة: '+t.title, waTaskText(t)):''}
       ${!isNew&&canDelete(t)?`<button class="danger" id="tDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`:''}
     </div>
     <div class="err" id="tErr"></div>`);
 
   let status=t.status, stage=t.stage??0; t._origAssignee=t.assignee;
+  $('#tType').onchange=e=>{ const o=e.target.value==='__other'; $('#tTypeOther').classList.toggle('hidden',!o); if(o) $('#tTypeOther').focus() };
   $('#mClose').onclick=$('#tCancel').onclick=closeModal;
   if($('#tDept')) $('#tDept').onchange=e=>{ closeModal(); openTask(null,true,e.target.value) };
   $('#tStatus').querySelectorAll('button').forEach(b=>b.onclick=()=>{status=b.dataset.k;$('#tStatus').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
@@ -800,7 +811,9 @@ function openTask(id, isNew=false, newDept=null){
     if(full){
       const title=$('#tTitle').value.trim();
       if(!title){ $('#tErr').textContent='اكتب عنوان المهمة'; $('#tTitle').focus(); return }
-      t.title=title; t.type=$('#tType').value; t.assignee=$('#tAssignee').value; t.due=$('#tDue').value;
+      const tv=$('#tType').value, tother=$('#tTypeOther').value.trim();
+      if(tv==='__other' && !tother){ $('#tErr').textContent='اكتب نوع المهمة'; $('#tTypeOther').focus(); return }
+      t.title=title; t.type=tv==='__other'?tother:tv; t.assignee=$('#tAssignee').value; t.due=$('#tDue').value;
       t.priority=$('#tPri').value; t.desc=$('#tDesc').value.trim(); t.repeat=$('#tRepeat').value;
       document.querySelectorAll('[data-f]').forEach(el=>t.fields[el.dataset.f]=el.value);
     }
@@ -812,7 +825,8 @@ function openTask(id, isNew=false, newDept=null){
     if(canShare()) t.sharedWith=[...document.querySelectorAll('.share input:checked')].map(i=>i.value);
     t.updatedAt=Date.now();
     if(isNew && !LIVE) data.tasks.push(t);
-    DB.save(); closeModal(); render();
+    const offerSend = t.assignee && t.assignee!==me.id && (isNew || t.assignee!==prevAssignee);
+    DB.save(); if(offerSend) showSendSheet([{kind:'task',to:t.assignee,title:t.title,dept:t.dept,due:t.due,priority:t.priority,desc:t.desc}]); else closeModal(); render();
     API.putTask(t, isNew?'new':(full?'full':'limited')).then(()=>toast(isNew?'انضافت المهمة':'انحفظت التعديلات')).catch(errToast);
     if(spawn){ if(!LIVE) data.tasks.push(spawn); DB.save(); render() }
     if(spawn) API.putTask(spawn,'new').then(()=>toast('انعملت المهمة الجاية تلقائياً · '+fmtDate(spawn.due))).catch(errToast);
@@ -941,6 +955,36 @@ function sendMail(ids,subject,body){
   if(!EMAIL_WEBHOOK) return; const d=DB.load();
   const to=[...new Set(ids.map(id=>d.users.find(u=>u.id===id)?.email).filter(Boolean))]; if(!to.length) return;
   try{ fetch(EMAIL_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({token:EMAIL_TOKEN,to:to.join(','),subject,body:body+'\n\n'+pageUrl()})}).catch(()=>{}) }catch(e){}
+}
+
+/* ---- إرسال الأوامر عـ واتساب أو إيميل ---- */
+function mailLink(uid,subject,body,label='إيميل'){
+  const u=userById(uid); if(!u || u.id===me.id) return '';
+  if(!u.email) return `<span class="btn mail off" title="ما في إيميل لهالموظف. ضيفه من شاشة الموظفين">${ic('mail',15)} ${label}</span>`;
+  return `<a class="btn mail" href="mailto:${encodeURIComponent(u.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}">${ic('mail',15)} ${label}</a>`;
+}
+function itemLine(x,i,n){
+  const p=n>1?`${i+1}. `:'';
+  if(x.kind==='request') return `${p}طلب: ${x.title}${x.due?' · لـ '+fmtDate(x.due):''}${x.priority==='high'?' · عاجل':''}${x.details?'\n   '+x.details:''}`;
+  return `${p}${x.title}${x.dept?' · '+DEPTS[x.dept].name:''}${x.due?' · التسليم '+fmtDate(x.due):''}${x.priority==='high'?' · عاجلة':''}${x.desc?'\n   '+x.desc:''}`;
+}
+function groupText(uid,items){
+  const u=userById(uid), tasks=items.filter(x=>x.kind!=='request').length, reqs=items.length-tasks;
+  const what=[tasks?(tasks===1?'مهمة جديدة':tasks+' مهام جديدة'):'',reqs?(reqs===1?'طلب':reqs+' طلبات'):''].filter(Boolean).join(' و');
+  return `مرحبا ${u?.name||''}،\nعندك ${what} من ${me.name}:\n\n${items.map((x,i)=>itemLine(x,i,items.length)).join('\n')}\n\nتفاصيلها عـ صفحة المهام:\n${pageUrl()}`;
+}
+function showSendSheet(items){
+  items=items.filter(x=>x.to && x.to!==me.id); if(!items.length){ closeModal(); return }
+  const g={}; items.forEach(x=>(g[x.to]??=[]).push(x));
+  openModal(`<div class="shead"><h2>${ic('done',18)} انحفظ</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="small muted">بدك تبعته هلق؟ اضغط واتساب أو إيميل، والرسالة بتطلع مكتوبة جاهزة. بعد ما تبعت ارجع لهون.</div>
+    <div style="margin-top:10px">${Object.entries(g).map(([uid,xs])=>{ const u=userById(uid), txt=groupText(uid,xs), subj=xs.length===1?((xs[0].kind==='request'?'طلب: ':'مهمة: ')+xs[0].title):(`${xs.length} بنود جديدة من ${me.name}`);
+      return `<div class="sendrow"><div class="av">${esc((u?.name||'؟')[0])}</div><div class="info"><div style="font-weight:500">${esc(u?.name||'')}</div><div class="small muted">${xs.map(x=>esc(x.title)).join('، ')}</div></div>
+        <div class="sendbtns">${waLink(uid,txt)||''}${mailLink(uid,subj,txt)}</div></div>`}).join('')}</div>
+    ${Object.keys(g).some(id=>!userById(id)?.email)?`<div class="small muted" style="margin-top:8px">${ic('mail',12)} زر الإيميل الباهت يعني ما في إيميل لهالموظف. فيك تضيفه من شاشة الموظفين.</div>`:''}
+    <div class="actions"><button class="primary" id="sDone">${ic('check',15)} خلص</button></div>`);
+  $('#mClose').onclick=$('#sDone').onclick=closeModal;
+  document.querySelectorAll('.sendbtns a').forEach(a=>a.addEventListener('click',()=>{ a.classList.add('sent'); if(!a.querySelector('.okmark')) a.insertAdjacentHTML('beforeend',`<span class="okmark">${ic('check',13)}</span>`) }));
 }
 
 /* ---- مهام بتتكرر ---- */
@@ -1159,7 +1203,7 @@ function openRequest(id,preset={}){
       if(!r.to) return $('#qErr').textContent='اختار لمين الطلب'; if(!r.title) return $('#qErr').textContent='اكتب شو بدك';
       API.put('requests',r).then(()=>toast('انبعت الطلب')).catch(errToast);
       sendMail([r.to],'طلب جديد من '+me.name+': '+r.title,reqText(r));
-      closeModal(); UI.reqTab='out'; render();
+      UI.reqTab='out'; render(); showSendSheet([{kind:'request',to:r.to,title:r.title,details:r.details,due:r.due,priority:r.priority}]);
     };
     return;
   }
@@ -1174,7 +1218,7 @@ function openRequest(id,preset={}){
     <div class="sect"><h3>${ic('message',15)} الردود (${r.notes.length})</h3>
       ${r.notes.map(n=>`<div class="note"><div class="by">${esc(n.byName||uname(n.by))} · ${fmtTime(n.at)}</div>${esc(n.text).replace(/\n/g,'<br>')}</div>`).join('')||'<div class="small muted">ما في ردود لسا</div>'}
       <div class="addnote"><textarea id="qNote" placeholder="اكتب رد…"></textarea><button class="primary ibtn" id="qNoteBtn" aria-label="إرسال">${ic('send',18)}</button></div></div>
-    <div class="actions">${waLink(other,reqText(r)+'\n\n'+pageUrl())}
+    <div class="actions">${waLink(other,reqText(r)+'\n\n'+pageUrl())}${mailLink(other,'طلب: '+r.title,reqText(r)+'\n\n'+pageUrl())}
       ${canCreate()?`<button id="qToTask">${ic('tasks',15)} حوّلها لمهمة</button>`:''}
       ${isFrom||isTop(me)?`<button class="danger" id="qDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`:''}</div>`);
   $('#mClose').onclick=closeModal;
@@ -1225,7 +1269,7 @@ function openMineItem(id){
 var REC=null, VD=[];
 const AR = s => String(s||'').replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').toLowerCase();
 const SPLIT_RE = /\s*(?:[.\n؟?!؛;]+|\s(?:و?كمان|و?بعدين|و?بعدها|و?بعد هيك|و?تاني شي|و?ثاني شي|نقطه|نقطة)\s)\s*/;
-const DEPT_KW = {fire:['حريق','طفاي','انذار','رشاش','دفاع مدني','صيانه'],build:['معدات البناء','شحن','جمارك','جمرك','حديد','اسمنت','خلاط','استيراد','مستودع','طلبيه','مخلص'],project:['نهله','بنايه','طابق','سقف','صب','بلاط','مقاول','عماره'],admin:['اوراق','معامله','سجل','اجتماع','مراسل','قرطاسيه','مشتريات','بنك','فاتوره']};
+const DEPT_KW = {fire:['eurofeu','يوروفو','اوروفو','حريق','طفاي','انذار','رشاش','دفاع مدني','صيانه'],build:['sepc','سيبك','سبك','معدات البناء','شحن','جمارك','جمرك','حديد','اسمنت','خلاط','استيراد','مستودع','طلبيه','مخلص'],project:['نهله','بنايه','طابق','سقف','صب','بلاط','مقاول','عماره'],admin:['اوراق','معامله','سجل','اجتماع','مراسل','قرطاسيه','مشتريات','بنك','فاتوره']};
 const DATE_WORDS_RE = /(^|\s)(?:يوم\s|نهار\s)?(?:اليوم|بكرا|بكرة|بكره|غدا|غداً|بعد بكرا|بعد بكرة|بعد بكره|بعد غد|ال?(?:أحد|احد|اثنين|إثنين|اتنين|تنين|ثلاثاء|ثلاثا|تلاتا|تلاتاء|أربعاء|اربعاء|أربعا|اربعا|خميس|جمعة|جمعه|سبت)(?:\sالجاي|\sالجاية|\sالقادم)?|الأسبوع الجاي|الاسبوع الجاي|الأسبوع القادم|الاسبوع القادم|آخر الشهر|اخر الشهر|بعد \S+ (?:أيام|ايام|يوم))(?=$|\s|[،,.])/g;
 function parseDue(n){
   if(/بعد (بكرا|بكره|غد)/.test(n)) return today(2);
@@ -1276,15 +1320,30 @@ function openVoice(){
   $('#vParse').onclick=()=>{ if(REC) try{REC.stop()}catch(e){} const t=$('#vText').value.trim(); if(!t) return toast('ما في نص'); renderDrafts(parseVoice(t)) };
   if(!SR) return;
   $('#vMic').onclick=()=>{
-    if(REC){ try{REC.stop()}catch(e){} return }
-    const r=new SR(); r.lang='ar-LB'; r.continuous=true; r.interimResults=true;
-    const base=$('#vText').value.trim(); let fin='';
-    r.onstart=()=>{ REC=r; $('#vMic').classList.add('rec'); $('#vState').textContent='عم اسمعك… اضغط مرة تانية لما تخلص' };
-    r.onresult=e=>{ let inter=''; for(let i=e.resultIndex;i<e.results.length;i++){ const x=e.results[i]; if(x.isFinal) fin+=' '+x[0].transcript; else inter+=x[0].transcript }
-      $('#vText').value=(base+' '+fin).trim(); $('#vState').textContent=inter?('… '+inter):'عم اسمعك…' };
-    r.onerror=e=>{ $('#vState').textContent=e.error==='not-allowed'?'لازم تسمح للصفحة تستخدم المايك من إعدادات المتصفح':'صار خطأ بالتسجيل ('+e.error+'). جرّب مرة تانية' };
-    r.onend=()=>{ REC=null; const b=$('#vMic'); if(!b) return; b.classList.remove('rec'); $('#vState').textContent='خلص التسجيل. راجع النص واضغط "قسّم لمهام"' };
-    try{ r.start() }catch(e){ $('#vState').textContent='ما قدرت شغّل المايك' }
+    if(REC){ REC._stopped=true; try{REC.stop()}catch(e){} return }
+    const android=/Android/i.test(navigator.userAgent);
+    const base=$('#vText').value.trim(); const done=[]; let cur='', stopped=false, empty=0;
+    const show=(inter='')=>{ $('#vText').value=[base,...done,cur].filter(Boolean).join(' ').replace(/\s+/g,' ').trim(); $('#vState').textContent=inter?('… '+inter):'عم اسمعك… اضغط المايك مرة تانية لما تخلص' };
+    const startOne=()=>{
+      const r=new SR(); r.lang='ar-LB'; r.continuous=!android; r.interimResults=true;
+      r.onstart=()=>{ REC=r; $('#vMic')?.classList.add('rec'); show() };
+      r.onresult=e=>{
+        // منبني النص من الأول كل مرة، ومنشيل التكرار اللي بيصير عـ أندرويد
+        const fin=[]; let inter='';
+        for(let i=0;i<e.results.length;i++){ const x=e.results[i], t=x[0].transcript.trim(); if(!t) continue;
+          if(x.isFinal){ const last=fin[fin.length-1]; if(last && (t.startsWith(last)||last.startsWith(t))) fin[fin.length-1]=t.length>=last.length?t:last; else if(last!==t) fin.push(t) }
+          else inter=t }
+        cur=fin.join(' '); show(inter);
+      };
+      r.onerror=e=>{ if(e.error==='no-speech'||e.error==='aborted') return; stopped=true; $('#vState').textContent=e.error==='not-allowed'?'لازم تسمح للصفحة تستخدم المايك من إعدادات المتصفح':'صار خطأ بالتسجيل ('+e.error+'). جرّب مرة تانية' };
+      r.onend=()=>{
+        if(cur){ empty=0; const last=done[done.length-1]; if(last!==cur) done.push(cur) } else empty++; cur='';
+        if(android && empty<2 && !stopped && !r._stopped && $('#vMic')){ try{ startOne(); return }catch(e){} }
+        REC=null; const b=$('#vMic'); if(!b) return; b.classList.remove('rec'); show(); $('#vState').textContent='خلص التسجيل. راجع النص واضغط "قسّم لمهام"';
+      };
+      try{ r.start() }catch(e){ $('#vState').textContent='ما قدرت شغّل المايك' }
+    };
+    startOne();
   };
 }
 function personOptions(x){
@@ -1319,18 +1378,20 @@ function renderDrafts(list){
 }
 function saveDrafts(){
   for(const x of VD){ if(!x.title.trim()) return $('#vErr').textContent='في بند بدون عنوان'; if(x.kind==='request'&&!x.person) return $('#vErr').textContent='اختار من مين بدك الطلب: «'+x.title+'»' }
-  const d=DB.load(); let n=0;
+  const d=DB.load(); let n=0; const out=[];
   VD.forEach(x=>{ const now=Date.now();
     if(x.kind==='task'){ const D=DEPTS[x.dept];
       const t={id:'t'+uid(),dept:x.dept,type:D.types.includes(x.type)?x.type:D.types[0],title:x.title.trim(),desc:'',assignee:x.person,status:'new',priority:x.priority,due:x.due,stage:0,fields:{},sharedWith:[],photos:[],repeat:'none',
         notes:[{by:me.id,byName:me.name,text:'انضافت بأمر صوتي: «'+x.src+'»',at:now}],createdBy:me.id,createdAt:now,updatedAt:now};
       if(!LIVE) d.tasks.push(t); DB.save(); API.putTask(t,'new').catch(errToast);
-      if(t.assignee&&t.assignee!==me.id) sendMail([t.assignee],'مهمة جديدة إلك: '+t.title,waTaskText(t)); n++ }
+      if(t.assignee&&t.assignee!==me.id) sendMail([t.assignee],'مهمة جديدة إلك: '+t.title,waTaskText(t));
+      out.push({kind:'task',to:t.assignee,title:t.title,dept:t.dept,due:t.due,priority:t.priority}); n++ }
     else if(x.kind==='request'){ const r={id:'q'+uid(),from:me.id,to:x.person,title:x.title.trim(),details:'',due:x.due,priority:x.priority,status:'open',notes:[],createdAt:now};
-      API.put('requests',r).catch(errToast); sendMail([r.to],'طلب جديد من '+me.name+': '+r.title,reqText(r)); n++ }
+      API.put('requests',r).catch(errToast); sendMail([r.to],'طلب جديد من '+me.name+': '+r.title,reqText(r));
+      out.push({kind:'request',to:r.to,title:r.title,due:r.due,priority:r.priority}); n++ }
     else { API.put('personal',{id:'m'+uid(),owner:me.id,title:x.title.trim(),date:x.due,time:'',done:false,note:'',createdAt:now}).catch(errToast); n++ }
   });
-  toast(`انضاف ${n} ${n===1?'بند':'بنود'}`); closeModal(); render();
+  toast(`انضاف ${n} ${n===1?'بند':'بنود'}`); render(); showSendSheet(out);
 }
 
 /* ================= الاتصال بـ Firebase ================= */
