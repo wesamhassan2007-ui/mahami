@@ -205,6 +205,81 @@ button:active{transform:scale(.97)}
 @keyframes up{from{transform:translateY(40px);opacity:.4}}
 @keyframes pop{50%{transform:scale(1.4)}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ===== التنقل والصفحات الجديدة ===== */
+#app{padding-bottom:84px}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:8;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+.bnav button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink2);padding:6px 2px;position:relative;border-radius:12px}
+.bnav button .ic{width:22px;height:22px}
+.bnav button.on{color:var(--ink);background:#f1efe9;font-weight:600}
+.bnav button:active{transform:scale(.94)}
+.badge{position:absolute;top:2px;left:calc(50% - 22px);min-width:18px;height:18px;border-radius:9px;background:var(--danger);color:#fff;font-size:11px;line-height:18px;padding:0 5px;font-weight:600;display:none}
+.badge.on{display:block;animation:pop .35s}
+.fabs{position:fixed;left:16px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:7;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.fab{position:static}
+.fab-mic{width:52px;height:52px;border-radius:50%;padding:0;display:grid;place-items:center;background:var(--accent);color:#fff;border:0;box-shadow:0 8px 22px rgba(31,78,121,.35)}
+.fab-mic .ic{width:24px;height:24px}
+.fab-mic:hover{transform:translateY(-2px)}
+.tools2{display:flex;gap:6px;flex-wrap:wrap;margin:-4px 0 12px}
+.tbtn{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:6px 12px;border-radius:999px;border-color:var(--line)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);background:var(--card);border-radius:var(--r);padding:8px 14px;text-decoration:none;color:var(--ink)}
+.btn.wa{background:#e7f8ee;border-color:#a8dfbf;color:#127a3e}
+.btn.wa:hover{background:#d6f3e2}
+.phead{margin:14px 0 10px}.phead h2{margin:0;font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-bottom:12px}
+.sh{font-size:15px;font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:6px}
+.sh .ic{color:var(--ink3)}
+.g-late{color:var(--danger)}.g-today{color:var(--accent)}
+.dprog{display:flex;align-items:center;gap:10px;margin-bottom:6px}.dprog .bar{flex:1;height:8px;border-radius:4px}
+.checklist{display:flex;flex-direction:column}
+.citem{display:flex;align-items:center;gap:10px;width:100%;text-align:right;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:11px 2px;font-size:15px}
+.citem:last-child{border-bottom:0}
+.citem .ic{color:var(--ink3);flex:none}
+.citem span{flex:1;min-width:0;cursor:pointer}
+.citem small{color:var(--ink3);font-size:12px;margin-right:4px}
+.citem.on span{color:var(--ink3);text-decoration:line-through}
+.citem.on .ic{color:var(--ok)}
+.citem .cb{border:0;background:transparent;padding:0;display:grid}
+button.citem:active{transform:none;background:#f8f7f4}
+.citem.on>.ic,.citem.on .cb .ic{animation:pop .35s}
+.ditem{display:flex;align-items:center;gap:6px;font-size:13px;padding:4px 0;color:var(--ink2)}
+.ditem.on{color:var(--ok)}.ditem small{margin-right:auto;color:var(--ink3)}
+.alldone{display:flex;align-items:center;gap:6px;background:var(--ok-bg);color:var(--ok);border-radius:8px;padding:8px 10px;margin-top:8px;font-weight:500}
+.days{display:flex;gap:4px;flex-wrap:wrap}
+.days button{font-size:12px;padding:5px 9px;border-radius:999px}
+.days button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.quick{display:flex;gap:6px;margin-bottom:6px}.quick input:first-child{flex:1}.quick input[type=date]{width:150px;flex:none}
+.cntb{background:var(--danger);color:#fff;border-radius:9px;font-size:11px;padding:0 6px;margin-right:2px}
+.tab.on .cntb{background:#fff;color:var(--danger)}
+.d-in{background:var(--accent-bg);color:var(--accent)}.d-out{background:var(--wait-bg);color:var(--wait)}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:6px;margin-bottom:6px}
+.ph{aspect-ratio:1;border-radius:10px;overflow:hidden;padding:0;border:1px solid var(--line);display:grid;place-items:center;background:#f8f7f4;cursor:pointer}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph.add{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--ink2);border-style:dashed;margin:0}
+.cal{padding:10px}
+.calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.calh b{font-weight:600}
+.cgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.cw{font-size:11px;color:var(--ink3);text-align:center;padding:2px 0}
+.cd{aspect-ratio:1;border-radius:8px;padding:3px;border:1px solid transparent;background:#f8f7f4;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;font-size:13px}
+.cd.blank{background:transparent}
+.cd.today{border-color:var(--accent);color:var(--accent);font-weight:600}
+.cd.sel{background:var(--ink);color:#fff}
+.dots{display:flex;gap:2px;min-height:6px}
+.dots i,.legend i{width:6px;height:6px;border-radius:50%;display:inline-block}
+i.late{background:var(--danger)}i.open{background:var(--warn)}i.done{background:var(--ok)}
+.cc{position:absolute;top:1px;left:3px;font-size:10px;color:var(--ink3)}
+.cd.sel .cc{color:#ddd}
+.legend{display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:12px;color:var(--ink2)}.legend span{display:inline-flex;align-items:center;gap:4px}
+.vrow{display:flex;align-items:center;gap:14px;margin:14px 0}
+.vmic{width:68px;height:68px;border-radius:50%;padding:0;display:grid;place-items:center;background:var(--accent);color:#fff;border:0;flex:none}
+.vmic[disabled]{background:#ccc}
+.vmic.rec{background:var(--danger);animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(163,45,45,.45)}70%{box-shadow:0 0 0 16px rgba(163,45,45,0)}100%{box-shadow:0 0 0 0 rgba(163,45,45,0)}}
+.draft{border:1px solid var(--line);border-radius:var(--r);padding:10px;margin-bottom:8px;background:#fcfbf9}
+.dtop{display:flex;gap:6px;align-items:center;margin-bottom:6px}.dtop select{flex:1}
+.xbtn.sm{width:30px;height:30px}
+.linkb{border:0;background:none;padding:0;color:var(--accent);text-decoration:underline;font-size:13px}
+label .ic{vertical-align:-2px}
 </style>
 </head>
 <body>
@@ -249,7 +324,7 @@ button:active{transform:scale(.97)}
       <button class="hbtn" id="btnOut" aria-label="خروج" data-ic="logout"><span>خروج</span></button>
     </div>
   </header>
-  <div class="wrap">
+  <div class="wrap" id="page-tasks">
     <div class="tabs" id="tabs"></div>
     <div class="stats" id="stats"></div>
     <div class="tools">
@@ -258,11 +333,25 @@ button:active{transform:scale(.97)}
       <div class="seg" id="viewSeg">
         <button data-v="list" class="on" data-ic="list">قائمة</button>
         <button data-v="workers" data-ic="users">حسب العامل</button>
+        <button data-v="cal" data-ic="calendar">تقويم</button>
       </div>
     </div>
+    <div class="tools2" id="tools2"></div>
     <div id="content"></div>
   </div>
-  <button class="primary fab" id="btnAdd" data-ic="plus"><span>مهمة جديدة</span></button>
+  <div class="wrap hidden" id="page-daily"></div>
+  <div class="wrap hidden" id="page-requests"></div>
+  <div class="wrap hidden" id="page-mine"></div>
+  <div class="fabs">
+    <button class="fab-mic" id="btnMic" aria-label="أمر صوتي" data-ic="mic"></button>
+    <button class="primary fab" id="btnAdd" data-ic="plus"><span>مهمة جديدة</span></button>
+  </div>
+  <nav class="bnav" id="bnav">
+    <button data-p="tasks" class="on" data-ic="tasks"><span>المهام</span><b class="badge" id="bg-tasks"></b></button>
+    <button data-p="daily" data-ic="sun"><span>اليومية</span><b class="badge" id="bg-daily"></b></button>
+    <button data-p="requests" data-ic="inbox"><span>الطلبات</span><b class="badge" id="bg-requests"></b></button>
+    <button data-p="mine" data-ic="notebook"><span>برنامجي</span><b class="badge" id="bg-mine"></b></button>
+  </nav>
 </section>
 
 <div id="modalRoot"></div>
@@ -280,6 +369,11 @@ const FIREBASE_CONFIG = {
   appId: "1:84140839855:web:2edbc8f194830cfc1c555a"
 };
 const LIVE = !!FIREBASE_CONFIG;
+/* رمز الدولة لروابط الواتساب (ساحل العاج 225) */
+const COUNTRY_CODE = '225';
+/* الإيميل: رابط Google Apps Script وكلمة السر تبعه (شوف ملف apps-script.gs). إذا فاضي، الإيميل مطفى */
+const EMAIL_WEBHOOK = '';
+const EMAIL_TOKEN = '';
 
 /* ================= إعدادات الأقسام ================= */
 const DEPTS = {
@@ -292,7 +386,7 @@ const DEPTS = {
           fields:[{k:'party',l:'المورد / الزبون'},{k:'shipment',l:'رقم الشحنة / الطلبية'},{k:'items',l:'البضاعة'}]},
   admin: {name:'مهام المساعدين', short:'المساعدين',
           types:['مراسلات','مواعيد واجتماعات','أوراق رسمية','مشتريات مكتب','متابعة مع جهة','أخرى'],
-          fields:[{k:'party',l:'الجهة'},{k:'recurring',l:'تتكرر',t:'select',opts:['لا','يومياً','أسبوعياً','شهرياً']}]},
+          fields:[{k:'party',l:'الجهة'}]},
   project:{name:'بناية نهلة', short:'بناية نهلة', summary:true,
           types:['حفر وأساسات','هيكل (عظم)','كهرباء','تمديدات صحية','تشطيبات','مواد وتوريدات','ترخيص ومعاملات','دفعات مقاولين','أخرى'],
           fields:[{k:'phase',l:'مرحلة المشروع',t:'select',opts:['حفر وأساسات','عظم','تمديدات','تشطيب','تسليم']},{k:'floor',l:'الطابق / المكان'},{k:'contractor',l:'المقاول / المورد'},{k:'cost',l:'التكلفة',t:'number'},{k:'paid',l:'المدفوع',t:'number'}]}
@@ -301,11 +395,14 @@ const PHASES = DEPTS.project.fields[0].opts;
 const ROLES = {manager:'المدير', assistant:'مساعد المدير', head:'رئيس قسم', worker:'عامل'};
 const STATUSES = [{k:'new',l:'جديدة'},{k:'progress',l:'قيد التنفيذ'},{k:'waiting',l:'بانتظار'},{k:'done',l:'منتهية'}];
 const PRI = {low:'عادية',normal:'متوسطة',high:'عاجلة'};
+const REPEAT = {none:'لا تتكرر',daily:'يومياً',weekly:'أسبوعياً',monthly:'شهرياً'};
+const REQ_ST = {open:'جديد',accepted:'قيد التنفيذ',done:'تم',rejected:'مرفوض'};
+const WDAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
 
 /* ================= طبقة البيانات (رح تنستبدل بـ Firebase) ================= */
 const KEY = 'mahami_demo_v1';
 let mem = null;
-function today(off=0){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+off);return d.toISOString().slice(0,10)}
+function today(off=0){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+off);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function uid(){return Math.random().toString(36).slice(2,10)}
 function seed(){
   const U=[
@@ -335,7 +432,34 @@ function seed(){
   ].map((t,i)=>({id:'t'+(i+1),desc:'',sharedWith:[],notes:[],createdBy:'u1',createdAt:Date.now()-86400e3*(10-i),updatedAt:Date.now(),fields:t.f||{},...t}));
   T.forEach(t=>delete t.f);
   const P=seedProject();
-  return {users:U.concat(P.users),tasks:T.concat(P.tasks)};
+  return {users:U.concat(P.users),tasks:T.concat(P.tasks),...seedExtras()};
+}
+function seedExtras(){
+  const n=Date.now();
+  return {
+    routines:[
+      {id:'r1',userId:'u4',dept:'fire',title:'فحص سيارة الصيانة والعدّة',days:[0,1,2,3,4,6],order:1,createdBy:'u3'},
+      {id:'r2',userId:'u4',dept:'fire',title:'تأكيد مواعيد زيارات اليوم مع الزباين',days:[0,1,2,3,4,6],order:2,createdBy:'u3'},
+      {id:'r3',userId:'u4',dept:'fire',title:'تعبئة تقرير الزيارات آخر النهار',days:[0,1,2,3,4,6],order:3,createdBy:'u3'},
+      {id:'r4',userId:'u7',dept:'build',title:'متابعة حالة الشحنات مع المخلّص',days:[0,1,2,3,4,5,6],order:1,createdBy:'u6'},
+      {id:'r5',userId:'u7',dept:'build',title:'جرد سريع للمستودع',days:[1,3],order:2,createdBy:'u6'},
+      {id:'r6',userId:'u9',dept:'admin',title:'الرد على الإيميلات والمراسلات',days:[0,1,2,3,4,6],order:1,createdBy:'u8'},
+      {id:'r7',userId:'u9',dept:'admin',title:'تحديث جدول مواعيد المدير',days:[0,1,2,3,4,6],order:2,createdBy:'u8'},
+      {id:'r8',userId:'u11',dept:'project',title:'صور يومية لتقدّم الشغل بالبناية',days:[0,1,2,3,4,5,6],order:1,createdBy:'u10'},
+      {id:'r9',userId:'u11',dept:'project',title:'تسجيل العمال الحاضرين',days:[0,1,2,3,4,5,6],order:2,createdBy:'u10'}
+    ],
+    checks:[{id:today()+'_u4',userId:'u4',dept:'fire',date:today(),done:{r1:n-3600e3}}],
+    requests:[
+      {id:'q1',from:'u4',to:'u3',title:'بدي 5 طفايات احتياط للسيارة',details:'خلصوا اللي معي بزيارة مطعم الريم',due:today(1),priority:'normal',status:'open',notes:[],createdAt:n-5*3600e3},
+      {id:'q2',from:'u7',to:'u1',title:'موافقة على دفع رسوم الجمارك لشحنة الحديد',details:'المبلغ حسب البيان المرفق مع الشحنة SH-2291',due:today(),priority:'high',status:'open',notes:[],createdAt:n-2*3600e3},
+      {id:'q3',from:'u2',to:'u10',title:'ابعتلي صور سقف الطابق الثاني',details:'',due:today(2),priority:'normal',status:'accepted',notes:[{by:'u10',byName:'فادي',text:'بعد الصب بصوّرها',at:n-3600e3}],createdAt:n-26*3600e3}
+    ],
+    personal:[
+      {id:'m1',owner:'u1',title:'اتصل بمحاسب الشركة عن الضريبة',date:today(),time:'10:00',done:false,note:''},
+      {id:'m2',owner:'u1',title:'زيارة موقع بناية نهلة',date:today(1),time:'',done:false,note:''},
+      {id:'m3',owner:'u1',title:'مراجعة عرض سعر شركة النور',date:'',time:'',done:false,note:''}
+    ]
+  };
 }
 function seedProject(){
   const U=[
@@ -354,10 +478,13 @@ function seedProject(){
   T.forEach(t=>delete t.f);
   return {users:U,tasks:T};
 }
+const emptyMem = () => ({users:[],tasks:[],requests:[],routines:[],checks:[],personal:[]});
 const DB = {
-  load(){ if(LIVE) return mem||(mem={users:[],tasks:[]}); if(mem) return mem;
+  load(){ if(LIVE) return mem||(mem=emptyMem()); if(mem) return mem;
     try{const s=localStorage.getItem(KEY); if(s){mem=JSON.parse(s);
       if(!mem.users.some(u=>u.dept==='project') && !mem.tasks.some(t=>t.dept==='project')){ const P=seedProject(); mem.users.push(...P.users.filter(u=>!mem.users.some(x=>x.id===u.id))); mem.tasks.push(...P.tasks); this.save() }
+      if(!mem.routines){ Object.assign(mem,seedExtras()); this.save() }
+      ['requests','routines','checks','personal'].forEach(k=>mem[k]=mem[k]||[]);
       return mem}}catch(e){}
     mem=seed(); this.save(); return mem },
   save(){ if(LIVE) return; try{localStorage.setItem(KEY,JSON.stringify(mem))}catch(e){} },
@@ -408,6 +535,23 @@ const ICONS = {
   trash:'<path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
   edit:'<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>',
   chev:'<path d="m15 18-6-6 6-6"/>',
+  copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+  'external-link':'<path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+  mic:'<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+  inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+  notebook:'<path d="M2 6h4M2 10h4M2 14h4M2 18h4"/><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M15 2v20"/>',
+  wa:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+  camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
+  download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/>',
+  spark:'<path d="M12 3l1.9 5.8L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.2z"/><path d="M19 17v4M17 19h4"/>',
+  repeat:'<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+  box:'<rect x="3" y="3" width="18" height="18" rx="5"/>',
+  boxcheck:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="m8 12 3 3 5-6"/>',
+  mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
+  out:'<path d="M7 17 17 7M7 7h10v10"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  arrowR:'<path d="m9 18 6-6-6-6"/>',
   lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
   phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>'
 };
@@ -452,16 +596,15 @@ function showLogin(msg){ me=null; closeModal(); $('#app').classList.add('hidden'
 $('#btnOut').onclick=()=>{ if(LIVE){ API.logout(); return } me=null; try{sessionStorage.removeItem('mahami_me')}catch(e){} $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); $('#lw').value=''; renderDemo() };
 
 /* ================= حالة الواجهة ================= */
-const UI = {tab:'all', stat:'all', view:'list', q:'', worker:''};
+const UI = {tab:'all', stat:'all', view:'list', q:'', worker:'', page:'tasks', reqTab:'in', cal:null, calDay:null};
 
 function startApp(){
   $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
   $('#meName').textContent=me.name;
   $('#meRole').textContent=ROLES[me.role]+(me.dept?' · '+DEPTS[me.dept].short:'');
   $('#btnUsers').classList.toggle('hidden',!canManageUsers());
-  $('#btnAdd').classList.toggle('hidden',!canCreate());
   UI.tab = isTop(me)?'all':me.dept; UI.stat='all'; UI.q=''; UI.worker=''; $('#q').value='';
-  render();
+  showPage(UI.page||'tasks');
 }
 
 function visibleTasks(){ return DB.load().tasks.filter(canSee) }
@@ -483,6 +626,14 @@ function filtered(){
 }
 
 function render(){
+  if(!me) return;
+  updateBadges();
+  if(UI.page==='tasks') renderTasks();
+  else if(UI.page==='daily') renderDaily();
+  else if(UI.page==='requests') renderRequests();
+  else if(UI.page==='mine') renderMine();
+}
+function renderTasks(){
   // التبويبات
   const tabs=[];
   if(isTop(me)){ tabs.push(['all','الكل','all']); Object.keys(DEPTS).forEach(k=>tabs.push([k,DEPTS[k].name,k])) }
@@ -502,8 +653,9 @@ function render(){
   $('#fWorker').innerHTML='<option value="">كل الموظفين</option>'+ids.map(id=>`<option value="${id}" ${UI.worker===id?'selected':''}>${esc(uname(id))}</option>`).join('');
 
   document.querySelectorAll('#viewSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===UI.view));
-  UI.view==='list'?renderList():renderWorkers();
+  renderView(); renderTools2();
 }
+function renderView(){ UI.view==='list'?renderList():UI.view==='cal'?renderCal():renderWorkers() }
 
 function taskCard(t,i=0){
   const f=t.fields||{}; const extra=[f.client||f.party||f.contractor||'', f.floor||''].filter(Boolean).join(' · ');
@@ -557,13 +709,13 @@ function renderWorkers(){
   $('#content').querySelectorAll('.wtask').forEach(b=>b.onclick=()=>openTask(b.dataset.id));
 }
 
-$('#q').addEventListener('input',e=>{UI.q=e.target.value;UI.view==='list'?renderList():renderWorkers()});
+$('#q').addEventListener('input',e=>{UI.q=e.target.value;renderView()});
 $('#fWorker').addEventListener('change',e=>{UI.worker=e.target.value;render()});
 document.querySelectorAll('#viewSeg button').forEach(b=>b.onclick=()=>{UI.view=b.dataset.v;render()});
 
 /* ================= النوافذ ================= */
 function openModal(html){ $('#modalRoot').innerHTML=`<div class="ov" id="ov"><div class="sheet">${html}</div></div>`; $('#ov').addEventListener('click',e=>{if(e.target.id==='ov')closeModal()}); }
-function closeModal(){ $('#modalRoot').innerHTML='' }
+function closeModal(){ try{ if(typeof REC!=='undefined'&&REC) REC.stop() }catch(e){} $('#modalRoot').innerHTML='' }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 function assigneeOptions(dept,sel){
@@ -573,7 +725,7 @@ function assigneeOptions(dept,sel){
 function fieldInput(fd,val,dis){
   const d=dis?'disabled':'';
   if(fd.t==='select') return `<select data-f="${fd.k}" ${d}>${fd.opts.map(o=>`<option ${o===val?'selected':''}>${o}</option>`).join('')}</select>`;
-  return `<input data-f="${fd.k}" type="${fd.t||'text'}" value="${esc(val||'')}" ${d}>`;
+  return `<input data-f="${fd.k}" type="${fd.t||'text'}" ${fd.t?'':`list="dl-${fd.k}"`} value="${esc(val||'')}" ${d}>`;
 }
 
 /* ---- عرض / تعديل مهمة ---- */
@@ -581,8 +733,11 @@ function openTask(id, isNew=false, newDept=null){
   const data=DB.load();
   let t = isNew ? {id:'t'+uid(),dept:newDept||creatableDepts()[0],type:'',title:'',desc:'',assignee:'',status:'new',priority:'normal',due:today(3),stage:0,fields:{},sharedWith:[],notes:[],createdBy:me.id,createdAt:Date.now()} : data.tasks.find(x=>x.id===id);
   if(!t) return;
+  if(isNew && PREFILL){ Object.assign(t,PREFILL); PREFILL=null }
   const full = isNew || canEditFull(t);
   const dis = full?'':'disabled';
+  if(!t.repeat && t.fields?.recurring){ t.repeat={'يومياً':'daily','أسبوعياً':'weekly','شهرياً':'monthly'}[t.fields.recurring]||'none' }
+  t.photos=t.photos||[];
   const D=DEPTS[t.dept];
   const deptSel = isNew && creatableDepts().length>1
     ? `<label>القسم</label><select id="tDept">${creatableDepts().map(k=>`<option value="${k}" ${k===t.dept?'selected':''}>${DEPTS[k].name}</option>`).join('')}</select>` : '';
@@ -610,26 +765,31 @@ function openTask(id, isNew=false, newDept=null){
       <div><label>المسؤول</label><select id="tAssignee" ${dis}>${assigneeOptions(t.dept,t.assignee)}</select></div>
       <div><label>تاريخ التسليم</label><input id="tDue" type="date" value="${t.due||''}" ${dis}></div>
       <div><label>الأولوية</label><select id="tPri" ${dis}>${Object.entries(PRI).map(([k,l])=>`<option value="${k}" ${k===t.priority?'selected':''}>${l}</option>`).join('')}</select></div>
+      <div><label>${ic('repeat',13)} تتكرر</label><select id="tRepeat" ${dis}>${Object.entries(REPEAT).map(([k,l])=>`<option value="${k}" ${k===(t.repeat||'none')?'selected':''}>${l}</option>`).join('')}</select></div>
       ${D.fields.map(fd=>`<div><label>${fd.l}</label>${fieldInput(fd,t.fields[fd.k],!full)}</div>`).join('')}
     </div>
     <label>تفاصيل</label><textarea id="tDesc" rows="2" ${dis}>${esc(t.desc)}</textarea>
     <div class="sect"><h3>${ic('progress',15)} الحالة</h3><div class="status-btns" id="tStatus">${STATUSES.map(s=>`<button type="button" data-k="${s.k}" class="sb-${s.k} ${s.k===t.status?'on':''}">${ic(s.k,15)}${s.l}</button>`).join('')}</div></div>
+    ${datalists(D)}
     ${stagesHtml}
+    ${isNew?'':photosHtml(t)}
     ${shareHtml}
     ${notesHtml}
     <div class="actions">
       <button class="primary" id="tSave">${isNew?'إضافة المهمة':'حفظ'}</button>
       <button id="tCancel">إلغاء</button>
+      ${!isNew?waLink(t.assignee, waTaskText(t)):''}
       ${!isNew&&canDelete(t)?`<button class="danger" id="tDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`:''}
     </div>
     <div class="err" id="tErr"></div>`);
 
-  let status=t.status, stage=t.stage??0;
+  let status=t.status, stage=t.stage??0; t._origAssignee=t.assignee;
   $('#mClose').onclick=$('#tCancel').onclick=closeModal;
   if($('#tDept')) $('#tDept').onchange=e=>{ closeModal(); openTask(null,true,e.target.value) };
   $('#tStatus').querySelectorAll('button').forEach(b=>b.onclick=()=>{status=b.dataset.k;$('#tStatus').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
   if($('#tStages')) $('#tStages').querySelectorAll('button').forEach(b=>b.onclick=()=>{stage=+b.dataset.i;$('#tStages').querySelectorAll('button').forEach((x,i)=>{x.classList.toggle('on',i===stage);x.classList.toggle('done',i<stage)})});
 
+  if(!isNew) bindPhotos(t);
   if(!isNew) $('#tNoteBtn').onclick=()=>{
     const txt=$('#tNote').value.trim(); if(!txt) return;
     t.notes.push({by:me.id,byName:me.name,text:txt,at:Date.now()}); t.updatedAt=Date.now(); DB.save();
@@ -641,17 +801,23 @@ function openTask(id, isNew=false, newDept=null){
       const title=$('#tTitle').value.trim();
       if(!title){ $('#tErr').textContent='اكتب عنوان المهمة'; $('#tTitle').focus(); return }
       t.title=title; t.type=$('#tType').value; t.assignee=$('#tAssignee').value; t.due=$('#tDue').value;
-      t.priority=$('#tPri').value; t.desc=$('#tDesc').value.trim();
+      t.priority=$('#tPri').value; t.desc=$('#tDesc').value.trim(); t.repeat=$('#tRepeat').value;
       document.querySelectorAll('[data-f]').forEach(el=>t.fields[el.dataset.f]=el.value);
     }
     if(t.status!==status && !isNew){ t.notes.push({by:me.id,byName:me.name,text:`غيّر الحالة إلى: ${STATUSES.find(s=>s.k===status).l}`,at:Date.now()}) }
     if(D.stages && (t.stage??0)!==stage && !isNew){ t.notes.push({by:me.id,byName:me.name,text:`نقل المرحلة إلى: ${D.stages[stage]}`,at:Date.now()}) }
+    const prevStatus=t.status, prevAssignee=t._origAssignee;
     t.status=status; if(D.stages) t.stage=stage;
+    const spawn = (status==='done' && prevStatus!=='done' && t.repeat && t.repeat!=='none' && !t.spawned && !isNew) ? spawnNext(t) : null;
     if(canShare()) t.sharedWith=[...document.querySelectorAll('.share input:checked')].map(i=>i.value);
     t.updatedAt=Date.now();
     if(isNew && !LIVE) data.tasks.push(t);
     DB.save(); closeModal(); render();
     API.putTask(t, isNew?'new':(full?'full':'limited')).then(()=>toast(isNew?'انضافت المهمة':'انحفظت التعديلات')).catch(errToast);
+    if(spawn){ if(!LIVE) data.tasks.push(spawn); DB.save(); render() }
+    if(spawn) API.putTask(spawn,'new').then(()=>toast('انعملت المهمة الجاية تلقائياً · '+fmtDate(spawn.due))).catch(errToast);
+    if(t.assignee && t.assignee!==me.id && (isNew || t.assignee!==prevAssignee))
+      sendMail([t.assignee], 'مهمة جديدة إلك: '+t.title, waTaskText(t));
   };
   if($('#tDel')) $('#tDel').onclick=()=>{
     const b=$('#tDel');
@@ -690,6 +856,7 @@ function editUser(id){
       <div><label>رقم التلفون</label><input id="uPhone" type="tel" value="${esc(u.phone)}" ${locked?'disabled':''}></div>
       <div><label>كلمة السر</label><input id="uPass" value="${isNew?String(Math.floor(100000+Math.random()*900000)):''}" placeholder="${isNew?'':'اتركها فاضية إذا ما بدك تغيّرها'}" ${locked?'disabled':''}></div>
       <div><label>الدور</label><select id="uRole" ${locked?'disabled':''}>${roles.map(r=>`<option value="${r}" ${r===u.role?'selected':''}>${ROLES[r]}</option>`).join('')}</select></div>
+      <div><label>${ic('mail',13)} الإيميل (اختياري)</label><input id="uEmail" type="email" dir="ltr" value="${esc(u.email||'')}" placeholder="name@gmail.com" ${locked?'disabled':''}></div>
       <div id="uDeptWrap"><label>القسم</label><select id="uDept" ${locked?'disabled':''}>${Object.keys(DEPTS).map(k=>`<option value="${k}" ${k===u.dept?'selected':''}>${DEPTS[k].name}</option>`).join('')}</select></div>
     </div>
     <div class="err" id="uErr"></div>
@@ -704,6 +871,7 @@ function editUser(id){
     if(data.users.some(x=>x.id!==u.id && normPhone(x.phone)===phone)) return $('#uErr').textContent='هالرقم مستخدم لموظف تاني';
     if((isNew||pass) && pass.length<6) return $('#uErr').textContent='كلمة السر لازم تكون 6 أحرف أو أرقام أو أكتر';
     const oldPhone=u.phone;
+    u.email=$('#uEmail').value.trim();
     u.name=name; u.phone=phone; u.role=role; u.dept=['manager','assistant'].includes(role)?'':$('#uDept').value;
     if(!LIVE){ if(pass) u.password=pass; if(isNew) data.users.push(u); DB.save(); }
     const btn=$('#uSave'); btn.disabled=true; btn.textContent='لحظة…';
@@ -716,6 +884,454 @@ function editUser(id){
     API.delUser(u).then(()=>{toast('انحذف الموظف');openUsers();render()}).catch(e=>$('#uErr').textContent=errMsg(e))};
 }
 $('#btnUsers').onclick=openUsers;
+
+/* ================= الصفحات الجديدة: اليومية، الطلبات، برنامجي ================= */
+const pad = n => String(n).padStart(2,'0');
+const isoLocal = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const fmtClock = ts => new Date(ts).toLocaleTimeString('ar-u-nu-latn',{hour:'numeric',minute:'2-digit'});
+const pageUrl = () => location.href.split('#')[0].split('?')[0];
+const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const wd = () => new Date().getDay();
+const WSHORT = ['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
+let PREFILL = null;
+
+function showPage(p){
+  UI.page=p;
+  ['tasks','daily','requests','mine'].forEach(k=>$('#page-'+k).classList.toggle('hidden',k!==p));
+  document.querySelectorAll('#bnav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  const add=$('#btnAdd');
+  add.querySelector('span').textContent={tasks:'مهمة جديدة',daily:'مهمة يومية',requests:'طلب جديد',mine:'إضافة لبرنامجي'}[p];
+  add.classList.toggle('hidden', p==='tasks'?!canCreate() : p==='daily'?!(isTop(me)||me.role==='head') : false);
+  if(p==='tasks') markSeen();
+  window.scrollTo(0,0); render();
+}
+document.querySelectorAll('#bnav button').forEach(b=>b.onclick=()=>showPage(b.dataset.p));
+$('#btnAdd').onclick=()=>{
+  if(UI.page==='tasks') openTask(null,true, UI.tab in DEPTS && creatableDepts().includes(UI.tab) ? UI.tab : null);
+  else if(UI.page==='daily') openRoutines(null);
+  else if(UI.page==='requests') openRequest(null);
+  else openMineItem(null);
+};
+$('#btnMic').onclick=()=>openVoice();
+
+/* ---- الإشعارات ---- */
+const seenKey = () => 'mahami_seen_'+(me?.id||'');
+function lastSeen(){ try{return +localStorage.getItem(seenKey())||0}catch(e){return 0} }
+function markSeen(){ try{localStorage.setItem(seenKey(),String(Date.now()))}catch(e){} }
+function setBadge(id,n){ const b=$('#bg-'+id); if(!b) return; b.textContent=n>99?'99+':(n||''); b.classList.toggle('on',n>0) }
+function updateBadges(){
+  const d=DB.load(), ls=lastSeen();
+  setBadge('tasks', UI.page==='tasks'?0 : d.tasks.filter(t=>t.assignee===me.id && t.status!=='done' && (t.updatedAt||t.createdAt||0)>ls).length);
+  setBadge('daily', myRoutinesToday().filter(r=>!isChecked(r)).length);
+  setBadge('requests', d.requests.filter(r=>r.to===me.id && r.status==='open').length);
+  setBadge('mine', myItems().filter(x=>!x.done && x.date && x.date<=today()).length);
+}
+
+/* ---- واتساب وإيميل ---- */
+function intlPhone(p){ let d=normPhone(p); if(!d) return ''; if(COUNTRY_CODE==='225') return d.length===10?'225'+d:d; return d.startsWith('0')?COUNTRY_CODE+d.slice(1):d }
+function waLink(uid,text,label='واتساب'){
+  const u=userById(uid); if(!u || u.id===me.id || !u.phone) return '';
+  return `<a class="btn wa" href="https://wa.me/${intlPhone(u.phone)}?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">${ic('wa',15)} ${label}</a>`;
+}
+function waTaskText(t){
+  const f=Object.entries(t.fields||{}).filter(([k,v])=>v&&k!=='recurring').map(([k,v])=>`${(DEPTS[t.dept].fields.find(x=>x.k===k)||{}).l||k}: ${v}`).join('\n');
+  return `مهمة: ${t.title}\nالقسم: ${DEPTS[t.dept].name}${t.due?'\nالتسليم: '+fmtDate(t.due):''}${t.priority==='high'?'\nعاجلة':''}${t.desc?'\n'+t.desc:''}${f?'\n'+f:''}\n\n${pageUrl()}`;
+}
+function sendMail(ids,subject,body){
+  if(!EMAIL_WEBHOOK) return; const d=DB.load();
+  const to=[...new Set(ids.map(id=>d.users.find(u=>u.id===id)?.email).filter(Boolean))]; if(!to.length) return;
+  try{ fetch(EMAIL_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({token:EMAIL_TOKEN,to:to.join(','),subject,body:body+'\n\n'+pageUrl()})}).catch(()=>{}) }catch(e){}
+}
+
+/* ---- مهام بتتكرر ---- */
+function nextDate(d,rep){
+  const t0=new Date(today()+'T00:00:00'); let x=d?new Date(d+'T00:00:00'):t0; if(x<t0) x=t0;
+  if(rep==='daily') x.setDate(x.getDate()+1); else if(rep==='weekly') x.setDate(x.getDate()+7); else if(rep==='monthly') x.setMonth(x.getMonth()+1);
+  return isoLocal(x);
+}
+function spawnNext(t){
+  t.spawned=true;
+  const c=JSON.parse(JSON.stringify(t)); delete c._origAssignee;
+  return {...c,id:'t'+uid(),status:'new',stage:0,photos:[],spawned:false,repeatOf:t.id,due:nextDate(t.due,t.repeat),
+    notes:[{by:me.id,byName:me.name,text:'انعملت تلقائياً لأنها مهمة بتتكرر ('+REPEAT[t.repeat]+')',at:Date.now()}],createdBy:me.id,createdAt:Date.now(),updatedAt:Date.now()};
+}
+
+/* ---- اقتراحات للحقول (زباين، موردين…) ---- */
+function datalists(D){
+  const d=DB.load();
+  return D.fields.filter(f=>!f.t).map(f=>{const vals=[...new Set(d.tasks.map(t=>(t.fields||{})[f.k]).filter(Boolean))].slice(0,80);
+    return `<datalist id="dl-${f.k}">${vals.map(v=>`<option value="${esc(v)}">`).join('')}</datalist>`}).join('');
+}
+
+/* ---- الصور ---- */
+const MAX_PHOTOS=5;
+function photosHtml(t){
+  return `<div class="sect"><h3>${ic('camera',15)} صور (${t.photos.length})</h3>
+    <div class="photos">${t.photos.map((p,i)=>`<button class="ph" data-i="${i}"><img src="${p.src}" alt=""></button>`).join('')}
+    ${t.photos.length<MAX_PHOTOS?`<label class="ph add">${ic('camera',20)}<span>إضافة صورة</span><input type="file" accept="image/*" id="tPhoto" hidden></label>`:''}</div>
+    <div class="small muted">الصور بتتصغّر تلقائياً. الحد ${MAX_PHOTOS} صور للمهمة.</div></div>`;
+}
+function bindPhotos(t){
+  const inp=$('#tPhoto');
+  if(inp) inp.onchange=async e=>{ const f=e.target.files[0]; if(!f) return;
+    try{ toast('عم جهّز الصورة…'); const src=await shrink(f);
+      t.photos.push({src,by:me.id,byName:me.name,at:Date.now()}); t.notes.push({by:me.id,byName:me.name,text:'ضاف صورة',at:Date.now()}); t.updatedAt=Date.now(); DB.save();
+      await API.putTask(t,'limited'); toast('انضافت الصورة'); closeModal(); openTask(t.id); render();
+    }catch(err){ errToast(err) } };
+  document.querySelectorAll('.photos .ph[data-i]').forEach(b=>b.onclick=()=>viewPhoto(t,+b.dataset.i));
+}
+function shrink(file,max=900){
+  return new Promise((res,rej)=>{ const img=new Image(), url=URL.createObjectURL(file);
+    img.onload=()=>{ const k=Math.min(1,max/Math.max(img.width,img.height)); const c=document.createElement('canvas');
+      c.width=Math.round(img.width*k); c.height=Math.round(img.height*k); c.getContext('2d').drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(url);
+      let out=c.toDataURL('image/jpeg',.6); if(out.length>150000) out=c.toDataURL('image/jpeg',.4); if(out.length>150000){ c.width/=1.5; c.height/=1.5; c.getContext('2d').drawImage(img,0,0,c.width,c.height); out=c.toDataURL('image/jpeg',.45) }
+      res(out) };
+    img.onerror=()=>rej(new Error('ما قدرت أقرا الصورة')); img.src=url });
+}
+function viewPhoto(t,i){
+  const p=t.photos[i]; const canDel=canEditFull(t)||p.by===me.id;
+  openModal(`<div class="shead"><h2>${ic('camera',18)} صورة</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <img src="${p.src}" alt="" style="width:100%;border-radius:12px;display:block">
+    <div class="small muted" style="margin-top:6px">${esc(p.byName||'')} · ${fmtTime(p.at)}</div>
+    <div class="actions"><button id="pBack">رجوع للمهمة</button>${canDel?`<button class="danger" id="pDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`:''}</div>`);
+  $('#mClose').onclick=closeModal; $('#pBack').onclick=()=>openTask(t.id);
+  if($('#pDel')) $('#pDel').onclick=()=>{ t.photos.splice(i,1); t.updatedAt=Date.now(); DB.save(); API.putTask(t,'limited').catch(errToast); openTask(t.id); render() };
+}
+
+/* ---- أدوات المهام: Excel، تقرير Claude، إيميل ---- */
+function renderTools2(){
+  $('#tools2').innerHTML=`<button class="tbtn" id="bCsv">${ic('download',15)} تصدير Excel</button><button class="tbtn" id="bClaude">${ic('spark',15)} تقرير لـ Claude</button>${isTop(me)&&EMAIL_WEBHOOK?`<button class="tbtn" id="bMail">${ic('mail',15)} ملخص بالإيميل</button>`:''}`;
+  $('#bCsv').onclick=exportCSV; $('#bClaude').onclick=()=>showReport();
+  if($('#bMail')) $('#bMail').onclick=()=>{ sendMail(DB.load().users.filter(isTop).map(u=>u.id),'ملخص المهام · '+fmtDate(today()),buildReport()); toast('انبعت الملخص للمديرين') };
+}
+function exportCSV(){
+  const list=filtered(); const keys=[...new Set(list.flatMap(t=>Object.keys(t.fields||{})))].filter(k=>k!=='recurring');
+  const lbl=k=>{for(const D of Object.values(DEPTS)){const f=D.fields.find(x=>x.k===k); if(f) return f.l} return k};
+  const head=['القسم','العنوان','النوع','المسؤول','الحالة','متأخرة','الأولوية','التسليم','تتكرر','تفاصيل','عدد الملاحظات',...keys.map(lbl)];
+  const rows=list.map(t=>[DEPTS[t.dept].name,t.title,t.type,uname(t.assignee),(STATUSES.find(s=>s.k===t.status)||{}).l,isLate(t)?'نعم':'',PRI[t.priority],t.due,REPEAT[t.repeat||'none'],t.desc,(t.notes||[]).length,...keys.map(k=>(t.fields||{})[k]||'')]);
+  const csv='﻿'+[head,...rows].map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  try{ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); a.download='mahami-'+today()+'.csv'; document.body.appendChild(a); a.click(); a.remove(); toast('تنزّل الملف') }
+  catch(e){ toast('ما قدرت نزّل الملف من هون') }
+}
+function buildReport(){
+  const d=DB.load(), ts=d.tasks.filter(canSee), L=[];
+  L.push(`تقرير المهام · ${fmtDate(today())}`,'');
+  Object.keys(DEPTS).forEach(k=>{ const x=ts.filter(t=>t.dept===k); if(!x.length) return;
+    L.push(`■ ${DEPTS[k].name}: ${x.length} مهمة · مفتوحة ${x.filter(t=>t.status!=='done'&&!isLate(t)).length} · متأخرة ${x.filter(isLate).length} · منتهية ${x.filter(t=>t.status==='done').length}`);
+    if(DEPTS[k].summary){ const c=x.reduce((s,t)=>s+(+(t.fields||{}).cost||0),0), p=x.reduce((s,t)=>s+(+(t.fields||{}).paid||0),0); L.push(`  التكاليف ${money(c)} · المدفوع ${money(p)} · الباقي ${money(c-p)}`) } });
+  const late=ts.filter(isLate); if(late.length){ L.push('','المهام المتأخرة:'); late.forEach(t=>L.push(`- ${t.title} · ${DEPTS[t.dept].short} · ${uname(t.assignee)} · كان لازم ${fmtDate(t.due)}`)) }
+  const open=ts.filter(t=>t.status!=='done'&&!isLate(t)); if(open.length){ L.push('','المفتوحة حسب الموظف:'); const g={}; open.forEach(t=>(g[uname(t.assignee)]??=[]).push(t)); Object.entries(g).forEach(([n,x])=>L.push(`- ${n}: ${x.map(t=>t.title+(t.due?' ('+fmtDate(t.due)+')':'')).join('، ')}`)) }
+  const rq=d.requests.filter(r=>(isTop(me)||r.from===me.id||r.to===me.id)&&(r.status==='open'||r.status==='accepted')); if(rq.length){ L.push('','طلبات لسا مفتوحة:'); rq.forEach(r=>L.push(`- ${uname(r.from)} طالب من ${uname(r.to)}: ${r.title} (${REQ_ST[r.status]})`)) }
+  const staff=d.users.filter(u=>d.routines.some(r=>r.userId===u.id)); if(staff.length && (isTop(me)||me.role==='head')){ L.push('','اليومية لليوم:'); staff.forEach(u=>{const rs=myRoutinesToday(u.id); if(rs.length) L.push(`- ${u.name}: ${rs.filter(r=>isChecked(r,u.id)).length} من ${rs.length}`)}) }
+  return L.join('\n');
+}
+function showReport(){
+  const txt=buildReport();
+  openModal(`<div class="shead"><h2>${ic('spark',18)} تقرير لـ Claude</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="small muted">انسخ التقرير والصقه بمحادثة مع Claude، واسأله مثلاً: "شو لازم أتابع اليوم؟" أو "مين عليه ضغط شغل؟"</div>
+    <textarea id="rpTxt" rows="12" readonly style="margin-top:8px;font-size:13px">${esc(txt)}</textarea>
+    <div class="actions"><button class="primary" id="rpCopy">${ic('copy',15)} نسخ</button><a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">${ic('external-link',15)} افتح Claude</a></div>`);
+  $('#mClose').onclick=closeModal;
+  $('#rpCopy').onclick=async()=>{ try{ await navigator.clipboard.writeText(txt); toast('انسخ التقرير') }catch(e){ $('#rpTxt').select(); toast('حدّد النص وانسخه بإيدك') } };
+}
+
+/* ---- عرض التقويم ---- */
+function renderCal(){
+  const base=filtered(), now=new Date(); if(!UI.cal) UI.cal={y:now.getFullYear(),m:now.getMonth()};
+  const {y,m}=UI.cal, first=new Date(y,m,1), days=new Date(y,m+1,0).getDate(), pre=`${y}-${pad(m+1)}`;
+  const byDay={}; base.forEach(t=>{ if(t.due&&t.due.startsWith(pre)) (byDay[+t.due.slice(8)]??=[]).push(t) });
+  let cells=''; for(let i=0;i<first.getDay();i++) cells+='<div class="cd blank"></div>';
+  for(let dd=1;dd<=days;dd++){ const iso=`${pre}-${pad(dd)}`, ts=byDay[dd]||[];
+    cells+=`<button class="cd ${iso===today()?'today':''} ${UI.calDay===iso?'sel':''}" data-d="${iso}"><span class="dn">${dd}</span><span class="dots">${ts.some(isLate)?'<i class="late"></i>':''}${ts.some(t=>t.status!=='done'&&!isLate(t))?'<i class="open"></i>':''}${ts.some(t=>t.status==='done')?'<i class="done"></i>':''}</span>${ts.length>1?`<span class="cc">${ts.length}</span>`:''}</button>` }
+  const sel=UI.calDay?base.filter(t=>t.due===UI.calDay):[];
+  $('#content').innerHTML=`<div class="card cal"><div class="calh"><button class="ibtn" id="cPrev" aria-label="الشهر اللي قبل">${ic('arrowR',18)}</button><b>${first.toLocaleDateString('ar-u-nu-latn',{month:'long',year:'numeric'})}</b><button class="ibtn" id="cNext" aria-label="الشهر الجاي">${ic('chev',18)}</button></div>
+    <div class="cgrid">${WSHORT.map(w=>`<div class="cw">${w}</div>`).join('')}${cells}</div>
+    <div class="legend"><span><i class="late"></i>متأخرة</span><span><i class="open"></i>مفتوحة</span><span><i class="done"></i>منتهية</span></div></div>
+    ${UI.calDay?`<h3 class="sh">${ic('calendar',16)} ${fmtDate(UI.calDay)}</h3><div class="list">${sel.map(taskCard).join('')||'<div class="small muted">ما في مهام بهاليوم</div>'}</div>`:''}`;
+  $('#cPrev').onclick=()=>{ UI.cal=m===0?{y:y-1,m:11}:{y,m:m-1}; renderCal() };
+  $('#cNext').onclick=()=>{ UI.cal=m===11?{y:y+1,m:0}:{y,m:m+1}; renderCal() };
+  $('#content').querySelectorAll('.cd[data-d]').forEach(b=>b.onclick=()=>{ UI.calDay=UI.calDay===b.dataset.d?null:b.dataset.d; renderCal() });
+  $('#content').querySelectorAll('.task').forEach(b=>b.onclick=()=>openTask(b.dataset.id));
+}
+
+/* ---- اليومية ---- */
+function myRoutinesToday(uid=me.id){ return DB.load().routines.filter(r=>r.userId===uid && (r.days||[0,1,2,3,4,5,6]).includes(wd())).sort((a,b)=>(a.order||0)-(b.order||0)) }
+function checkDoc(uid=me.id){ return DB.load().checks.find(c=>c.userId===uid && c.date===today()) }
+function isChecked(r,uid=me.id){ return !!checkDoc(uid)?.done?.[r.id] }
+const daysLabel = ds => (!ds||ds.length===7)?'كل يوم':ds.slice().sort().map(i=>WSHORT[i]).join('، ');
+function toggleCheck(rid){
+  const old=checkDoc(); const c=old?{...old,done:{...old.done}}:{id:today()+'_'+me.id,userId:me.id,dept:me.dept||'',date:today(),done:{}};
+  if(c.done[rid]) delete c.done[rid]; else c.done[rid]=Date.now();
+  API.put('checks',c).catch(errToast); render();
+}
+function renderDaily(){
+  const el=$('#page-daily'), mine=myRoutinesToday(), dn=mine.filter(r=>isChecked(r)).length, boss=isTop(me)||me.role==='head';
+  let h=`<div class="phead"><h2>${ic('sun',20)} يومية ${WDAYS[wd()]}</h2><div class="muted small">${fmtDate(today())}</div></div>`;
+  if(mine.length){
+    const c=checkDoc();
+    h+=`<div class="card"><div class="dprog"><div class="bar"><i style="--w:${Math.round(dn/mine.length*100)}%"></i></div><b>${dn} من ${mine.length}</b></div>
+      <div class="checklist">${mine.map(r=>{const on=isChecked(r);return `<button class="citem ${on?'on':''}" data-r="${r.id}">${ic(on?'boxcheck':'box',22)}<span>${esc(r.title)}</span>${on?`<small>${fmtClock(c.done[r.id])}</small>`:''}</button>`}).join('')}</div>
+      ${dn===mine.length?`<div class="alldone">${ic('done',18)} خلصت كل مهام اليوم، يعطيك العافية</div>`:''}</div>`;
+  } else if(!boss) h+=`<div class="empty"><span class="eico">${ic('sun',28)}</span><div>ما في مهام يومية إلك اليوم</div></div>`;
+  if(boss){
+    const d=DB.load(), staff=d.users.filter(u=>u.id!==me.id && !isTop(u) && (isTop(me)||u.dept===me.dept));
+    h+=`<h3 class="sh">${ic('users',16)} يومية الموظفين اليوم</h3>`;
+    const withR=staff.filter(u=>DB.load().routines.some(r=>r.userId===u.id)), without=staff.filter(u=>!withR.includes(u));
+    if(without.length) h+=`<div class="small muted" style="margin-bottom:8px">بدون مهام يومية: ${without.map(u=>`<button class="linkb" data-edit="${u.id}">${esc(u.name)}</button>`).join(' · ')}</div>`;
+    h+= withR.length?`<div class="grid">${withR.map(u=>{ const rs=myRoutinesToday(u.id), c=checkDoc(u.id), k=rs.filter(r=>c?.done?.[r.id]).length;
+      return `<div class="wcard"><div class="h"><div class="av">${esc(u.name[0])}</div><div style="flex:1;min-width:0"><div style="font-weight:500">${esc(u.name)}</div><div class="small muted">${ROLES[u.role]}${u.dept?' · '+DEPTS[u.dept].short:''}</div></div><button class="small ibtn" data-edit="${u.id}" aria-label="تعديل اليومية">${ic('edit',15)}</button></div>
+        ${rs.length?`<div class="bar"><i style="--w:${Math.round(k/rs.length*100)}%"></i></div><div class="small muted">${k} من ${rs.length}</div>
+        ${rs.map(r=>{const on=c?.done?.[r.id];return `<div class="ditem ${on?'on':''}">${ic(on?'boxcheck':'box',16)}<span>${esc(r.title)}</span>${on?`<small>${fmtClock(on)}</small>`:''}</div>`}).join('')}`:'<div class="small muted">ما في مهام يومية اليوم</div>'}</div>`}).join('')}</div>`
+      : (staff.length?'':'<div class="small muted">ما في موظفين لسا</div>');
+  }
+  el.innerHTML=h;
+  el.querySelectorAll('.citem').forEach(b=>b.onclick=()=>toggleCheck(b.dataset.r));
+  el.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openRoutines(b.dataset.edit));
+}
+function openRoutines(uId){
+  const d=DB.load(), staff=d.users.filter(u=>u.id!==me.id && !isTop(u) && (isTop(me)||u.dept===me.dept));
+  if(!uId) uId=staff[0]?.id; if(!uId) return toast('ضيف موظفين أول');
+  const u=userById(uId), rs=d.routines.filter(r=>r.userId===uId).sort((a,b)=>(a.order||0)-(b.order||0));
+  openModal(`<div class="shead"><h2>${ic('sun',18)} المهام اليومية</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="small muted">هالمهام بتطلع للموظف كل يوم بالأيام اللي بتختارها، وهو بيعلّم عليها لما يخلصها.</div>
+    <label>الموظف</label><select id="rUser">${staff.map(x=>`<option value="${x.id}" ${x.id===uId?'selected':''}>${esc(x.name)} · ${ROLES[x.role]}${x.dept?' · '+DEPTS[x.dept].short:''}</option>`).join('')}</select>
+    <div style="margin-top:8px">${rs.map(r=>`<div class="urow"><div class="info"><div>${esc(r.title)}</div><div class="small muted">${daysLabel(r.days)}</div></div><button class="small ibtn danger" data-del="${r.id}" aria-label="حذف">${ic('trash',15)}</button></div>`).join('')||'<div class="small muted" style="padding:8px 0">ما في مهام يومية لهالموظف لسا</div>'}</div>
+    <div class="sect"><h3>${ic('plus',15)} إضافة مهمة يومية لـ ${esc(u.name)}</h3>
+      <input id="rTitle" placeholder="مثلاً: فحص السيارة قبل الطلعة">
+      <label>بأي أيام؟</label><div class="days" id="rDays">${WSHORT.map((w,i)=>`<button type="button" data-d="${i}" class="on">${w}</button>`).join('')}</div>
+      <div class="err" id="rErr"></div>
+      <div class="actions"><button class="primary" id="rAdd">${ic('plus',15)} إضافة</button></div></div>`);
+  $('#mClose').onclick=closeModal;
+  $('#rUser').onchange=e=>openRoutines(e.target.value);
+  $('#rDays').querySelectorAll('button').forEach(b=>b.onclick=()=>b.classList.toggle('on'));
+  $('#rAdd').onclick=()=>{
+    const title=$('#rTitle').value.trim(), days=[...$('#rDays').querySelectorAll('.on')].map(b=>+b.dataset.d);
+    if(!title) return $('#rErr').textContent='اكتب المهمة'; if(!days.length) return $('#rErr').textContent='اختار يوم واحد عالأقل';
+    API.put('routines',{id:'r'+uid(),userId:uId,dept:u.dept||'',title,days,order:rs.length+1,createdBy:me.id}).then(()=>toast('انضافت')).catch(errToast);
+    openRoutines(uId); render();
+  };
+  document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ API.del('routines',b.dataset.del).catch(errToast); openRoutines(uId); render() });
+}
+
+/* ---- الطلبات ---- */
+function reqChip(r){ const c={open:'s-new',accepted:'s-progress',done:'s-done',rejected:'s-late'}, i={open:'new',accepted:'progress',done:'done',rejected:'x'}; return `<span class="chip ${c[r.status]}">${ic(i[r.status],13)}${REQ_ST[r.status]}</span>` }
+function reqCard(r,i=0){
+  const late=(r.status==='open'||r.status==='accepted')&&r.due&&r.due<today(), incoming=r.to===me.id;
+  return `<button style="--i:${Math.min(i,12)}" class="task ${late?'is-late':''} ${r.status==='done'||r.status==='rejected'?'is-done':''}" data-q="${r.id}">
+    <span class="dico ${incoming?'d-in':'d-out'}">${ic(incoming?'inbox':'out',20)}</span>
+    <div class="tbody"><div class="top"><span class="t">${esc(r.title)}</span>${reqChip(r)}</div>
+      <div class="meta"><span>${ic('user',14)}${esc(uname(r.from))} ${ic('chev',12)} ${esc(uname(r.to))}</span>
+        ${r.due?`<span class="${late?'txt-late':''}">${ic('calendar',14)}${fmtDate(r.due)}</span>`:''}
+        ${r.priority==='high'?`<span class="pri-high">${ic('flag',14)}عاجل</span>`:''}
+        ${r.notes?.length?`<span class="cnt">${ic('message',14)}${r.notes.length}</span>`:''}</div></div>
+    <span class="chev">${ic('chev',18)}</span></button>`;
+}
+function renderRequests(){
+  const el=$('#page-requests'), all=DB.load().requests.filter(r=>isTop(me)||r.from===me.id||r.to===me.id);
+  const tabs=[['in','واردة إلي','inbox'],['out','مرسلة مني','out']]; if(isTop(me)) tabs.push(['all','كل الطلبات','all']);
+  if(!tabs.some(t=>t[0]===UI.reqTab)) UI.reqTab='in';
+  const ord={open:0,accepted:1,done:2,rejected:3};
+  const list=(UI.reqTab==='in'?all.filter(r=>r.to===me.id):UI.reqTab==='out'?all.filter(r=>r.from===me.id):all).sort((a,b)=>ord[a.status]-ord[b.status]||(b.createdAt||0)-(a.createdAt||0));
+  const nIn=all.filter(r=>r.to===me.id&&r.status==='open').length;
+  el.innerHTML=`<div class="phead"><h2>${ic('inbox',20)} الطلبات</h2><div class="muted small">اطلب شي من أي حدا، أو رد عالطلبات اللي إلك</div></div>
+    <div class="tabs">${tabs.map(([k,l,i])=>`<button class="tab ${UI.reqTab===k?'on':''}" data-k="${k}">${ic(i,16)}${l}${k==='in'&&nIn?` <b class="cntb">${nIn}</b>`:''}</button>`).join('')}</div>
+    <div class="list" style="margin-top:10px">${list.map(reqCard).join('')||`<div class="empty"><span class="eico">${ic('inbox',28)}</span><div>ما في طلبات هون</div><span class="small">اضغط "طلب جديد" لتطلب شي من أي حدا</span></div>`}</div>`;
+  el.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{UI.reqTab=b.dataset.k;renderRequests()});
+  el.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>openRequest(b.dataset.q));
+}
+const reqText = r => `طلب من ${uname(r.from)} لـ ${uname(r.to)}:\n${r.title}${r.details?'\n'+r.details:''}${r.due?'\nلـ: '+fmtDate(r.due):''}${r.priority==='high'?'\nعاجل':''}`;
+function openRequest(id,preset={}){
+  const d=DB.load();
+  if(!id){
+    const r={id:'q'+uid(),from:me.id,to:preset.to||'',title:preset.title||'',details:preset.details||'',due:preset.due||'',priority:preset.priority||'normal',status:'open',notes:[],createdAt:Date.now()};
+    const ord={manager:0,assistant:1,head:2,worker:3};
+    const people=d.users.filter(u=>u.id!==me.id).sort((a,b)=>ord[a.role]-ord[b.role]||(a.dept||'').localeCompare(b.dept||''));
+    openModal(`<div class="shead"><h2>${ic('inbox',18)} طلب جديد</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+      <label>من مين بدك تطلب؟</label><select id="qTo"><option value="">— اختار —</option>${people.map(u=>`<option value="${u.id}" ${u.id===r.to?'selected':''}>${esc(u.name)} · ${ROLES[u.role]}${u.dept?' · '+DEPTS[u.dept].short:''}</option>`).join('')}</select>
+      <label>شو بدك؟</label><input id="qTitle" value="${esc(r.title)}" placeholder="مثلاً: موافقة على شراء مواد">
+      <label>تفاصيل</label><textarea id="qDet" rows="3">${esc(r.details)}</textarea>
+      <div class="row2"><div><label>لإيمتى؟</label><input id="qDue" type="date" value="${r.due}"></div><div><label>الأولوية</label><select id="qPri">${Object.entries(PRI).map(([k,l])=>`<option value="${k}" ${k===r.priority?'selected':''}>${l}</option>`).join('')}</select></div></div>
+      <div class="err" id="qErr"></div>
+      <div class="actions"><button class="primary" id="qSend">${ic('send',15)} إرسال الطلب</button><button id="qCancel">إلغاء</button></div>`);
+    $('#mClose').onclick=$('#qCancel').onclick=closeModal;
+    $('#qSend').onclick=()=>{
+      r.to=$('#qTo').value; r.title=$('#qTitle').value.trim(); r.details=$('#qDet').value.trim(); r.due=$('#qDue').value; r.priority=$('#qPri').value;
+      if(!r.to) return $('#qErr').textContent='اختار لمين الطلب'; if(!r.title) return $('#qErr').textContent='اكتب شو بدك';
+      API.put('requests',r).then(()=>toast('انبعت الطلب')).catch(errToast);
+      sendMail([r.to],'طلب جديد من '+me.name+': '+r.title,reqText(r));
+      closeModal(); UI.reqTab='out'; render();
+    };
+    return;
+  }
+  const r=d.requests.find(x=>x.id===id); if(!r) return;
+  const isTo=r.to===me.id, isFrom=r.from===me.id, other=isTo?r.from:r.to;
+  const canAct=isTo||isTop(me);
+  openModal(`<div class="shead"><h2>${esc(r.title)}</h2>${reqChip(r)}<button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="small muted">${esc(uname(r.from))} ${ic('chev',12)} ${esc(uname(r.to))} · ${fmtTime(r.createdAt)}</div>
+    <div class="meta" style="margin-top:6px">${r.due?`<span>${ic('calendar',14)}لـ ${fmtDate(r.due)}</span>`:''}${r.priority==='high'?`<span class="pri-high">${ic('flag',14)}عاجل</span>`:''}</div>
+    ${r.details?`<div class="ro" style="margin-top:8px">${esc(r.details).replace(/\n/g,'<br>')}</div>`:''}
+    ${canAct?`<div class="sect"><h3>${ic('progress',15)} الرد على الطلب</h3><div class="status-btns" id="qSt">${[['accepted','قبلته','progress'],['done','تم','done'],['rejected','رفض','x'],['open','جديد','new']].map(([k,l,i])=>`<button type="button" data-k="${k}" class="sb-${k==='accepted'?'progress':k==='rejected'?'late':k==='open'?'new':'done'} ${r.status===k?'on':''}">${ic(i,15)}${l}</button>`).join('')}</div></div>`:''}
+    <div class="sect"><h3>${ic('message',15)} الردود (${r.notes.length})</h3>
+      ${r.notes.map(n=>`<div class="note"><div class="by">${esc(n.byName||uname(n.by))} · ${fmtTime(n.at)}</div>${esc(n.text).replace(/\n/g,'<br>')}</div>`).join('')||'<div class="small muted">ما في ردود لسا</div>'}
+      <div class="addnote"><textarea id="qNote" placeholder="اكتب رد…"></textarea><button class="primary ibtn" id="qNoteBtn" aria-label="إرسال">${ic('send',18)}</button></div></div>
+    <div class="actions">${waLink(other,reqText(r)+'\n\n'+pageUrl())}
+      ${canCreate()?`<button id="qToTask">${ic('tasks',15)} حوّلها لمهمة</button>`:''}
+      ${isFrom||isTop(me)?`<button class="danger" id="qDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`:''}</div>`);
+  $('#mClose').onclick=closeModal;
+  const save=(msg)=>{ API.put('requests',r).then(()=>msg&&toast(msg)).catch(errToast); render() };
+  if($('#qSt')) $('#qSt').querySelectorAll('button').forEach(b=>b.onclick=()=>{ const k=b.dataset.k; if(k===r.status) return;
+    r.status=k; r.notes.push({by:me.id,byName:me.name,text:'غيّر الحالة إلى: '+REQ_ST[k],at:Date.now()}); save('انحفظ');
+    if(k==='done'||k==='rejected') sendMail([r.from],(k==='done'?'تم طلبك: ':'انرفض طلبك: ')+r.title,reqText(r));
+    openRequest(r.id) });
+  $('#qNoteBtn').onclick=()=>{ const t=$('#qNote').value.trim(); if(!t) return; r.notes.push({by:me.id,byName:me.name,text:t,at:Date.now()}); save('انبعت الرد'); sendMail([other],'رد على طلب: '+r.title,me.name+': '+t); openRequest(r.id) };
+  if($('#qToTask')) $('#qToTask').onclick=()=>{ const tu=userById(r.to); const dept=tu?.dept&&creatableDepts().includes(tu.dept)?tu.dept:null;
+    PREFILL={title:r.title,desc:r.details+(r.details?'\n':'')+'(من طلب '+uname(r.from)+')',due:r.due,priority:r.priority,assignee:(tu&&!isTop(tu))?tu.id:''}; closeModal(); openTask(null,true,dept) };
+  if($('#qDel')) $('#qDel').onclick=()=>{ const b=$('#qDel'); if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='متأكد؟';return} API.del('requests',r.id).then(()=>toast('انحذف')).catch(errToast); closeModal(); render() };
+}
+
+/* ---- برنامجي ---- */
+function myItems(){ return DB.load().personal.filter(x=>!x.owner||x.owner===me.id) }
+function renderMine(){
+  const el=$('#page-mine'), it=myItems(), td=today();
+  const G=[['late','متأخر',x=>!x.done&&x.date&&x.date<td],['today','اليوم',x=>!x.done&&x.date===td],['next','جاي',x=>!x.done&&x.date>td],['nodate','بدون تاريخ',x=>!x.done&&!x.date],['done','خلصتهن',x=>x.done]];
+  let h=`<div class="phead"><h2>${ic('notebook',20)} برنامجي</h2><div class="muted small">${ic('lock',12)} ما حدا بيشوفه غيرك</div></div>
+    <form class="quick" id="mQuick"><input id="mQT" placeholder="شو بدك تعمل؟" autocomplete="off"><input id="mQD" type="date" value="${td}"><button class="primary ibtn" aria-label="إضافة">${ic('plus',18)}</button></form>`;
+  let any=false;
+  G.forEach(([k,l,f])=>{ let xs=it.filter(f); if(!xs.length) return; any=true;
+    xs.sort((a,b)=>k==='done'?(b.doneAt||0)-(a.doneAt||0):String(a.date+a.time).localeCompare(String(b.date+b.time))); if(k==='done') xs=xs.slice(0,15);
+    h+=`<h3 class="sh g-${k}">${l} <span class="muted">(${xs.length})</span></h3><div class="card checklist">${xs.map(x=>`<div class="citem ${x.done?'on':''}"><button class="cb" data-t="${x.id}" aria-label="تم">${ic(x.done?'boxcheck':'box',22)}</button><span data-o="${x.id}">${esc(x.title)}${x.time?` <small>${x.time}</small>`:''}${x.date&&k!=='today'?` <small>${fmtDate(x.date)}</small>`:''}${x.note?` <small>${ic('message',12)}</small>`:''}</span></div>`).join('')}</div>` });
+  if(!any) h+=`<div class="empty"><span class="eico">${ic('notebook',28)}</span><div>برنامجك فاضي</div><span class="small">اكتب فوق شو بدك تعمل، أو احكيه بالمايك</span></div>`;
+  el.innerHTML=h;
+  $('#mQuick').onsubmit=e=>{ e.preventDefault(); const t=$('#mQT').value.trim(); if(!t) return;
+    API.put('personal',{id:'m'+uid(),owner:me.id,title:t,date:$('#mQD').value,time:'',done:false,note:'',createdAt:Date.now()}).catch(errToast); render(); setTimeout(()=>$('#mQT')?.focus(),50) };
+  el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{ const x={...myItems().find(y=>y.id===b.dataset.t)}; x.done=!x.done; x.doneAt=x.done?Date.now():null; API.put('personal',x).catch(errToast); render() });
+  el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>openMineItem(b.dataset.o));
+}
+function openMineItem(id){
+  const isNew=!id; const x=isNew?{id:'m'+uid(),owner:me.id,title:'',date:today(),time:'',done:false,note:'',createdAt:Date.now()}:{...myItems().find(y=>y.id===id)};
+  openModal(`<div class="shead"><h2>${ic('notebook',18)} ${isNew?'إضافة لبرنامجي':'تعديل'}</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <label>شو بدك تعمل؟</label><input id="miT" value="${esc(x.title)}">
+    <div class="row2"><div><label>اليوم</label><input id="miD" type="date" value="${x.date||''}"></div><div><label>الساعة (اختياري)</label><input id="miH" type="time" value="${x.time||''}"></div></div>
+    <label>ملاحظة</label><textarea id="miN" rows="2">${esc(x.note||'')}</textarea>
+    <div class="err" id="miE"></div>
+    <div class="actions"><button class="primary" id="miS">حفظ</button><button id="miC">إلغاء</button>${isNew?'':`<button class="danger" id="miDel" style="margin-right:auto">${ic('trash',15)} حذف</button>`}</div>`);
+  $('#mClose').onclick=$('#miC').onclick=closeModal;
+  $('#miS').onclick=()=>{ x.title=$('#miT').value.trim(); if(!x.title) return $('#miE').textContent='اكتب شي'; x.date=$('#miD').value; x.time=$('#miH').value; x.note=$('#miN').value.trim();
+    API.put('personal',x).then(()=>toast('انحفظ')).catch(errToast); closeModal(); render() };
+  if($('#miDel')) $('#miDel').onclick=()=>{ API.del('personal',x.id).catch(errToast); closeModal(); render() };
+}
+
+/* ---- الأوامر الصوتية ---- */
+var REC=null, VD=[];
+const AR = s => String(s||'').replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').toLowerCase();
+const SPLIT_RE = /\s*(?:[.\n؟?!؛;]+|\s(?:و?كمان|و?بعدين|و?بعدها|و?بعد هيك|و?تاني شي|و?ثاني شي|نقطه|نقطة)\s)\s*/;
+const DEPT_KW = {fire:['حريق','طفاي','انذار','رشاش','دفاع مدني','صيانه'],build:['معدات البناء','شحن','جمارك','جمرك','حديد','اسمنت','خلاط','استيراد','مستودع','طلبيه','مخلص'],project:['نهله','بنايه','طابق','سقف','صب','بلاط','مقاول','عماره'],admin:['اوراق','معامله','سجل','اجتماع','مراسل','قرطاسيه','مشتريات','بنك','فاتوره']};
+const DATE_WORDS_RE = /(^|\s)(?:يوم\s|نهار\s)?(?:اليوم|بكرا|بكرة|بكره|غدا|غداً|بعد بكرا|بعد بكرة|بعد بكره|بعد غد|ال?(?:أحد|احد|اثنين|إثنين|اتنين|تنين|ثلاثاء|ثلاثا|تلاتا|تلاتاء|أربعاء|اربعاء|أربعا|اربعا|خميس|جمعة|جمعه|سبت)(?:\sالجاي|\sالجاية|\sالقادم)?|الأسبوع الجاي|الاسبوع الجاي|الأسبوع القادم|الاسبوع القادم|آخر الشهر|اخر الشهر|بعد \S+ (?:أيام|ايام|يوم))(?=$|\s|[،,.])/g;
+function parseDue(n){
+  if(/بعد (بكرا|بكره|غد)/.test(n)) return today(2);
+  if(/(^|\s)(بكرا|بكره|غدا)(\s|$)/.test(n)) return today(1);
+  if(/(^|\s)اليوم(\s|$)/.test(n)) return today(0);
+  const m=n.match(/بعد (\d+|يومين|تلات|ثلاث|اربع|خمس|ست|سبع|عشر)\s*(ايام|يوم)?/);
+  if(m){ const w={يومين:2,تلات:3,ثلاث:3,اربع:4,خمس:5,ست:6,سبع:7,عشر:10}; const k=+m[1]||w[m[1]]; if(k) return today(k) }
+  if(/الاسبوع (الجاي|القادم)/.test(n)) return today(7);
+  if(/اخر الشهر/.test(n)){ const d=new Date(); return isoLocal(new Date(d.getFullYear(),d.getMonth()+1,0)) }
+  const D=[['احد'],['اثنين','اتنين','تنين'],['ثلاثاء','ثلاثا','تلاتا','تلاتاء'],['اربعاء','اربعا'],['خميس'],['جمعه'],['سبت']];
+  for(let i=0;i<7;i++) if(D[i].some(w=>new RegExp('(^|\\s)(ال)?'+w+'(\\s|$)').test(n))){ let k=(i-wd()+7)%7; if(k===0) k=7; return today(k) }
+  return '';
+}
+function parseOne(seg){
+  const n=' '+AR(seg)+' ', d=DB.load();
+  let person=null, plen=0;
+  d.users.forEach(u=>{ const un=AR(u.name).trim(); if(un.length<2) return;
+    if(new RegExp('\\s(و|ل|لـ|ع|مع)?'+escRe(un)+'(?=[\\s،,.])').test(n) && un.length>plen){ person=u; plen=un.length } });
+  const personal=/(ذكرني|لحالي|لالي|برنامجي|علي انا)/.test(n);
+  const due=parseDue(n);
+  const priority=/(عاجل|ضروري|فوري|بسرعه|مستعجل)/.test(n)?'high':'normal';
+  let dept=null, best=0; Object.entries(DEPT_KW).forEach(([k,ws])=>{ const sc=ws.filter(w=>n.includes(w)).length; if(sc>best){best=sc;dept=k} });
+  if(person&&person.dept) dept=person.dept;
+  let kind;
+  if(personal||(!person&&UI.page==='mine')) kind='mine';
+  else if(canCreate()){ if(!dept||!creatableDepts().includes(dept)) dept=(UI.tab in DEPTS&&creatableDepts().includes(UI.tab))?UI.tab:creatableDepts()[0]; kind=(person&&isTop(person)&&!isTop(me))?'request':'task' }
+  else kind='request';
+  const type=dept?(DEPTS[dept].types.find(x=>AR(x).split(' ').some(w=>w.length>3&&n.includes(w)))||DEPTS[dept].types[0]):'';
+  let title=seg;
+  if(person) title=title.replace(new RegExp('(^|\\s)(و|ل|لـ|ع|مع)?'+escRe(person.name)+'(?=$|\\s|[،,.])','g'),' ');
+  title=title.replace(DATE_WORDS_RE,' ').replace(/(^|\s)(عاجل|عاجلة|ضروري|فوري|بسرعة|بسرعه|مستعجل)(?=$|\s|[،,.])/g,' ')
+    .replace(/(^|\s)(خلي|خلّي|خللي|قول|قل|اطلب من|بدي|بدّي|ذكرني|ذكّرني|لحالي|يا)(?=\s)/g,' ')
+    .replace(/\s{2,}/g,' ').replace(/^[\s،,.\-و]+|[\s،,.\-]+$/g,'').trim();
+  return {kind,title:title||seg.trim(),person:person&&!(kind==='task'&&isTop(person)&&false)?person.id:'',dept:dept||'',due,priority,type,src:seg.trim()};
+}
+function parseVoice(text){ return (' '+text+' ').split(SPLIT_RE).map(x=>x.trim()).filter(x=>x.replace(/\s/g,'').length>3).map(parseOne) }
+
+function openVoice(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  openModal(`<div class="shead"><h2>${ic('mic',18)} أمر صوتي</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="small muted">احكي أوامرك، وافصل بين كل أمر وأمر بكلمة <b>"كمان"</b> أو <b>"بعدين"</b>. مثلاً: «خلي أحمد يعمل صيانة طفايات مطعم الريم بكرا عاجل، كمان رامي يتابع شحنة الحديد يوم الخميس»</div>
+    <div class="vrow"><button class="vmic" id="vMic" aria-label="تسجيل" ${SR?'':'disabled'}>${ic('mic',30)}</button><div id="vState" class="small">${SR?'اضغط المايك وابدأ احكي':'المتصفح هون ما بيدعم التسجيل. اكتب، أو اضغط على مايك الكيبورد 🎤 جوّا المربع'}</div></div>
+    <textarea id="vText" rows="4" placeholder="هون بيطلع كلامك كنص، وفيك تعدّل عليه قبل التقسيم"></textarea>
+    <div class="actions"><button class="primary" id="vParse">${ic('spark',15)} قسّم لمهام</button><button id="vClear">مسح</button></div>
+    <div id="vDrafts"></div>`);
+  $('#mClose').onclick=closeModal;
+  $('#vClear').onclick=()=>{ $('#vText').value=''; $('#vDrafts').innerHTML=''; VD=[] };
+  $('#vParse').onclick=()=>{ if(REC) try{REC.stop()}catch(e){} const t=$('#vText').value.trim(); if(!t) return toast('ما في نص'); renderDrafts(parseVoice(t)) };
+  if(!SR) return;
+  $('#vMic').onclick=()=>{
+    if(REC){ try{REC.stop()}catch(e){} return }
+    const r=new SR(); r.lang='ar-LB'; r.continuous=true; r.interimResults=true;
+    const base=$('#vText').value.trim(); let fin='';
+    r.onstart=()=>{ REC=r; $('#vMic').classList.add('rec'); $('#vState').textContent='عم اسمعك… اضغط مرة تانية لما تخلص' };
+    r.onresult=e=>{ let inter=''; for(let i=e.resultIndex;i<e.results.length;i++){ const x=e.results[i]; if(x.isFinal) fin+=' '+x[0].transcript; else inter+=x[0].transcript }
+      $('#vText').value=(base+' '+fin).trim(); $('#vState').textContent=inter?('… '+inter):'عم اسمعك…' };
+    r.onerror=e=>{ $('#vState').textContent=e.error==='not-allowed'?'لازم تسمح للصفحة تستخدم المايك من إعدادات المتصفح':'صار خطأ بالتسجيل ('+e.error+'). جرّب مرة تانية' };
+    r.onend=()=>{ REC=null; const b=$('#vMic'); if(!b) return; b.classList.remove('rec'); $('#vState').textContent='خلص التسجيل. راجع النص واضغط "قسّم لمهام"' };
+    try{ r.start() }catch(e){ $('#vState').textContent='ما قدرت شغّل المايك' }
+  };
+}
+function personOptions(x){
+  const d=DB.load();
+  if(x.kind==='task') return assigneeOptions(x.dept,x.person);
+  return '<option value="">— اختار —</option>'+d.users.filter(u=>u.id!==me.id).map(u=>`<option value="${u.id}" ${u.id===x.person?'selected':''}>${esc(u.name)} · ${ROLES[u.role]}</option>`).join('');
+}
+function renderDrafts(list){
+  VD=list; const box=$('#vDrafts'); if(!box) return;
+  if(!list.length){ box.innerHTML='<div class="small muted" style="margin-top:10px">ما لقيت أوامر واضحة. جرّب تكتبها أوضح.</div>'; return }
+  const kinds=[...(canCreate()?[['task','مهمة']]:[]),['request','طلب من حدا'],['mine','لبرنامجي']];
+  box.innerHTML=`<div class="sect"><h3>${ic('check',15)} راجع قبل الحفظ (${list.length})</h3>${list.map((x,i)=>`
+    <div class="draft" data-i="${i}">
+      <div class="dtop"><select data-k="kind">${kinds.map(([k,l])=>`<option value="${k}" ${k===x.kind?'selected':''}>${l}</option>`).join('')}</select><button class="xbtn sm" data-rm="${i}" aria-label="شيل">${ic('x',14)}</button></div>
+      <input data-k="title" value="${esc(x.title)}">
+      <div class="row2">
+        ${x.kind==='task'?`<div><label>القسم</label><select data-k="dept">${creatableDepts().map(k=>`<option value="${k}" ${k===x.dept?'selected':''}>${DEPTS[k].name}</option>`).join('')}</select></div>`:''}
+        ${x.kind!=='mine'?`<div><label>${x.kind==='task'?'المسؤول':'من مين؟'}</label><select data-k="person">${personOptions(x)}</select></div>`:''}
+        <div><label>التاريخ</label><input type="date" data-k="due" value="${x.due}"></div>
+        ${x.kind!=='mine'?`<div><label>الأولوية</label><select data-k="priority">${Object.entries(PRI).map(([k,l])=>`<option value="${k}" ${k===x.priority?'selected':''}>${l}</option>`).join('')}</select></div>`:''}
+      </div>
+      <div class="small muted">«${esc(x.src)}»</div>
+    </div>`).join('')}
+    <div class="err" id="vErr"></div>
+    <div class="actions"><button class="primary" id="vSave">${ic('check',15)} تأكيد وإضافة الكل</button></div></div>`;
+  box.querySelectorAll('.draft').forEach(c=>{ const i=+c.dataset.i;
+    c.querySelectorAll('[data-k]').forEach(el=>el.onchange=el.oninput=()=>{ VD[i][el.dataset.k]=el.value;
+      if(el.dataset.k==='kind'||el.dataset.k==='dept'){ if(el.dataset.k==='kind'&&VD[i].kind==='task'&&!creatableDepts().includes(VD[i].dept)) VD[i].dept=creatableDepts()[0];
+        if(VD[i].kind==='task'){ const u=userById(VD[i].person); if(u&&u.dept!==VD[i].dept&&!isTop(u)) VD[i].person='' } renderDrafts(VD) } }) });
+  box.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{ VD.splice(+b.dataset.rm,1); renderDrafts(VD) });
+  $('#vSave').onclick=saveDrafts;
+}
+function saveDrafts(){
+  for(const x of VD){ if(!x.title.trim()) return $('#vErr').textContent='في بند بدون عنوان'; if(x.kind==='request'&&!x.person) return $('#vErr').textContent='اختار من مين بدك الطلب: «'+x.title+'»' }
+  const d=DB.load(); let n=0;
+  VD.forEach(x=>{ const now=Date.now();
+    if(x.kind==='task'){ const D=DEPTS[x.dept];
+      const t={id:'t'+uid(),dept:x.dept,type:D.types.includes(x.type)?x.type:D.types[0],title:x.title.trim(),desc:'',assignee:x.person,status:'new',priority:x.priority,due:x.due,stage:0,fields:{},sharedWith:[],photos:[],repeat:'none',
+        notes:[{by:me.id,byName:me.name,text:'انضافت بأمر صوتي: «'+x.src+'»',at:now}],createdBy:me.id,createdAt:now,updatedAt:now};
+      if(!LIVE) d.tasks.push(t); DB.save(); API.putTask(t,'new').catch(errToast);
+      if(t.assignee&&t.assignee!==me.id) sendMail([t.assignee],'مهمة جديدة إلك: '+t.title,waTaskText(t)); n++ }
+    else if(x.kind==='request'){ const r={id:'q'+uid(),from:me.id,to:x.person,title:x.title.trim(),details:'',due:x.due,priority:x.priority,status:'open',notes:[],createdAt:now};
+      API.put('requests',r).catch(errToast); sendMail([r.to],'طلب جديد من '+me.name+': '+r.title,reqText(r)); n++ }
+    else { API.put('personal',{id:'m'+uid(),owner:me.id,title:x.title.trim(),date:x.due,time:'',done:false,note:'',createdAt:now}).catch(errToast); n++ }
+  });
+  toast(`انضاف ${n} ${n===1?'بند':'بنود'}`); closeModal(); render();
+}
 
 /* ================= الاتصال بـ Firebase ================= */
 const ERRS = {
@@ -751,18 +1367,40 @@ const API = {
     if(!user){ showLogin(); return }
     let p=null; try{ p=await fs.getDoc(fs.doc(db,'users',user.uid)) }catch(e){}
     if(!p||!p.exists()||p.data().active===false){ await auth.signOut(au); showLogin(ERRS.inactive); return }
-    me={id:user.uid,...p.data()}; mem={users:[me],tasks:[]};
+    me={id:user.uid,...p.data()}; mem=emptyMem(); mem.users=[me];
     this.subscribe(); startApp();
   },
   subscribe(){
-    const {fs,db}=this.fb; const onErr=e=>errToast(e);
-    this.unsubs.push(fs.onSnapshot(fs.collection(db,'users'), s=>{ mem.users=s.docs.map(d=>({id:d.id,...d.data()})); const m=mem.users.find(u=>u.id===me?.id); if(m) Object.assign(me,m); if(me) render() }, onErr));
-    const take=(key,q)=>this.unsubs.push(fs.onSnapshot(q, s=>{ this.src[key]=s.docs.map(d=>({id:d.id,...d.data()}));
-      const map=new Map(); Object.values(this.src).flat().forEach(t=>map.set(t.id,t)); mem.tasks=[...map.values()]; if(me) render() }, onErr));
-    if(isTop(me)) take('all', fs.collection(db,'tasks'));
-    else { take('dept', fs.query(fs.collection(db,'tasks'), fs.where('dept','==',me.dept))); take('shared', fs.query(fs.collection(db,'tasks'), fs.where('sharedWith','array-contains',me.id))) }
+    const {fs,db}=this.fb; const onErr=e=>errToast(e); const C=n=>fs.collection(db,n); const W=fs.where;
+    this.unsubs.push(fs.onSnapshot(C('users'), s=>{ mem.users=s.docs.map(d=>({id:d.id,...d.data()})); const m=mem.users.find(u=>u.id===me?.id); if(m) Object.assign(me,m); render() }, onErr));
+    const listen=(col,key,q)=>this.unsubs.push(fs.onSnapshot(q, s=>{
+      (this.src[col]??={})[key]=s.docs.map(d=>({id:d.id,...d.data()}));
+      const map=new Map(); Object.values(this.src[col]).flat().forEach(x=>map.set(x.id,x)); mem[col]=[...map.values()]; render() }, onErr));
+    const Q=(col,...w)=>fs.query(C(col),...w);
+    const day=today();
+    if(isTop(me)){
+      listen('tasks','all',C('tasks')); listen('requests','all',C('requests')); listen('routines','all',C('routines'));
+      listen('checks','all',Q('checks',W('date','==',day)));
+    } else {
+      listen('tasks','dept',Q('tasks',W('dept','==',me.dept))); listen('tasks','shared',Q('tasks',W('sharedWith','array-contains',me.id)));
+      listen('requests','from',Q('requests',W('from','==',me.id))); listen('requests','to',Q('requests',W('to','==',me.id)));
+      if(me.role==='head'){ listen('routines','dept',Q('routines',W('dept','==',me.dept))); listen('checks','dept',Q('checks',W('date','==',day),W('dept','==',me.dept))) }
+      else { listen('routines','mine',Q('routines',W('userId','==',me.id))); listen('checks','mine',Q('checks',W('date','==',day),W('userId','==',me.id))) }
+    }
+    listen('personal','mine',fs.collection(db,'personal',me.id,'items'));
   },
   stop(){ this.unsubs.forEach(u=>u()); this.unsubs=[]; this.src={} },
+  async put(col,obj){
+    const data=DB.load(); const arr=data[col]; const i=arr.findIndex(x=>x.id===obj.id); if(i<0) arr.push(obj); else arr[i]=obj; DB.save();
+    if(!LIVE) return; const {fs,db}=this.fb; const {id,...rest}=obj;
+    const ref = col==='personal' ? fs.doc(db,'personal',me.id,'items',id) : fs.doc(db,col,id);
+    return fs.setDoc(ref, JSON.parse(JSON.stringify(rest)));
+  },
+  async del(col,id){
+    const data=DB.load(); data[col]=data[col].filter(x=>x.id!==id); DB.save();
+    if(!LIVE) return; const {fs,db}=this.fb;
+    return fs.deleteDoc(col==='personal' ? fs.doc(db,'personal',me.id,'items',id) : fs.doc(db,col,id));
+  },
   async login(phone,pass){
     const {fs,db,auth,au}=this.fb;
     const s=await fs.getDoc(fs.doc(db,'logins',normPhone(phone)));
@@ -782,8 +1420,8 @@ const API = {
   },
   async putTask(t,mode){
     if(!LIVE) return; const {fs,db}=this.fb; const ref=fs.doc(db,'tasks',t.id);
-    const {id,...data}=t; data.sharedWith=data.sharedWith||[]; data.notes=data.notes||[];
-    if(mode==='limited') return fs.updateDoc(ref,{status:t.status,stage:t.stage??null,notes:data.notes,updatedAt:t.updatedAt});
+    const {id,_origAssignee,...data}=t; data.sharedWith=data.sharedWith||[]; data.notes=data.notes||[];
+    if(mode==='limited') return fs.updateDoc(ref,{status:t.status,stage:t.stage??null,notes:data.notes,updatedAt:t.updatedAt,photos:data.photos||[],spawned:!!t.spawned});
     return fs.setDoc(ref,JSON.parse(JSON.stringify(data)));
   },
   async delTask(id){ if(!LIVE) return; const {fs,db}=this.fb; return fs.deleteDoc(fs.doc(db,'tasks',id)) },
@@ -791,7 +1429,7 @@ const API = {
     const cred=await auth.createUserWithEmailAndPassword(sa,email,pass); await auth.signOut(sa); return {uid:cred.user.uid,email} },
   async putUser(u,isNew,pass,oldPhone){
     if(!LIVE) return; const {fs,db,auth,au}=this.fb;
-    const prof={name:u.name,phone:u.phone,role:u.role,dept:u.dept,active:true};
+    const prof={name:u.name,phone:u.phone,role:u.role,dept:u.dept,email:u.email||'',active:true};
     const phoneChanged=!isNew && normPhone(oldPhone)!==normPhone(u.phone);
     if(isNew||phoneChanged){ const ex=await fs.getDoc(fs.doc(db,'logins',u.phone)); if(ex.exists()) throw {code:'phone-used'} }
     if(isNew){
