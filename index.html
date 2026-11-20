@@ -6,7 +6,7 @@
 <title>متابعة المهام</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f4f2ee;--card:#fff;--ink:#1d1d1b;--ink2:#5f5e5a;--ink3:#8f8d86;--line:#e3e0d8;--line2:#cfcbc1;
@@ -321,6 +321,74 @@ i.late{background:var(--danger)}i.open{background:var(--warn)}i.done{background:
 [dir=ltr] .task,[dir=ltr] .citem,[dir=ltr] .stat{text-align:left}
 .linkb{border:0;background:none;padding:0;color:var(--accent);text-decoration:underline;font-size:13px}
 label .ic{vertical-align:-2px}
+
+/* ===== التصميم الجديد: بطاقة الفحص ===== */
+:root{
+  --bg:#EEF1F1;--card:#FFFFFF;--ink:#1C2428;--ink2:#56636A;--ink3:#8A969C;--line:#DCE2E4;--line2:#C3CCCF;
+  --accent:#24557A;--accent-bg:#E3EDF4;
+  --danger:#C41E2A;--danger-bg:#FBE6E7;--warn:#9A6200;--warn-bg:#FFF1D1;--ok:#2B7346;--ok-bg:#E2F2E7;--wait:#5B4F9A;--wait-bg:#ECEAF7;
+  --r:8px;
+}
+html,body{font-family:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;letter-spacing:0}
+body{font-size:15px}
+header{background:var(--bg)}
+.hbar h1{font-weight:600;font-size:17px}
+.logo{background:var(--ink);border-radius:8px}
+.hbtn{border-color:var(--line2);background:transparent}
+/* الأرقام: لوحة واحدة متل عدّاد */
+.stats{gap:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.stat{border:0;border-radius:0;background:transparent;padding:12px 10px;flex-direction:column;align-items:flex-start;gap:2px}
+.stat+.stat{border-inline-start:1px solid var(--line)}
+.stat .sic{display:none}
+.stat .n{font-family:"Barlow Condensed","Readex Pro",sans-serif;font-size:32px;font-weight:700;line-height:1}
+.stat .l{font-size:12px}
+.stat:hover{transform:none;box-shadow:none;background:#F6F8F8}
+.stat.on{outline:0;box-shadow:inset 0 -3px 0 var(--ink)}
+.st-late .n{color:var(--danger)}
+.st-late.on{box-shadow:inset 0 -3px 0 var(--danger)}
+@media(max-width:560px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.stat .n{font-size:28px}}
+/* التبويبات */
+.tab{border-radius:8px;background:var(--card);border-color:var(--line)}
+.tab:hover{transform:none}
+/* القائمة: لوحة وحدة بخطوط فاصلة، مش بطاقات منفصلة */
+.list{gap:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.task{border:0;border-radius:0;border-bottom:1px solid var(--line);padding:12px;gap:12px;animation:none;background:var(--card)}
+.task:last-child{border-bottom:0}
+.task:hover{transform:none;box-shadow:none;background:#F6F8F8}
+.task:hover .chev{transform:none}
+.task.is-late{background:var(--card)}
+.task .t{font-weight:500;font-size:15px}
+.chev{display:none}
+/* العنصر المميز: كعب التاريخ متل بطاقة فحص الطفاية */
+.stub{flex:none;width:54px;min-height:64px;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;border:1.5px solid var(--line2);color:var(--ink);background:var(--card);padding-top:8px}
+.stub::before{content:'';position:absolute;top:6px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--line2)}
+.stub b{font-family:"Barlow Condensed","Readex Pro",sans-serif;font-size:26px;font-weight:700;line-height:1}
+.stub small{font-size:11px;color:var(--ink2)}
+.stub em{font-style:normal;font-family:"Barlow Condensed",sans-serif;font-size:13px;font-weight:700;position:absolute;bottom:-8px;background:var(--danger);color:#fff;border-radius:4px;padding:0 5px;line-height:16px}
+.stub.s-late{background:var(--danger);border-color:var(--danger);color:#fff}.stub.s-late small{color:#FFE3E5}
+.stub.s-late::before{box-shadow:none;background:#fff}
+.stub.s-late em{background:var(--ink)}
+.stub.s-today{border-color:var(--warn);background:var(--warn-bg)}
+.stub.s-done{opacity:.55}
+.stub.s-none b{color:var(--ink3)}
+.mdept{font-weight:500}
+.mdept.d-fire,.mdept.d-build,.mdept.d-admin,.mdept.d-project,.mdept.d-market{background:transparent}
+.mdept .ic{color:inherit!important}
+.meta{gap:12px;margin-top:6px}
+.chip{border-radius:5px;font-weight:500}
+.cnt{background:transparent;padding:0}
+/* بطاقات الموظفين واليومية بدون حركة */
+.wcard{animation:none;border-radius:12px}.wcard:hover{transform:none;box-shadow:none}
+.tbtn{border-radius:8px}
+.fab{border-radius:10px;box-shadow:0 6px 18px rgba(28,36,40,.25)}
+.fab:hover .ic{transform:none}
+.fab-mic{background:var(--ink);box-shadow:0 6px 18px rgba(28,36,40,.3)}
+.bnav button.on{background:transparent;box-shadow:inset 0 3px 0 var(--ink);border-radius:0}
+.sheet{border-radius:14px 14px 0 0}
+.empty{border-radius:12px}
+.task .chip.s-late{display:none}
+.tools2{gap:6px}
+@media(max-width:560px){.sheet .row2{grid-template-columns:1fr 1fr;gap:8px}.sheet .row2 input[type=date]{padding:9px 6px}}
 </style>
 </head>
 <body>
@@ -387,6 +455,7 @@ label .ic{vertical-align:-2px}
   <div class="wrap hidden" id="page-requests"></div>
   <div class="wrap hidden" id="page-mine"></div>
   <div class="wrap hidden" id="page-lists"></div>
+  <div class="wrap hidden" id="page-mgr"></div>
   <div class="fabs">
     <button class="fab-mic" id="btnMic" aria-label="أمر صوتي" data-ic="mic"></button>
     <button class="primary fab" id="btnAdd" data-ic="plus"><span>مهمة جديدة</span></button>
@@ -397,6 +466,7 @@ label .ic{vertical-align:-2px}
     <button data-p="requests" data-ic="inbox"><span>الطلبات</span><b class="badge" id="bg-requests"></b></button>
     <button data-p="mine" data-ic="notebook"><span>برنامجي</span><b class="badge" id="bg-mine"></b></button>
     <button data-p="lists" data-ic="shared" id="navLists"><span>القوائم</span><b class="badge" id="bg-lists"></b></button>
+    <button data-p="mgr" data-ic="shield" id="navMgr"><span>المديرين</span><b class="badge" id="bg-mgr"></b></button>
   </nav>
 </section>
 
@@ -491,7 +561,7 @@ function seed(){
   T.forEach(t=>delete t.f);
   const P=seedProject();
   const V=seedV3();
-  return {users:U.concat(P.users,V.users),tasks:T.concat(P.tasks,V.tasks),...seedExtras(),lists:V.lists,listItems:V.listItems,settings:{roles:{}}};
+  return {users:U.concat(P.users,V.users),tasks:T.concat(P.tasks,V.tasks),...seedExtras(),lists:V.lists,listItems:V.listItems,mgrItems:V.mgrItems,settings:{roles:{}}};
 }
 function seedExtras(){
   const n=Date.now();
@@ -528,6 +598,8 @@ function seedV3(){
            {id:'k2',dept:'market',type:'تحصيل دفعة',title:'تحصيل دفعة من محل النور',desc:'',assignee:'u12',status:'progress',priority:'high',due:today(),stage:0,fields:{party:'محل النور'},sharedWith:[],notes:[],photos:[],createdBy:'u1',createdAt:n,updatedAt:n},
            {id:'k3',dept:'admin',type:'أوراق رسمية',title:'تجديد إقامة عامل',desc:'',assignee:'u9',status:'done',priority:'normal',due:today(-20),stage:0,fields:{},sharedWith:[],notes:[],photos:[],createdBy:'u1',createdAt:n-30*864e5,updatedAt:n-15*864e5,doneAt:n-15*864e5}],
     lists:[{id:'l1',name:'حسين وحسن',members:['u12','u13'],createdBy:'u1',createdAt:n}],
+    mgrItems:[{id:'g1',title:'مراجعة أرباح الشهر مع المحاسب',date:today(1),time:'',done:false,note:'',repeat:'monthly',by:'u1',createdAt:n},
+              {id:'g2',title:'قرار توظيف فني صيانة جديد',date:today(),time:'',done:false,note:'',repeat:'none',by:'u1',createdAt:n}],
     listItems:[{id:'i1',listId:'l1',title:'فتح المحل وترتيب البضاعة',date:today(),time:'08:00',done:false,note:'',repeat:'daily',by:'u12',createdAt:n},
                {id:'i2',listId:'l1',title:'جرد البضاعة',date:today(2),time:'',done:false,note:'',repeat:'weekdays',days:[1,4],by:'u12',createdAt:n},
                {id:'i3',listId:'l1',title:'دفع إيجار المحل',date:today(9),time:'',done:false,note:'',repeat:'monthly',by:'u13',createdAt:n}]
@@ -550,13 +622,14 @@ function seedProject(){
   T.forEach(t=>delete t.f);
   return {users:U,tasks:T};
 }
-const emptyMem = () => ({users:[],tasks:[],requests:[],routines:[],checks:[],personal:[],lists:[],listItems:[],settings:{roles:{}}});
+const emptyMem = () => ({users:[],tasks:[],requests:[],routines:[],checks:[],personal:[],lists:[],listItems:[],mgrItems:[],settings:{roles:{}}});
 const DB = {
   load(){ if(LIVE) return mem||(mem=emptyMem()); if(mem) return mem;
     try{const s=localStorage.getItem(KEY); if(s){mem=JSON.parse(s);
       if(!mem.users.some(u=>u.dept==='project') && !mem.tasks.some(t=>t.dept==='project')){ const P=seedProject(); mem.users.push(...P.users.filter(u=>!mem.users.some(x=>x.id===u.id))); mem.tasks.push(...P.tasks); this.save() }
       if(!mem.routines){ Object.assign(mem,seedExtras()); this.save() }
-      ['requests','routines','checks','personal','lists','listItems'].forEach(k=>mem[k]=mem[k]||[]); mem.settings=mem.settings||{roles:{}};
+      ['requests','routines','checks','personal','lists','listItems','mgrItems'].forEach(k=>mem[k]=mem[k]||[]); mem.settings=mem.settings||{roles:{}};
+      if(!mem.mgrItems.length && !mem._mgrSeeded){ mem.mgrItems.push(...seedV3().mgrItems); mem._mgrSeeded=1; this.save() }
       if(!mem.users.some(u=>u.dept==='market')){ const V=seedV3(); mem.users.push(...V.users); mem.tasks.push(...V.tasks); mem.lists.push(...V.lists); mem.listItems.push(...V.listItems); this.save() }
       return mem}}catch(e){}
     mem=seed(); this.save(); return mem },
@@ -622,6 +695,7 @@ const ICONS = {
   chev:'<path d="m15 18-6-6 6-6"/>',
   copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
   'external-link':'<path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+  bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
   mic:'<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/>',
   sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
   inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
@@ -720,6 +794,7 @@ function render(){
   else if(UI.page==='requests') renderRequests();
   else if(UI.page==='mine') renderMine();
   else if(UI.page==='lists') renderLists();
+  else if(UI.page==='mgr') renderMgr();
 }
 function renderTasks(){
   // التبويبات
@@ -745,19 +820,24 @@ function renderTasks(){
 }
 function renderView(){ UI.view==='list'?renderList():UI.view==='cal'?renderCal():UI.view==='archive'?renderArchive():renderWorkers() }
 
+function dateStub(t,late){
+  if(!t.due) return `<span class="stub s-none"><b>–</b><small>بدون تاريخ</small></span>`;
+  const d=new Date(t.due+'T12:00:00'), k=late?'late':t.status==='done'?'done':t.due===today()?'today':'norm';
+  return `<span class="stub s-${k}"><b>${d.getDate()}</b><small>${d.toLocaleDateString(LOCALE(),{month:'short'})}</small>${late?`<em>${daysLate(t)}+</em>`:''}</span>`;
+}
 function taskCard(t,i=0){
   const f=t.fields||{}; const extra=[f.client||f.party||f.contractor||'', f.floor||''].filter(Boolean).join(' · ');
   const D=DEPTS[t.dept];
   const stg = D.stages&&t.stage!=null ? `<div class="mini-stages" title="المرحلة: ${D.stages[t.stage]}">${D.stages.map((s,i)=>`<i class="${i<=t.stage?'on':''}"></i>`).join('')}<span>${D.stages[t.stage]}</span></div>` : '';
   const late=isLate(t);
   return `<button style="--i:${Math.min(i,12)}" class="task ${late?'is-late':''} ${t.status==='done'?'is-done':''}" data-id="${t.id}">
-    <span class="dico d-${t.dept}">${ic(t.dept,20)}</span>
+    ${dateStub(t,late)}
     <div class="tbody">
       <div class="top"><span class="t" data-notr>${esc(t.title)}</span>${statusChip(t)}</div>
       <div class="meta">
+        <span class="mdept d-${t.dept}">${ic(t.dept,13)}${DEPTS[t.dept].short}</span>
         <span>${ic('tag',14)}${esc(t.type)}</span>
         <span>${ic('user',14)}${esc(uname(t.assignee))}</span>
-        ${t.due?`<span class="${late?'txt-late':''}">${ic('calendar',14)}${fmtDate(t.due)}</span>`:''}
         ${extra?`<span>${ic('pin',14)}${esc(extra)}</span>`:''}
         ${f.phase?`<span>${ic('layers',14)}${esc(f.phase)}</span>`:''}
         ${t.priority==='high'?`<span class="pri-high">${ic('flag',14)}عاجلة</span>`:''}
@@ -1002,10 +1082,10 @@ let PREFILL = null;
 
 function showPage(p){
   UI.page=p;
-  ['tasks','daily','requests','mine','lists'].forEach(k=>$('#page-'+k).classList.toggle('hidden',k!==p));
+  ['tasks','daily','requests','mine','lists','mgr'].forEach(k=>$('#page-'+k).classList.toggle('hidden',k!==p));
   document.querySelectorAll('#bnav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
   const add=$('#btnAdd');
-  add.querySelector('span').textContent={tasks:'مهمة جديدة',daily:'مهمة يومية',requests:'طلب جديد',mine:'إضافة لبرنامجي',lists:'قائمة جديدة'}[p];
+  add.querySelector('span').textContent={tasks:'مهمة جديدة',daily:'مهمة يومية',requests:'طلب جديد',mine:'إضافة لبرنامجي',lists:'قائمة جديدة',mgr:'بند جديد'}[p];
   add.classList.toggle('hidden', p==='tasks'?!canCreate() : p==='daily'?!canDaily() : p==='lists'?!isTop(me) : false);
   if(p==='tasks') markSeen();
   window.scrollTo(0,0); render();
@@ -1016,6 +1096,7 @@ $('#btnAdd').onclick=()=>{
   else if(UI.page==='daily') openRoutines(null);
   else if(UI.page==='requests') openRequest(null);
   else if(UI.page==='lists') openList(null);
+  else if(UI.page==='mgr') openItem(ctxMgr(),null);
   else openMineItem(null);
 };
 $('#btnMic').onclick=()=>openVoice();
@@ -1033,6 +1114,8 @@ function updateBadges(){
   setBadge('requests', d.requests.filter(r=>r.to===me.id && r.status==='open').length);
   setBadge('mine', myItems().filter(x=>!x.done && x.date && x.date<=today()).length);
   const lsts=myLists(); $('#navLists').classList.toggle('hidden', !lsts.length && !isTop(me));
+  const isMgr=me.role==='manager'; $('#navMgr').classList.toggle('hidden',!isMgr);
+  setBadge('mgr', isMgr ? DB.load().mgrItems.filter(x=>!x.done && x.date && x.date<=today()).length : 0);
   setBadge('lists', lsts.filter(l=>(l.members||[]).includes(me.id)).flatMap(l=>listItemsOf(l.id)).filter(x=>!x.done && x.date && x.date<=today()).length);
 }
 
@@ -1407,7 +1490,7 @@ const FR_PAIRS = [
 ['الأحد','Dimanche'],['الاثنين','Lundi'],['الثلاثاء','Mardi'],['الأربعاء','Mercredi'],['الخميس','Jeudi'],['الجمعة','Vendredi'],['السبت','Samedi'],
 ['أحد','Dim'],['اثنين','Lun'],['ثلاثاء','Mar'],['أربعاء','Mer'],['خميس','Jeu'],['جمعة','Ven'],['سبت','Sam'],
 ['الشهر اللي قبل','Mois précédent'],['الشهر الجاي','Mois suivant'],['يوم','jour'],['لـ','pour'],['و','et'],
-['إثنين','Lun'],['والمديرين','et les directeurs'],['كل','Tous les'],['بس','seulement'],['يومية','Quotidien'],['بيشوف','voit'],['جديدة','Nouvelle'],
+['إثنين','Lun'],['تنبيهات','Rappels'],['واردة','Reçue'],['مرسلة','Envoyée'],['بدون تاريخ','Sans date'],['قسم المديرين','Espace direction'],['المديرين','Direction'],['بند جديد','Nouvel élément'],['ما في رقم','Pas de numéro'],['ما في مهام معلّقة عند حدا','Aucune tâche en attente'],['كل موظف عنده مهام لسا ما خلصت. اضغط واتساب، والرسالة بتطلع جاهزة فيها المتأخر وقيد التنفيذ. بعد ما تبعت ارجع لهون','Employés avec des tâches non terminées. Touchez WhatsApp : le message est prêt (en retard et en cours). Revenez ici après l’envoi'],['والمديرين','et les directeurs'],['كل','Tous les'],['بس','seulement'],['يومية','Quotidien'],['بيشوف','voit'],['جديدة','Nouvelle'],
 ['خيارات','Options'],['الإيميل (اختياري','E-mail (facultatif'],['التقارير و','Rapports et '],['طلبات لسا مفتوحة','Demandes encore ouvertes'],
 ['ما في','Aucun']
 ];
@@ -1504,6 +1587,39 @@ function showSendSheet(items){
   document.querySelectorAll('.sendbtns a').forEach(a=>a.addEventListener('click',()=>{ a.classList.add('sent'); if(!a.querySelector('.okmark')) a.insertAdjacentHTML('beforeend',`<span class="okmark">${ic('check',13)}</span>`) }));
 }
 
+
+/* ---- تنبيهات المهام اللي ما خلصت ---- */
+const canRemind = () => isTop(me) || P(me,'edit');
+const daysLate = t => Math.round((new Date(today()+'T12:00:00')-new Date(t.due+'T12:00:00'))/864e5);
+function remindGroups(){
+  const g={};
+  DB.load().tasks.filter(t=>canSee(t)&&!isArchived(t)&&t.status!=='done'&&t.assignee&&t.assignee!==me.id).forEach(t=>(g[t.assignee]??=[]).push(t));
+  return Object.entries(g).map(([uid,ts])=>({uid,late:ts.filter(isLate).sort((a,b)=>a.due.localeCompare(b.due)),open:ts.filter(t=>!isLate(t)).sort((a,b)=>String(a.due||'9').localeCompare(String(b.due||'9')))}))
+    .sort((a,b)=>b.late.length-a.late.length||b.open.length-a.open.length);
+}
+function remindText(uid,late,open){
+  const u=userById(uid), fr=isFr(uid);
+  const L=(t,i)=>fr?`${i+1}. ${t.title} · en retard de ${daysLate(t)} jour${daysLate(t)>1?'s':''}`:`${i+1}. ${t.title} · متأخرة ${daysLate(t)===1?'يوم':daysLate(t)===2?'يومين':daysLate(t)+' أيام'}`;
+  const O=(t,i)=>fr?`${i+1}. ${t.title}${t.due?' · échéance '+fmtDateL(t.due,true):''}`:`${i+1}. ${t.title}${t.due?' · التسليم '+fmtDateL(t.due):''}`;
+  const parts=[fr?`Bonjour ${u?.name||''},`:`مرحبا ${u?.name||''}،`];
+  if(late.length) parts.push((fr?'⚠️ Tâches en retard :':'⚠️ مهام متأخرة:')+'\n'+late.map(L).join('\n'));
+  if(open.length) parts.push((fr?'⏳ Tâches en cours :':'⏳ مهام لسا قيد التنفيذ:')+'\n'+open.map(O).join('\n'));
+  parts.push((fr?'Merci de mettre à jour le statut sur la page des tâches :':'يرجى تحديث الحالة عـ صفحة المهام:')+'\n'+pageUrl());
+  return parts.join('\n\n');
+}
+function openReminders(){
+  const gs=remindGroups();
+  openModal(`<div class="shead"><h2>${ic('bell',18)} تنبيهات</h2><button class="xbtn" id="mClose" aria-label="إغلاق">${ic('x',18)}</button></div>
+    <div class="small muted">كل موظف عنده مهام لسا ما خلصت. اضغط واتساب، والرسالة بتطلع جاهزة فيها المتأخر وقيد التنفيذ. بعد ما تبعت ارجع لهون.</div>
+    <div style="margin-top:10px">${gs.map(g=>{ const u=userById(g.uid); if(!u) return '';
+      return `<div class="sendrow"><div class="av">${esc(u.name[0])}</div><div class="info"><div style="font-weight:500">${esc(u.name)}</div>
+        <div class="small">${g.late.length?`<span class="txt-late">${g.late.length} متأخرة</span>`:''}${g.late.length&&g.open.length?' · ':''}${g.open.length?`<span class="muted">${g.open.length} قيد التنفيذ</span>`:''}</div></div>
+        <div class="sendbtns">${waLink(g.uid,remindText(g.uid,g.late,g.open))||'<span class="small muted">ما في رقم</span>'}</div></div>` }).join('')||`<div class="empty"><span class="eico">${ic('done',28)}</span><div>ما في مهام معلّقة عند حدا</div></div>`}</div>
+    <div class="actions"><button class="primary" id="rmDone">${ic('check',15)} خلص</button></div>`);
+  $('#mClose').onclick=$('#rmDone').onclick=closeModal;
+  document.querySelectorAll('.sendbtns a').forEach(a=>a.addEventListener('click',()=>{ a.classList.add('sent'); if(!a.querySelector('.okmark')) a.insertAdjacentHTML('beforeend',`<span class="okmark">${ic('check',13)}</span>`) }));
+}
+
 /* ---- مهام بتتكرر ---- */
 function nextDate(d,rep){
   const t0=new Date(today()+'T00:00:00'); let x=d?new Date(d+'T00:00:00'):t0; if(x<t0) x=t0;
@@ -1562,7 +1678,9 @@ function viewPhoto(t,i){
 /* ---- أدوات المهام: Excel، تقرير Claude، إيميل ---- */
 function renderTools2(){
   const nArch=DB.load().tasks.filter(t=>canSee(t)&&isArchived(t)).length;
-  $('#tools2').innerHTML=`<button class="tbtn ${UI.view==='archive'?'on':''}" id="bArch">${ic('archive',15)} الأرشيف${nArch?` (${nArch})`:''}</button>${canReports()?`<button class="tbtn" id="bCsv">${ic('download',15)} تصدير Excel</button><button class="tbtn" id="bClaude">${ic('spark',15)} تقرير لـ Claude</button>`:''}${isTop(me)&&EMAIL_WEBHOOK?`<button class="tbtn" id="bMail">${ic('mail',15)} ملخص بالإيميل</button>`:''}`;
+  const nRem=canRemind()?remindGroups().length:0;
+  $('#tools2').innerHTML=`${canRemind()?`<button class="tbtn" id="bRem">${ic('bell',15)} تنبيهات${nRem?` (${nRem})`:''}</button>`:''}<button class="tbtn ${UI.view==='archive'?'on':''}" id="bArch">${ic('archive',15)} الأرشيف${nArch?` (${nArch})`:''}</button>${canReports()?`<button class="tbtn" id="bCsv">${ic('download',15)} تصدير Excel</button><button class="tbtn" id="bClaude">${ic('spark',15)} تقرير لـ Claude</button>`:''}${isTop(me)&&EMAIL_WEBHOOK?`<button class="tbtn" id="bMail">${ic('mail',15)} ملخص بالإيميل</button>`:''}`;
+  if($('#bRem')) $('#bRem').onclick=openReminders;
   $('#bArch').onclick=()=>{ UI.view=UI.view==='archive'?'list':'archive'; render() };
   if($('#bCsv')) $('#bCsv').onclick=()=>exportCSV(); if($('#bClaude')) $('#bClaude').onclick=()=>showReport();
   if($('#bMail')) $('#bMail').onclick=()=>{ sendMail(DB.load().users.filter(isTop).map(u=>u.id),'ملخص المهام · '+fmtDate(today()),buildReport()); toast('انبعت الملخص للمديرين') };
@@ -1747,10 +1865,9 @@ function reqChip(r){ const c={open:'s-new',accepted:'s-progress',done:'s-done',r
 function reqCard(r,i=0){
   const late=(r.status==='open'||r.status==='accepted')&&r.due&&r.due<today(), incoming=r.to===me.id;
   return `<button style="--i:${Math.min(i,12)}" class="task ${late?'is-late':''} ${r.status==='done'||r.status==='rejected'?'is-done':''}" data-q="${r.id}">
-    <span class="dico ${incoming?'d-in':'d-out'}">${ic(incoming?'inbox':'out',20)}</span>
+    ${dateStub({due:r.due,status:r.status==='done'||r.status==='rejected'?'done':'open'},late)}
     <div class="tbody"><div class="top"><span class="t" data-notr>${esc(r.title)}</span>${reqChip(r)}</div>
-      <div class="meta"><span>${ic('user',14)}${esc(uname(r.from))} ${ic('chev',12)} ${esc(uname(r.to))}</span>
-        ${r.due?`<span class="${late?'txt-late':''}">${ic('calendar',14)}${fmtDate(r.due)}</span>`:''}
+      <div class="meta"><span class="mdept ${incoming?'d-in':'d-out'}">${ic(incoming?'inbox':'out',13)}${incoming?'واردة':'مرسلة'}</span><span>${ic('user',14)}${esc(uname(r.from))} ${ic('chev',12)} ${esc(uname(r.to))}</span>
         ${r.priority==='high'?`<span class="pri-high">${ic('flag',14)}عاجل</span>`:''}
         ${r.notes?.length?`<span class="cnt">${ic('message',14)}${r.notes.length}</span>`:''}</div></div>
     <span class="chev">${ic('chev',18)}</span></button>`;
@@ -1850,7 +1967,7 @@ function renderItems(ctx, headHtml){
   let any=false;
   G.forEach(([k,l,f])=>{ let xs=it.filter(f); if(!xs.length) return; any=true;
     xs.sort((a,b)=>k==='done'?(b.doneAt||0)-(a.doneAt||0):String((a.date||'')+(a.time||'')).localeCompare(String((b.date||'')+(b.time||'')))); if(k==='done') xs=xs.slice(0,15);
-    h+=`<h3 class="sh g-${k}">${l} <span class="muted">(${xs.length})</span></h3><div class="card checklist">${xs.map(x=>`<div class="citem ${x.done?'on':''}"><button class="cb" data-t="${x.id}" aria-label="تم">${ic(x.done?'boxcheck':'box',22)}</button><span data-o="${x.id}"><span data-notr>${esc(x.title)}</span>${x.time?` <small>${x.time}</small>`:''}${x.date&&k!=='today'?` <small>${fmtDate(x.date)}</small>`:''}${x.repeat&&x.repeat!=='none'?` <small class="rep">${ic('repeat',12)} ${repeatLabel(x)}</small>`:''}${x.note?` <small>${ic('message',12)}</small>`:''}${x.by&&ctx.col==='listItems'?` <small>· ${esc(uname(x.by))}</small>`:''}</span></div>`).join('')}</div>` });
+    h+=`<h3 class="sh g-${k}">${l} <span class="muted">(${xs.length})</span></h3><div class="card checklist">${xs.map(x=>`<div class="citem ${x.done?'on':''}"><button class="cb" data-t="${x.id}" aria-label="تم">${ic(x.done?'boxcheck':'box',22)}</button><span data-o="${x.id}"><span data-notr>${esc(x.title)}</span>${x.time?` <small>${x.time}</small>`:''}${x.date&&k!=='today'?` <small>${fmtDate(x.date)}</small>`:''}${x.repeat&&x.repeat!=='none'?` <small class="rep">${ic('repeat',12)} ${repeatLabel(x)}</small>`:''}${x.note?` <small>${ic('message',12)}</small>`:''}${x.by&&ctx.col!=='personal'?` <small>· ${esc(uname(x.by))}</small>`:''}</span></div>`).join('')}</div>` });
   if(!any) h+=`<div class="empty"><span class="eico">${ic('notebook',28)}</span><div>القائمة فاضية</div><span class="small">اكتب فوق شو بدك تعمل</span></div>`;
   ctx.el.innerHTML=h;
   $('#qkF').onsubmit=e=>{ e.preventDefault(); const t=$('#qkT').value.trim(); if(!t) return;
@@ -1860,6 +1977,12 @@ function renderItems(ctx, headHtml){
     else { x.done=!x.done; x.doneAt=x.done?Date.now():null }
     API.put(ctx.col,x).catch(errToast); render() });
   ctx.el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>openItem(ctx,b.dataset.o));
+}
+const ctxMgr = () => ({col:'mgrItems', el:$('#page-mgr'), items:()=>DB.load().mgrItems, base:{}});
+function renderMgr(){
+  if(me.role!=='manager'){ $('#page-mgr').innerHTML=''; return }
+  const names=DB.load().users.filter(u=>u.role==='manager').map(u=>u.name).join(' و');
+  renderItems(ctxMgr(), `<div class="phead"><h2>${ic('shield',20)} قسم المديرين</h2><div class="muted small">${ic('lock',12)} بيشوفه: ${esc(names)} بس</div></div>`);
 }
 function renderMine(){
   renderItems(ctxMine(), `<div class="phead"><h2>${ic('notebook',20)} برنامجي</h2><div class="muted small">${ic('lock',12)} ما حدا بيشوفه غيرك</div></div>`);
@@ -2113,6 +2236,7 @@ const API = {
       listen('lists','member',Q('lists',W('members','array-contains',me.id)));
     }
     listen('personal','mine',fs.collection(db,'personal',me.id,'items'));
+    if(me.role==='manager') listen('mgrItems','all',C('mgrItems'));
     // بنود القوائم المشتركة: منفتح مستمع لكل قائمة
     this.itemSubs={};
     const syncItems=()=>{ const ids=new Set((mem.lists||[]).map(l=>l.id));
